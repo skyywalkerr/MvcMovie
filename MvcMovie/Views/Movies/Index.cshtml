@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MvcMovie.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+
+    @*Adding new form for search purposes*@
+    @*helps create a new form with <form> tags*@
+    @using (Html.BeginForm("Index","Movies",FormMethod.Get)) // send through GET to show it in URL also.
+    {
+        <p> 
+            Genre : @Html.DropDownList("movieGenre","Make your choice...") 
+            @*first parameter is string to return, need to be named the same as string in controller
+              The parameter "movieGenre" provides the key for the DropDownList helper to find a  
+              IEnumerable<SelectListItem > in the  ViewBag. The ViewBag was  populated in the action  method:
+            *@
+
+            Title: @Html.TextBox("SearchString")
+            <input type="submit" value="Search !" /> <br/>
+        </p>
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReleaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {  
+    // by using VAR you cna create anonymous object, it's like a pointer to another object whose copying all of it's items.
+    // connect var i pointer to all elements of model, 
+    // model is container for all elements from Movie controller
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReleaseDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) | 
+            @*after click it's gonna set ID value for actual value, action method gonna pick up this value and use in calculations*@
+    @*last parmeter create object to route data to action class, id is a part of URL pattern from class RegisterRoutes*@
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
