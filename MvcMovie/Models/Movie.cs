@@ -13,6 +13,8 @@ namespace MvcMovie.Models
     public class Movie
     {
         public int ID{get;set;} // PROPERTY ID
+
+        [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
         public string Title{get;set;} // PROPERTY TITLE
 
         [Display(Name = "Release Date")]
@@ -20,8 +22,19 @@ namespace MvcMovie.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ReleaseDate { get; set; }
 
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")] //VALIDATION - RegularExpression(string pattern) - data input must meet this expectations
+        [Required] // VALIDATION - specify that this data field is required 
+        [StringLength(30)]
         public string Genre { get; set; }
+
+        [Range(1,1000000)] //specify minimum and maximum value for field
+        [DataType(DataType.Currency)] //determine type of data
         public decimal Price { get; set; }
+
+
+        [RegularExpression(@"^[A-Z]+[a-zA-Z''-'\s]*$")]
+        [StringLength(5)]
+        public string Rating { get; set; } // new field
     }
 
     public class MovieDBContext : DbContext 

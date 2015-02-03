@@ -248,10 +248,10 @@ namespace MvcMovie.Controllers
             return RedirectToAction("StudentDetails");
         }
 
-        public ActionResult Pdf()
-        {
-            var 
-        }
+        //public ActionResult Pdf()
+        //{
+        //    var 
+        //}
 
     }
 }
