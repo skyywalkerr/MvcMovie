@@ -7,10 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using System.IO;
+using System.Web.UI.WebControls;
+using System.Web.UI;
+using RazorPDF;
 
 namespace MvcMovie.Controllers
 {
-    
+
     public class MoviesController : Controller
     {
         private MovieDBContext db = new MovieDBContext(); 
@@ -47,13 +51,18 @@ namespace MvcMovie.Controllers
             var GenreLst = new List<string>(); // list to store results
 
             var GenreQry = from a in db.Movies
-                           orderby a.Genre //get particular column, just GENRE
-                           select a.Genre;
+                           orderby a.Genre 
+                           select a.Genre; //get particular column
 
             GenreLst.AddRange(GenreQry.Distinct()); //ADD THE SPECYFIED ELEMENTS TO THE END IF A LIST
             ViewBag.movieGenre = new SelectList(GenreLst);
+        
 
-            
+            var listOptions = new List<string>();
+            string[] listData = new string[] { "Title", "ReleaseDate","Genre","" };         
+            listOptions.AddRange(listData);
+            ViewBag.movieList = new SelectList(listOptions);
+
 
             var movies = from m in db.Movies
                          select m;
@@ -69,6 +78,14 @@ namespace MvcMovie.Controllers
                 movies = movies.Where(x => x.Genre == movieGenre);
                 //s = virtual lambda variable used just to initate this function and return result
             }
+
+
+            // CALCULATE SUM
+
+            ViewBag.totalSUM = 0;
+
+            // CALCULATE SUM - end
+
 
             return View(movies);
         }
@@ -113,19 +130,21 @@ namespace MvcMovie.Controllers
 
         // GET: /Movies/Create
         public ActionResult Create()
-        {
+        {   
+            
             return View();
         }
 
         // POST: /Movies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost] // POST IS CREATION METHOD - create new record in respond to cinfomration from view
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Create([Bind(Include="ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
             if (ModelState.IsValid)
             {
+                //db.Movies.
                 db.Movies.Add(movie);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -158,7 +177,7 @@ namespace MvcMovie.Controllers
         // attribute.  
         //This attribute specifies that that overload of the Edit method can be invoked only for POST requests.
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public ActionResult Edit([Bind(Include="ID,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
             if (ModelState.IsValid)
             {
@@ -203,5 +222,36 @@ namespace MvcMovie.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult ExportData()
+        {
+            GridView gv = new GridView();
+            gv.DataSource = db.Movies.ToList(); // Movies - name of database
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=MachineShop.pdf");
+            Response.ContentType = "application/pdf";
+
+            //Response.AddHeader("content-disposition", "attachment; filename=Marklist.xls");
+            //Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return RedirectToAction("StudentDetails");
+        }
+
+        public ActionResult Pdf()
+        {
+            var 
+        }
+
     }
 }

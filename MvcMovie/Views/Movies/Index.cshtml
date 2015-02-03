@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
+
+    //double totalAmount = 0;
 }
 
 <h2>Index</h2>
@@ -15,6 +17,7 @@
     {
         <p> 
             Genre : @Html.DropDownList("movieGenre","Make your choice...") 
+            Choose column : @Html.DropDownList("movieList","Choose any column...")
             @*first parameter is string to return, need to be named the same as string in controller
               The parameter "movieGenre" provides the key for the DropDownList helper to find a  
               IEnumerable<SelectListItem > in the  ViewBag. The ViewBag was  populated in the action  method:
@@ -25,7 +28,7 @@
         </p>
     }
 </p>
-<table class="table">
+<table class="table table-bordered">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Title)
@@ -39,13 +42,21 @@
         <th>
             @Html.DisplayNameFor(model => model.Price)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
     </tr>
+   
 
 @foreach (var item in Model) {  
     // by using VAR you cna create anonymous object, it's like a pointer to another object whose copying all of it's items.
     // connect var i pointer to all elements of model, 
     // model is container for all elements from Movie controller
+
+    //totalAmount =+ item.Price;
+
+    ViewBag.totalSUM += item.Price;
+    
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -60,6 +71,10 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Rating)
+        </td>
+
+        <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ID }) | 
             @*after click it's gonna set ID value for actual value, action method gonna pick up this value and use in calculations*@
     @*last parmeter create object to route data to action class, id is a part of URL pattern from class RegisterRoutes*@
@@ -67,6 +82,24 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
     </tr>
-}
+        
+    }
 
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><font color="red"> @ViewBag.totalSUM $ </font> </td>
+        <td></td>
+
+    </tr>
 </table>
+
+
+@using (Html.BeginForm("ExportData", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table>
+        <tr><td></td><td><input type="submit" name="Export" id="Export" value="Export" /></td></tr>
+
+    </table>
+}
