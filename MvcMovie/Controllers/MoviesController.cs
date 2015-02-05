@@ -230,11 +230,11 @@ namespace MvcMovie.Controllers
             gv.DataBind();
             Response.ClearContent();
             Response.Buffer = true;
-            Response.AddHeader("content-disposition", "attachment; filename=MachineShop.pdf");
-            Response.ContentType = "application/pdf";
+            //Response.AddHeader("content-disposition", "attachment; filename=MachineShop.pdf");
+            //Response.ContentType = "application/pdf";
 
-            //Response.AddHeader("content-disposition", "attachment; filename=Marklist.xls");
-            //Response.ContentType = "application/ms-excel";
+            Response.AddHeader("content-disposition", "attachment; filename=Marklist.xls");
+            Response.ContentType = "application/ms-excel";
 
             Response.Charset = "";
             StringWriter sw = new StringWriter();

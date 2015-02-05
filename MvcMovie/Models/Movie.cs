@@ -56,4 +56,5 @@ namespace MvcMovie.Models
         //structure: DbSet<name_of_Model_class>name_of_new_object {get; set;}
         //link : msdn.microsoft.com/en-us/library/gg696460%28v=vs.113%29.aspx
     }
+    
 }

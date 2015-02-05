@@ -173,12 +173,15 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HelloWorldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MachineShopController.cs" />
+    <Compile Include="Controllers\MainTableController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MachineShopTable.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -593,6 +596,12 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\MainTable\Index.cshtml" />
+    <Content Include="Views\MachineShop\Create.cshtml" />
+    <Content Include="Views\MachineShop\Delete.cshtml" />
+    <Content Include="Views\MachineShop\Details.cshtml" />
+    <Content Include="Views\MachineShop\Edit.cshtml" />
+    <Content Include="Views\MachineShop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

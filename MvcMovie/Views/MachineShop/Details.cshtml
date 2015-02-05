@@ -1,0 +1,138 @@
+﻿@model MvcMovie.Models.MachineShopTable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MachineShopTable</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ItemNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Operation)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Operation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Operator)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Operator)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hours)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ActualRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ActualRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StandardRate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StandardRate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Percent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Percent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Setup)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Setup)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cleaning)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cleaning)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Down)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Down)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Other)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Other)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NonconfParts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NonconfParts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
