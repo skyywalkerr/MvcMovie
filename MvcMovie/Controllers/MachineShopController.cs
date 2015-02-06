@@ -17,6 +17,15 @@ namespace MvcMovie.Controllers
         // GET: /MachineShop/
         public ActionResult Index()
         {
+            // CALCULATE SUM variable
+            ViewBag.totalSumQty = 0;
+            ViewBag.totalSumHours = 0;
+            ViewBag.totalSumSetup = 0;
+            ViewBag.totalSumCleaning = 0;
+            ViewBag.totalSumDown = 0;
+            ViewBag.totalSumOther = 0;
+            // CALCULATE SUM - end
+
             return View(db.MainTableObj.ToList());
         }
 

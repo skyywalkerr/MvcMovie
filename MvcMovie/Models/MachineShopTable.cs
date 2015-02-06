@@ -8,51 +8,56 @@ namespace MvcMovie.Models
     {      
             public int ID { get; set; } // PROPERTY ID
 
-            [Display(Name = "Release Date")]
+            [Display(Name = "Date")]
             [DataType(DataType.Date)]
             [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
             public DateTime Date { get; set; }
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            [Display(Name = "Item No.")]
+            //[StringLength(60, MinimumLength = 0)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string ItemNo { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string Operation { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string Operator { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Qty { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            //[DisplayFormat(DataFormatString = "{00}", ApplyFormatInEditMode = true)]
+            public decimal Qty { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Hours { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal Hours { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string ActualRate { get; set; } // PROPERTY TITLE
+            [Display(Name = "Actual Rate")]
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal ActualRate { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string StandardRate { get; set; } // PROPERTY TITLE
+            [Display(Name = "Standard Rate")]
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal StandardRate { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Percent { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal Percent { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Setup { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal Setup { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Cleaning { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal Cleaning { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Down { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal Down { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string Other { get; set; } // PROPERTY TITLE
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal Other { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
-            public string NonconfParts { get; set; } // PROPERTY TITLE
+            [Display(Name = "Nonconf Parts")]
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            public decimal NonconfParts { get; set; } // PROPERTY TITLE
 
-            [StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string Comments { get; set; } // PROPERTY TITLE
         }
 
