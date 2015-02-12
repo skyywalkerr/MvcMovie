@@ -44,7 +44,13 @@ namespace MvcMovie.Controllers
             return View(machineshoptable);
         }
 
-        // GET: /MachineShop/Create
+        // GET: /MachineShop/Create\
+
+        //by using this attribute system will let create new things just to registered users
+        //just user "luke" can use this method
+        //[Authorize(Users="luke")] 
+        [Authorize(Roles="admin")]
+        //or you can use a role to authorize
         public ActionResult Create()
         {
             return View();
@@ -54,7 +60,7 @@ namespace MvcMovie.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken, Authorize(Roles="admin")] // need to authorize by login
         public ActionResult Create([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
         {
             if (ModelState.IsValid)

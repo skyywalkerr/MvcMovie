@@ -187,6 +187,26 @@
     <Compile Include="Migrations\201502061803211_UpdateModelMachine.Designer.cs">
       <DependentUpon>201502061803211_UpdateModelMachine.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502062141032_UpdateModelMachine_QtyInt.cs" />
+    <Compile Include="Migrations\201502062141032_UpdateModelMachine_QtyInt.Designer.cs">
+      <DependentUpon>201502062141032_UpdateModelMachine_QtyInt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502062146596_UpdateModelMachine_HoursFloat.cs" />
+    <Compile Include="Migrations\201502062146596_UpdateModelMachine_HoursFloat.Designer.cs">
+      <DependentUpon>201502062146596_UpdateModelMachine_HoursFloat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502062151295_UpdateModelMachine_AllDecimalsToFloat.cs" />
+    <Compile Include="Migrations\201502062151295_UpdateModelMachine_AllDecimalsToFloat.Designer.cs">
+      <DependentUpon>201502062151295_UpdateModelMachine_AllDecimalsToFloat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502121620450_Init.cs" />
+    <Compile Include="Migrations\201502121620450_Init.Designer.cs">
+      <DependentUpon>201502121620450_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502121628105_ApplicationDBcontext_change.cs" />
+    <Compile Include="Migrations\201502121628105_ApplicationDBcontext_change.Designer.cs">
+      <DependentUpon>201502121628105_ApplicationDBcontext_change.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -631,6 +651,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502061803211_UpdateModelMachine.resx">
       <DependentUpon>201502061803211_UpdateModelMachine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502062141032_UpdateModelMachine_QtyInt.resx">
+      <DependentUpon>201502062141032_UpdateModelMachine_QtyInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502062146596_UpdateModelMachine_HoursFloat.resx">
+      <DependentUpon>201502062146596_UpdateModelMachine_HoursFloat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502062151295_UpdateModelMachine_AllDecimalsToFloat.resx">
+      <DependentUpon>201502062151295_UpdateModelMachine_AllDecimalsToFloat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502121620450_Init.resx">
+      <DependentUpon>201502121620450_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502121628105_ApplicationDBcontext_change.resx">
+      <DependentUpon>201502121628105_ApplicationDBcontext_change.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
