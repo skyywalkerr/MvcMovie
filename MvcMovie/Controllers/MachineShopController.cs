@@ -74,6 +74,7 @@ namespace MvcMovie.Controllers
         }
 
         // GET: /MachineShop/Edit/5
+        [Authorize(Roles = "admin,moderator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -92,7 +93,7 @@ namespace MvcMovie.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken,Authorize(Roles="admin,moderator")]
         public ActionResult Edit([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
         {
             if (ModelState.IsValid)
@@ -105,6 +106,7 @@ namespace MvcMovie.Controllers
         }
 
         // GET: /MachineShop/Delete/5
+        [Authorize(Roles = "admin,moderator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -121,7 +123,8 @@ namespace MvcMovie.Controllers
 
         // POST: /MachineShop/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        
+        [ValidateAntiForgeryToken, Authorize(Roles = "admin,moderator")]
         public ActionResult DeleteConfirmed(int id)
         {
             MachineShopTable machineshoptable = db.MainTableObj.Find(id);

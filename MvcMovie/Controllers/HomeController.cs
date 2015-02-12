@@ -15,14 +15,14 @@ namespace MvcMovie.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Machine Shop System ver. beta-0.1 | 2015";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Please contact programmer if you have any questions or ideas.";
 
             return View();
         }

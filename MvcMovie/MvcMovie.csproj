@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201502121628105_ApplicationDBcontext_change.Designer.cs">
       <DependentUpon>201502121628105_ApplicationDBcontext_change.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502122132298_Update_databases_layout_touchUp.cs" />
+    <Compile Include="Migrations\201502122132298_Update_databases_layout_touchUp.Designer.cs">
+      <DependentUpon>201502122132298_Update_databases_layout_touchUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -636,6 +640,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -666,6 +671,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502121628105_ApplicationDBcontext_change.resx">
       <DependentUpon>201502121628105_ApplicationDBcontext_change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502122132298_Update_databases_layout_touchUp.resx">
+      <DependentUpon>201502122132298_Update_databases_layout_touchUp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
