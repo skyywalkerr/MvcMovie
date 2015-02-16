@@ -15,7 +15,7 @@ namespace MvcMovie.Controllers
         private MachineShopDB db = new MachineShopDB();
 
         // GET: /MachineShop/
-        public ActionResult Index()
+        public ActionResult Index(string WorkCenter, string Department)
         {
             // CALCULATE SUM variable
             ViewBag.totalSumQty = 0;
@@ -24,7 +24,12 @@ namespace MvcMovie.Controllers
             ViewBag.totalSumCleaning = 0;
             ViewBag.totalSumDown = 0;
             ViewBag.totalSumOther = 0;
-            // CALCULATE SUM - end
+            // CALCULATE SUM - end            
+
+            ViewData["Department"] = Department;
+            ViewData["WorkCenter"] = WorkCenter;
+
+            //ViewData["TestMachineControllerLocal"] = "Static text local";
 
             return View(db.MainTableObj.ToList());
         }
@@ -52,7 +57,7 @@ namespace MvcMovie.Controllers
         [Authorize(Roles="admin")]
         //or you can use a role to authorize
         public ActionResult Create()
-        {
+        {        
             return View();
         }
 
@@ -143,3 +148,4 @@ namespace MvcMovie.Controllers
         }
     }
 }
+

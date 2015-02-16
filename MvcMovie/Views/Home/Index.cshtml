@@ -15,7 +15,25 @@
         </button>
         <div class="collapse" id="Dept1010">
             <div class="well">
-                <p><a class="btn btn-default" href="http:\\intranet\">01-01 &raquo;</a></p>
+
+                @Html.ActionLink(
+                                             linkText: "01-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new{Department="Department 1010",WorkCenter = "01-01"}, 
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                @*<p>@Html.ActionLink("Main Table", "Index", "MachineShop", ViewData["TestHomeView"]= "Text from index cshtml, from Home View", new {@class="btn btn-default"})</p>*@
+
+                @*Html.ActionLink = return link A anchor element.
+                Structure : ("Link Text", controller action name class, controller name,  route values , html attributes)
+
+                html attributes examples:
+                new {style="float:left"})
+                    *@
+
+                @*<p><a class="btn btn-default" href="http:\\intranet\">01-01 &raquo;</a></p>*@
                 <p><a class="btn btn-default" href="http:\\intranet\">01-02 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">01-03 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">01-04 &raquo;</a></p>
