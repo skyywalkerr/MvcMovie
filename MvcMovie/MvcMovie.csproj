@@ -211,9 +211,14 @@
     <Compile Include="Migrations\201502122132298_Update_databases_layout_touchUp.Designer.cs">
       <DependentUpon>201502122132298_Update_databases_layout_touchUp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502181823375_added_Machines_table_to_MainTable.cs" />
+    <Compile Include="Migrations\201502181823375_added_Machines_table_to_MainTable.Designer.cs">
+      <DependentUpon>201502181823375_added_Machines_table_to_MainTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Machines.cs" />
     <Compile Include="Models\MachineShopTable.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -674,6 +679,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502122132298_Update_databases_layout_touchUp.resx">
       <DependentUpon>201502122132298_Update_databases_layout_touchUp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502181823375_added_Machines_table_to_MainTable.resx">
+      <DependentUpon>201502181823375_added_Machines_table_to_MainTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

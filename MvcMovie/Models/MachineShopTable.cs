@@ -76,6 +76,8 @@ namespace MvcMovie.Models
         #endregion
         {
             public DbSet<MachineShopTable> MainTableObj { get; set; }
+            public DbSet<Machines> Machines { get; set; }
+
             #region explenation
             // this is a list/table of results from Movie database
             //DbSet is an class from entity framework, it's setting a connection with database

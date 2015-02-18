@@ -26,11 +26,21 @@ namespace MvcMovie.Controllers
             ViewBag.totalSumOther = 0;
             // CALCULATE SUM - end            
 
+            //INCOMING DATA//
             ViewData["Department"] = Department;
             ViewData["WorkCenter"] = WorkCenter;
+            ViewBag.department = Department;
+            //INCOMING DATA -end//
 
-            var dptLst = new List<string>();
+            //LISTS//
             
+            var machineLst = new List<string>();
+            var machineQuery = from a in db.Machines
+                           select a.Machine;
+            machineLst.AddRange(machineQuery.Distinct());
+            ViewBag.machineList = new SelectList(machineLst);
+
+            //LISTS//end
 
 
             //ViewData["TestMachineControllerLocal"] = "Static text local";
