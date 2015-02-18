@@ -15,7 +15,7 @@ namespace MvcMovie.Controllers
         private MachineShopDB db = new MachineShopDB();
 
         // GET: /MachineShop/
-        public ActionResult Index(string WorkCenter, string Department)
+        public ActionResult Index(string WorkCenter, string Department, string dptChoice)
         {
             // CALCULATE SUM variable
             ViewBag.totalSumQty = 0;
@@ -28,6 +28,10 @@ namespace MvcMovie.Controllers
 
             ViewData["Department"] = Department;
             ViewData["WorkCenter"] = WorkCenter;
+
+            var dptLst = new List<string>();
+            
+
 
             //ViewData["TestMachineControllerLocal"] = "Static text local";
 

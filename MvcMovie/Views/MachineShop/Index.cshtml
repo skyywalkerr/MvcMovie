@@ -20,28 +20,15 @@
 
 <div class="row">
     @*<div class=".col-md-6" style="background-color: #eeeeee; border-radius: 6px; ">*@
-    <div class="col-xs-6" style="background-color: #eeeeee; border-radius: 6px; ">
+
+    <div class="col-xs-6" style="background-color:lightgray; border-radius: 6px; ">
         <table cellpadding="10">
-            <h2>Filtering Tool</h2>
-            <tr>
-                <td>Date Single :</td>
-                <td>..........</td>
-                <td>Date Range :</td>
-                <td>..........</td>
-            </tr>
-            <tr>
-                <td>Department :</td>
-                <td>..........</td>
-            </tr>
-            <tr>
-                <td>Work Center :</td>
-                <td>..........</td>
-                <td>Show All Data :</td>
-                <td>..........</td>
-            </tr>
+            <h2>Currently Displayed</h2>
             <tr>
                 <td>Week: </td>
                 <td>..........</td>
+            </tr>
+            <tr>
                 <td>Prepared by: </td>
                 <td>..........</td>
             </tr>
@@ -53,22 +40,100 @@
                 <td>Machine: </td>
                 <td>..........</td>
             </tr>
+        </table>
+    </div>
+
+
+    <div class="col-xs-6" style="background-color: #eeeeee; border-radius: 6px; ">
+        <h2>Filtering Tool</h2>
+
+        <table cellpadding="10">
+
+            <tr>
+                <td>Date Single :</td>
+                <td>date picker</td>
+                <td>Date Range :</td>
+                <td>date picker</td>
+                <td>date picker</td>
+            </tr>
+            <tr>
+                <td>Department :</td>
+                <td>txtBox</td>
+            </tr>
+            <tr>
+                <td>Work Center :</td>
+                <td>TxtBox</td>
+                <td>Show All Data :</td>
+                <td>chckBx</td>
+            </tr>            
 
         </table>
+
+        <div role="tabpanel">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Operator</a></li>
+                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Item No.</a></li>
+                <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Operator and Item</a></li>
+                <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+
+                    <table cellpadding="10">                        
+                        <tr>
+                            <td>Operator: </td>
+                            <td>list</td>                           
+                        </tr>                        
+
+                    </table>
+
+                    SEARCH <\br>
+
+               </div>
+
+                <div role="tabpanel" class="tab-pane" id="profile">
+                    <table cellpadding="10">
+
+                        
+                        <tr>                            
+                            <td>Item No.: </td>
+                            <td>list</td>
+                        </tr>               
+
+                    </table>
+                    SEARCH <\br>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="messages">
+                    <table cellpadding="10">                       
+                        <tr>
+                            <td>Operator: </td>
+                            <td>list</td>
+                            <td>Item No.: </td>
+                            <td>list</td>
+                        </tr>                
+
+                    </table>
+
+                    SEARCH <\br>
+                    </div>
+
+                <div role="tabpanel" class="tab-pane" id="settings">
+                    
+                    SOMETHING.
+                    
+                </div>
+            </div>
+
+        </div>
+
+        
     </div>
-    <div class="col-xs-6" style="background-color:lightgray; border-radius: 6px; ">
-        <table cellpadding="10">
-            <h2>Currently displayed</h2>
-            <tr>
-                <td>Week: </td>
-                <td>..........</td>
-            </tr>
-            <tr>
-                <td>Prepared by: </td>
-                <td>..........</td>
-            </tr>
-        </table>
-    </div>
+    
 
 
 </div>
