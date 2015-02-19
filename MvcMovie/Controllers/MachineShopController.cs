@@ -32,18 +32,75 @@ namespace MvcMovie.Controllers
             ViewBag.department = Department;
             //INCOMING DATA -end//
 
+            #region CURRENTYL DISPLAYED
+
+            var machLst = new List<string>();
+            var machTxtQry = from m in db.Machines
+                                   where m.Department == Department && m.WorkCenter == WorkCenter
+                                   select m.Machine;
+            //ViewBag.machineTxt = machTxtQry.ToString();
+            machLst.AddRange(machTxtQry.Distinct());
+            ViewBag.machineTxt = new SelectList(machLst);
+
+            /*
+            //var machTxtQry = from a in db.Machines
+            //                 select a.Machine
+            //                 db.Machines.Where(x => x.WorkCenter == WorkCenter && x.Department == Department);
+            */
+
+            /*
+            var machTxtQry = "SELECT Machine FROM Machines WHERE Department='@Department' AND WorkCenter='@WorkCenter'";
+            IEnumerable<Machines> data = db.Database.SqlQuery<Machines>(machTxtQry);
+            ViewBag.machineTxt = data.ToString();
+            */
+
+            /*
+            var machTxtQry = from m in db.Machines
+                             select m;
+
+            machTxtQry.Where(x => x.WorkCenter == WorkCenter && x.Department == Department);
+            ViewBag.machineTxt = machTxtQry;
+            */
+
+            /*
+            var machTxtQry =
+            db.Machines.
+            Where("Department = @0 and WorkCenter= @1", Department, WorkCenter).
+            OrderBy("Machine").
+            //Select("new(Machine as Machine)");
+            Select("new(Machine)");
+            */
+
+            #endregion
+            #region FILTERING TOOLS
             //LISTS//
             
+            // MACHINEs LIST
             var machineLst = new List<string>();
             var machineQuery = from a in db.Machines
                            select a.Machine;
             machineLst.AddRange(machineQuery.Distinct());
             ViewBag.machineList = new SelectList(machineLst);
 
+            //Departments List
+            var deptLst = new List<string>();
+            var deptQuery = from a in db.Machines
+                               select a.Department;
+            machineLst.AddRange(deptQuery.Distinct());
+            ViewBag.deptLst = new SelectList(deptLst);
+
+            //WorkCenter List
+            var wcLst = new List<string>();
+            var wcQuery = from a in db.Machines
+                            select a.WorkCenter;
+            machineLst.AddRange(wcQuery.Distinct());
+            ViewBag.wcLst = new SelectList(wcLst);
+
             //LISTS//end
+            #endregion
 
 
-            //ViewData["TestMachineControllerLocal"] = "Static text local";
+            
 
             return View(db.MainTableObj.ToList());
         }

@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<MvcMovie.Models.MachineShopTable>
 
+
 @{
     ViewBag.Title = "Index";
 }
@@ -37,7 +38,7 @@
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="currently_displayed">
 
-                    <div class=".col-xs-12 .col-md-8" style="background-color:lightgray; border-radius: 6px; ">
+                    <div class=".col-xs-12 .col-md-8" style="background-color: #e2f1f9; border-radius: 6px; ">
                         <table cellpadding="10">
                             <h2>Currently Displayed</h2>
                             <tr>
@@ -52,16 +53,19 @@
                             </tr>
                             <tr>
                                 <td>Machine: </td>
-                                <td></td>
+                                <td>@Html.DropDownList("machineTxt")</td>                               
+                              
                             </tr>
                             <tr>
                                 <td>Week: </td>
-                                <td>..........</td>
+                                <td>
+                                    ...
+                               </td>
                             </tr>
-                            <tr>
+                            @*<tr>
                                 <td>Prepared by: </td>
                                 <td>..........</td>
-                            </tr>
+                            </tr>*@
 
 
                         </table>
@@ -75,34 +79,60 @@
                     <div class=".col-xs-12 .col-md-8" style="background-color: #eeeeee; border-radius: 6px; ">
                         <h2>Filtering Tool</h2>
 
-                        <table cellpadding="10">
+                        
+                            @using (Html.BeginForm("Index", "MachineShop", FormMethod.Get)) // send through GET to show it in URL also.
+                            {
+                                <table cellpadding="10">
+                                            @*Genre : @Html.DropDownList("movieGenre", "Make your choice...")
+                                            Choose column : @Html.DropDownList("movieList", "Choose any column...")*@
+                                            @*first parameter is string to return, need to be named the same as string in controller
+                        The parameter "movieGenre" provides the key for the DropDownList helper to find a
+                        IEnumerable<SelectListItem > in the  ViewBag. The ViewBag was  populated in the action  method:
+                                            *@
 
-                            <tr>
-                                <td>Date Single :</td>
-                                <td>date picker</td>
-                                <td>Date Range :</td>
-                                <td>date picker</td>
-                                <td>date picker</td>
-                            </tr>
-                            <tr>
-                                <td>Department :</td>
-                                <td>txtBox</td>
-                            </tr>
-                            <tr>
-                                <td>Work Center :</td>
-                                <td>TxtBox</td>
-                            </tr>
-                            <tr>
-                                <td>Machine:</td>
-                                <td>@Html.DropDownList("machineList")</td>
-                            </tr>
-                            <tr>
-                                <td>Show All Data :</td>
-                                <td>chckBx</td>
-                            </tr>
+                                            @*Title: @Html.TextBox("SearchString")
+                                            <input type="submit" value="Search !" /> <br />*@
 
-                        </table>
+                                    
+                                    <tr>
+                                        <td>Date Single :</td>
+                                        <td>
+                                            <input class="datefield" data-val="true" data-val-required="Date is required"
+                                                   id="SingleDate" name="SingleDate" type="date" value="1/11/1989" />  
 
+                                            @*@Html.EditorFor(model => model.Date)*@
+
+                                        </td>
+
+                                        <td>Date Range :</td>
+                                        <td>
+                                            <input class="datefield" data-val="true" data-val-required="Date is required"
+                                                   id="ReleaseDate" name="ReleaseDate" type="date" value="1/11/1989" />
+                                        </td>
+                                        <td>
+                                            <input class="datefield" data-val="true" data-val-required="Date is required"
+                                                   id="ReleaseDate" name="ReleaseDate" type="date" value="1/11/1989" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Department :</td>
+                                        <td>@Html.DropDownList("deptLst")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Work Center :</td>
+                                        <td>@Html.DropDownList("wcLst")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Machine:</td>
+                                        <td>@Html.DropDownList("machineList")</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Show All Data :</td>
+                                        <td>chckBx</td>
+                                    </tr>
+
+                                </table>
+                            }
                         <div role="tabpanel">
 
                             <!-- Nav tabs -->

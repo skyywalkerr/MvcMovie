@@ -24,6 +24,14 @@
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
 
+                @Html.ActionLink(
+                                             linkText: "01-02",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1010", WorkCenter = "01-02" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
                 @*<p>@Html.ActionLink("Main Table", "Index", "MachineShop", ViewData["TestHomeView"]= "Text from index cshtml, from Home View", new {@class="btn btn-default"})</p>*@
 
                 @*Html.ActionLink = return link A anchor element.
@@ -34,7 +42,7 @@
                     *@
 
                 @*<p><a class="btn btn-default" href="http:\\intranet\">01-01 &raquo;</a></p>*@
-                <p><a class="btn btn-default" href="http:\\intranet\">01-02 &raquo;</a></p>
+                @*<p><a class="btn btn-default" href="http:\\intranet\">01-02 &raquo;</a></p>*@
                 <p><a class="btn btn-default" href="http:\\intranet\">01-03 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">01-04 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">01-05 &raquo;</a></p>
@@ -63,7 +71,15 @@
         </button>
         <div class="collapse" id="Dept1020">
             <div class="well">
-                <p><a class="btn btn-default" href="http:\\intranet\">03-01 &raquo;</a></p>
+
+                @Html.ActionLink(
+                                             linkText: "03-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1020", WorkCenter = "03-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @*<p><a class="btn btn-default" href="http:\\intranet\">03-01 &raquo;</a></p>*@
                 <p><a class="btn btn-default" href="http:\\intranet\">03-02 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">05-02 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">05-03 &raquo;</a></p>
