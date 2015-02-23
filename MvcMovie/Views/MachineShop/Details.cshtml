@@ -64,6 +64,12 @@
 
         <dd>
             @Html.DisplayFor(model => model.ActualRate)
+            @*<div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="@Html.DisplayFor(model => model.ActualRate)"
+                     aria-valuemin="0" aria-valuemax="@Html.DisplayFor(model => model.StandardRate)" style="width: @Html.DisplayFor(model => model.ActualRate)%">
+                    @Html.DisplayFor(model => model.ActualRate) of @Html.DisplayFor(model => model.StandardRate)
+                </div>
+            </div>*@
         </dd>
 
         <dt>
@@ -80,6 +86,13 @@
 
         <dd>
             @Html.DisplayFor(model => model.Percent)
+
+            <div class="progress">
+                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="40"
+                     aria-valuemin="0" aria-valuemax="100" style="width: @Html.DisplayFor(model => model.Percent)%">
+                    @Html.DisplayFor(model => model.Percent)%
+                </div>
+            </div>
         </dd>
 
         <dt>

@@ -15,8 +15,13 @@ namespace MvcMovie.Controllers
         private MachineShopDB db = new MachineShopDB();
 
         // GET: /MachineShop/
-        public ActionResult Index(string WorkCenter, string Department, string dptChoice)
+        public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+
+            //main query
+            var machineShopQry = from m in db.MainTableObj
+                                 select m;
+
             // CALCULATE SUM variable
             ViewBag.totalSumQty = 0;
             ViewBag.totalSumHours = 0;
@@ -41,7 +46,7 @@ namespace MvcMovie.Controllers
             //ViewBag.machineTxt = machTxtQry.ToString();
             machLst.AddRange(machTxtQry.Distinct());
             ViewBag.machineTxt = new SelectList(machLst);
-
+            #region another tests
             /*
             //var machTxtQry = from a in db.Machines
             //                 select a.Machine
@@ -70,7 +75,7 @@ namespace MvcMovie.Controllers
             //Select("new(Machine as Machine)");
             Select("new(Machine)");
             */
-
+            #endregion
             #endregion
             #region FILTERING TOOLS
             //LISTS//
@@ -80,29 +85,55 @@ namespace MvcMovie.Controllers
             var machineQuery = from a in db.Machines
                            select a.Machine;
             machineLst.AddRange(machineQuery.Distinct());
-            ViewBag.machineList = new SelectList(machineLst);
+            ViewBag.machineChoice = new SelectList(machineLst);
 
             //Departments List
             var deptLst = new List<string>();
-            var deptQuery = from a in db.Machines
-                               select a.Department;
-            machineLst.AddRange(deptQuery.Distinct());
-            ViewBag.deptLst = new SelectList(deptLst);
+            var deptQuery = from b in db.Machines
+                               select b.Department;
+            deptLst.AddRange(deptQuery.Distinct());
+            ViewBag.deptChoice = new SelectList(deptLst);
 
             //WorkCenter List
             var wcLst = new List<string>();
-            var wcQuery = from a in db.Machines
-                            select a.WorkCenter;
-            machineLst.AddRange(wcQuery.Distinct());
-            ViewBag.wcLst = new SelectList(wcLst);
+            var wcQuery = from c in db.Machines
+                            //where c.Department == deptChoice
+                            select c.WorkCenter;
+            wcLst.AddRange(wcQuery.Distinct());
+            ViewBag.wcChoice = new SelectList(wcLst);
+
+            //Column names list
+
+            var columnsList = new List<string>();
+            string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Qty","Hours","Standarad Rate",
+            "Percent","Setup","Cleaning","Down","Other","Nonconf Parts","Comments" };
+            columnsList.AddRange(listData);
+            ViewBag.colList = new SelectList(columnsList);
 
             //LISTS//end
+
             #endregion
 
+            //Searcher
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                machineShopQry = from a in db.MainTableObj
+                                 where colList == searchString // how to include list result into LINQ search string ?
+                                 select a;
+            }
 
+            //CHECK BOX
+            if (checkBoxState=="true")
+            {
+                machineShopQry = from m in db.MainTableObj
+                                     select m;
+
+                //s = virtual lambda variable used just to initate this function and return result
+            }
             
 
-            return View(db.MainTableObj.ToList());
+            //return View(db.MainTableObj.ToList());
+            return View(machineShopQry);
         }
 
         // GET: /MachineShop/Details/5
