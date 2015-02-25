@@ -171,6 +171,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FilteringTools.cs" />
+    <Compile Include="Controllers\FilteringTools_2.cs" />
     <Compile Include="Controllers\HelloWorldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MachineShopController.cs" />
@@ -215,6 +217,18 @@
     <Compile Include="Migrations\201502181823375_added_Machines_table_to_MainTable.Designer.cs">
       <DependentUpon>201502181823375_added_Machines_table_to_MainTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502251723402_ModifiedDateFormat.cs" />
+    <Compile Include="Migrations\201502251723402_ModifiedDateFormat.Designer.cs">
+      <DependentUpon>201502251723402_ModifiedDateFormat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502251725235_ModifiedDateFormat2.cs" />
+    <Compile Include="Migrations\201502251725235_ModifiedDateFormat2.Designer.cs">
+      <DependentUpon>201502251725235_ModifiedDateFormat2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201502252055269_add_WCandMachineToMainTabl_addOperatorModel.cs" />
+    <Compile Include="Migrations\201502252055269_add_WCandMachineToMainTabl_addOperatorModel.Designer.cs">
+      <DependentUpon>201502252055269_add_WCandMachineToMainTabl_addOperatorModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -223,6 +237,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\OperatorsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -682,6 +697,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502181823375_added_Machines_table_to_MainTable.resx">
       <DependentUpon>201502181823375_added_Machines_table_to_MainTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251723402_ModifiedDateFormat.resx">
+      <DependentUpon>201502251723402_ModifiedDateFormat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502251725235_ModifiedDateFormat2.resx">
+      <DependentUpon>201502251725235_ModifiedDateFormat2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502252055269_add_WCandMachineToMainTabl_addOperatorModel.resx">
+      <DependentUpon>201502252055269_add_WCandMachineToMainTabl_addOperatorModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

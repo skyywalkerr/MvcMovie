@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
@@ -10,7 +11,8 @@ namespace MvcMovie.Models
 
             [Display(Name = "Date")]
             [DataType(DataType.Date)]
-            [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime Date { get; set; }
 
             [Display(Name = "Item No.")]
@@ -59,6 +61,11 @@ namespace MvcMovie.Models
 
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string Comments { get; set; } // PROPERTY TITLE
+
+            public string WorkCenter { get; set; }
+
+            public string Machine { get; set; }
+
         }
 
         public class MachineShopDB : DbContext
@@ -87,4 +94,20 @@ namespace MvcMovie.Models
             //link : msdn.microsoft.com/en-us/library/gg696460%28v=vs.113%29.aspx
             #endregion
         }
+
+        //public class FilteringToolModel
+        //{
+        //    public string Department { get; set; }
+        //    public string WorkCenter { get; set; }
+        //    public string CheckBox { get; set; }
+
+        //}
+
+        //public class ViewModelClass
+        //{
+        //    IEnumerable<FilteringToolModel> FilteringToolView { get; set; }
+        //    IEnumerable<MachineShopTable> MainTableView { get; set; }
+        //}
+
+        
 }

@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
+using System.Linq.Expressions;
+
 
 namespace MvcMovie.Controllers
 {
@@ -15,9 +17,28 @@ namespace MvcMovie.Controllers
         private MachineShopDB db = new MachineShopDB();
 
         // GET: /MachineShop/
-        public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
+        public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate)
+        //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+            MachineShopTable mainTableObject = new MachineShopTable();
+            OperatorsModel test = new OperatorsModel();
+            test.Operator = "TEST";
+            
+            //FilteringToolModel filteringTool = new FilteringToolModel();
+            //filteringTool.Department = "Test";
 
+            //ViewModelClass viewModel = new ViewModelClass();
+            //{
+            //    viewModel.FilteringToolView = filteringTool;
+
+            //}
+
+            //var filteringModel = new FilteringToolModel();
+            //filteringModel.Department = "Test string";
+            //filteringModel.WorkCenter = "Test work center";
+            //filteringModel.CheckBox = "tEST CHECKBOX";
+
+            
             //main query
             var machineShopQry = from m in db.MainTableObj
                                  select m;
@@ -105,8 +126,9 @@ namespace MvcMovie.Controllers
             //Column names list
 
             var columnsList = new List<string>();
-            string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Qty","Hours","Standarad Rate",
-            "Percent","Setup","Cleaning","Down","Other","Nonconf Parts","Comments" };
+            //string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Qty","Hours","Standarad Rate",
+            //"Percent","Setup","Cleaning","Down","Other","Nonconf Parts","Comments" };
+            string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Comments" };
             columnsList.AddRange(listData);
             ViewBag.colList = new SelectList(columnsList);
 
@@ -115,26 +137,126 @@ namespace MvcMovie.Controllers
             #endregion
 
             //Searcher
+
             if(!String.IsNullOrEmpty(searchString))
             {
-                machineShopQry = from a in db.MainTableObj
-                                 where colList == searchString // how to include list result into LINQ search string ?
-                                 select a;
+                ////
+                //string searchQry = "SELECT * FROM MainTable WHERE " + colList + " = " + searchString+"";
+
+                //IEnumerable<MachineShopTable> data = db.MainTableObj.SqlQuery<MachineShopTable>(searchQry);
+
+                //
+                ////machineShopQry = from a in db.MainTableObj
+                ////                 where colList == searchString // how to include list result into LINQ search string ?
+                ////                 select a;
+
+                ////var condition = GetPropertyEqualityExpression<string, string>(colList, searchString);
+                ////var qry = db.MainTableObj.Where(condition);
+
+                if(colList == "Date")
+                {
+                    machineShopQry = machineShopQry.Where(s => s.Date.Equals(Convert.ToDateTime(searchString)));
+                }
+                if (colList == "Item No.")
+                {
+                    machineShopQry = machineShopQry.Where(s => s.ItemNo.Contains(searchString));
+                }
+                if (colList == "Operation")
+                {
+                    machineShopQry = machineShopQry.Where(s => s.Operation.Contains(searchString));
+                }
+                if (colList == "Operator")
+                {
+                    machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString));
+                }
+                #region COMMENTED ANOTHER COLUMNS
+                //if (colList == "Qty")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Qty.Equals(searchString));
+                //}
+                //if (colList == "Hours")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Hours.Equals(searchString));
+                //}
+                //if (colList == "Actual Rate")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.ActualRate.Equals(searchString));
+                //}
+                //if (colList == "Standard Rate")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.StandardRate.Equals(searchString));
+                //}
+                //if (colList == "Percent")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Percent.Equals(searchString));
+                //}
+                //if (colList == "Setup")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Setup.Equals(searchString));
+                //}
+                //if (colList == "Cleaning")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Cleaning.Equals(searchString));
+                //}
+                //if (colList == "Down")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Down.Equals(searchString));
+                //}
+                //if (colList == "Other")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.Other.Equals(searchString));
+                //}
+                //if (colList == "Nonconf Parts")
+                //{
+                //    machineShopQry = machineShopQry.Where(s => s.NonconfParts.Equals(searchString));
+                //}
+#endregion
+                if (colList == "Comments")
+                {
+                    machineShopQry = machineShopQry.Where(s => s.Comments.Contains(searchString));
+                }
+                
+                //machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString));
             }
 
             //CHECK BOX
+            // true if &checkBoxState=true&checkBoxState=false
             if (checkBoxState=="true")
             {
+                //SingleDate=;
+                //ReleaseDate="";
+                deptChoice = "";
+                wcChoice = "";
+                machineChoice = "";
+                searchString = "";
                 machineShopQry = from m in db.MainTableObj
                                      select m;
 
                 //s = virtual lambda variable used just to initate this function and return result
             }
+
+            if (SingleDate.HasValue) // modify this
+            {
+                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+            }
             
 
             //return View(db.MainTableObj.ToList());
-            return View(machineShopQry);
+
+            //machineShopQry - model object
+            return View("Index", machineShopQry); 
+
         }
+
+        public static Expression<Func<TEntity, bool>> GetPropertyEqualityExpression<TEntity, TProperty>(string propertyName, TProperty propertyValue)
+        {
+            var parameter = Expression.Parameter(typeof(TEntity));
+            var property = Expression.Property(parameter, propertyName, null);
+            var equality = Expression.Equal(property, Expression.Constant(propertyValue));
+            var lambda = Expression.Lambda<Func<TEntity, bool>>(equality, parameter);
+            return lambda;
+        }
+
 
         // GET: /MachineShop/Details/5
         public ActionResult Details(int? id)
