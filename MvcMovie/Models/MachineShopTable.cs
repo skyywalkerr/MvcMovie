@@ -66,6 +66,8 @@ namespace MvcMovie.Models
 
             public string Machine { get; set; }
 
+            public string Department { get; set; }
+
         }
 
         public class MachineShopDB : DbContext
@@ -95,13 +97,13 @@ namespace MvcMovie.Models
             #endregion
         }
 
-        //public class FilteringToolModel
-        //{
-        //    public string Department { get; set; }
-        //    public string WorkCenter { get; set; }
-        //    public string CheckBox { get; set; }
+        public class FilteringToolModel
+        {
+            //public string Department { get; set; }
+            //public string WorkCenter { get; set; }
+            public string CheckBox { get; set; }
 
-        //}
+        }
 
         //public class ViewModelClass
         //{

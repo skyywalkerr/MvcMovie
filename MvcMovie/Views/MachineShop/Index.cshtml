@@ -11,6 +11,7 @@
 @*<h2>Index</h2>*@
 
 <p> 
+    @*This one will send Department and WorkCenter values from machineShop controller Index method to Create action method*@ 
     @Html.ActionLink("Create New",
                      "Create", new { Department =@ViewData["Department"], WorkCenter = @ViewData["WorkCenter"] },
                                              htmlAttributes: new { @class = "btn btn-primary" }    
@@ -388,4 +389,3 @@
                     </tr>
                 </table>*@
 
-@*@Html.DisplayFor()*@

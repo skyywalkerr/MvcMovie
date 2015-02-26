@@ -20,24 +20,10 @@ namespace MvcMovie.Controllers
         public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+
             MachineShopTable mainTableObject = new MachineShopTable();
             OperatorsModel test = new OperatorsModel();
-            test.Operator = "TEST";
-            
-            //FilteringToolModel filteringTool = new FilteringToolModel();
-            //filteringTool.Department = "Test";
-
-            //ViewModelClass viewModel = new ViewModelClass();
-            //{
-            //    viewModel.FilteringToolView = filteringTool;
-
-            //}
-
-            //var filteringModel = new FilteringToolModel();
-            //filteringModel.Department = "Test string";
-            //filteringModel.WorkCenter = "Test work center";
-            //filteringModel.CheckBox = "tEST CHECKBOX";
-
+            test.Operator = "TEST";           
             
             //main query
             var machineShopQry = from m in db.MainTableObj
@@ -53,8 +39,14 @@ namespace MvcMovie.Controllers
             // CALCULATE SUM - end            
 
             //INCOMING DATA//
+            //This view data sending results of action link from HOME view to Index view of MachineShop controller
             ViewData["Department"] = Department;
             ViewData["WorkCenter"] = WorkCenter;
+            
+            //TempData sending data between action methods of same controller
+            TempData["deptFromHome"] = Department;
+            TempData["workCentrFromHome"] = WorkCenter;
+
             ViewBag.department = Department;
             //INCOMING DATA -end//
 
@@ -244,7 +236,7 @@ namespace MvcMovie.Controllers
             //return View(db.MainTableObj.ToList());
 
             //machineShopQry - model object
-            return View("Index", machineShopQry); 
+            return View(machineShopQry); 
 
         }
 
@@ -290,8 +282,17 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken, Authorize(Roles="admin")] // need to authorize by login
-        public ActionResult Create([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
+        public ActionResult Create(string Department,string WorkCenter, [Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
         {
+            //TempData["deptFromHome"] = Department;
+            //TempData["workCentrFromHome"] = WorkCenter;
+
+            //Set Departmetn and WorkCenter values for results of choice from Home view, during creation those field will be filled out automatically
+            machineshoptable.Department = Department;
+            machineshoptable.WorkCenter = WorkCenter;
+            //machineshoptable.Machine = machineChoice;
+            
+
             if (ModelState.IsValid)
             {
                 db.MainTableObj.Add(machineshoptable);

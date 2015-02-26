@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201502252055269_add_WCandMachineToMainTabl_addOperatorModel.Designer.cs">
       <DependentUpon>201502252055269_add_WCandMachineToMainTabl_addOperatorModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201502261943068_addDepartmentToMainTable.cs" />
+    <Compile Include="Migrations\201502261943068_addDepartmentToMainTable.Designer.cs">
+      <DependentUpon>201502261943068_addDepartmentToMainTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -706,6 +710,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201502252055269_add_WCandMachineToMainTabl_addOperatorModel.resx">
       <DependentUpon>201502252055269_add_WCandMachineToMainTabl_addOperatorModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201502261943068_addDepartmentToMainTable.resx">
+      <DependentUpon>201502261943068_addDepartmentToMainTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

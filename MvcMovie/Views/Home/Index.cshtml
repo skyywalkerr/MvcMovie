@@ -16,6 +16,7 @@
         <div class="collapse" id="Dept1010">
             <div class="well">
 
+                @* Department is the string parameter in Index action of MachineShop controller same with WorkCenter*@
                 @Html.ActionLink(
                                              linkText: "01-01",
                                              actionName: "Index",
@@ -31,6 +32,8 @@
                                              routeValues: new { Department = "Department 1010", WorkCenter = "01-02" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
+                
+
 
                 @*<p>@Html.ActionLink("Main Table", "Index", "MachineShop", ViewData["TestHomeView"]= "Text from index cshtml, from Home View", new {@class="btn btn-default"})</p>*@
 
