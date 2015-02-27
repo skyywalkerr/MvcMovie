@@ -15,18 +15,20 @@ namespace MvcMovie.Controllers
     public class MachineShopController : Controller
     {
         private MachineShopDB db = new MachineShopDB();
+        MachineShopTable mainTableObject = new MachineShopTable();
 
         // GET: /MachineShop/
         public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
 
-            MachineShopTable mainTableObject = new MachineShopTable();
+            //MachineShopTable mainTableObject = new MachineShopTable(); moved to global
             OperatorsModel test = new OperatorsModel();
             test.Operator = "TEST";           
             
-            //main query
+            //VERY MAIN QUERY 
             var machineShopQry = from m in db.MainTableObj
+                                 where m.Date == System.DateTime.Today
                                  select m;
 
             // CALCULATE SUM variable
@@ -50,15 +52,21 @@ namespace MvcMovie.Controllers
             ViewBag.department = Department;
             //INCOMING DATA -end//
 
-            #region CURRENTYL DISPLAYED
+            #region Currently DISPLAYED
 
-            var machLst = new List<string>();
+            //var machLst = new List<string>();
+
             var machTxtQry = from m in db.Machines
                                    where m.Department == Department && m.WorkCenter == WorkCenter
                                    select m.Machine;
-            //ViewBag.machineTxt = machTxtQry.ToString();
-            machLst.AddRange(machTxtQry.Distinct());
-            ViewBag.machineTxt = new SelectList(machLst);
+            if((machTxtQry != null) && (Department !=null) && (WorkCenter !=null))
+            {
+                ViewBag.machineTxt = Convert.ToString(machTxtQry.First());
+                //mainTableObject.Machine = Convert.ToString(machTxtQry.First());
+            }
+
+            //machLst.AddRange(machTxtQry.Distinct());
+            //ViewBag.machineTxt = new SelectList(machLst);
             #region another tests
             /*
             //var machTxtQry = from a in db.Machines
@@ -132,18 +140,6 @@ namespace MvcMovie.Controllers
 
             if(!String.IsNullOrEmpty(searchString))
             {
-                ////
-                //string searchQry = "SELECT * FROM MainTable WHERE " + colList + " = " + searchString+"";
-
-                //IEnumerable<MachineShopTable> data = db.MainTableObj.SqlQuery<MachineShopTable>(searchQry);
-
-                //
-                ////machineShopQry = from a in db.MainTableObj
-                ////                 where colList == searchString // how to include list result into LINQ search string ?
-                ////                 select a;
-
-                ////var condition = GetPropertyEqualityExpression<string, string>(colList, searchString);
-                ////var qry = db.MainTableObj.Where(condition);
 
                 if(colList == "Date")
                 {
@@ -227,7 +223,7 @@ namespace MvcMovie.Controllers
                 //s = virtual lambda variable used just to initate this function and return result
             }
 
-            if (SingleDate.HasValue) // modify this
+            if (SingleDate.HasValue) // single date pick box
             {
                 machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
             }
@@ -282,7 +278,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken, Authorize(Roles="admin")] // need to authorize by login
-        public ActionResult Create(string Department,string WorkCenter, [Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
+        public ActionResult Create(string Machine,string Department,string WorkCenter, [Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
         {
             //TempData["deptFromHome"] = Department;
             //TempData["workCentrFromHome"] = WorkCenter;
@@ -290,6 +286,7 @@ namespace MvcMovie.Controllers
             //Set Departmetn and WorkCenter values for results of choice from Home view, during creation those field will be filled out automatically
             machineshoptable.Department = Department;
             machineshoptable.WorkCenter = WorkCenter;
+            machineshoptable.Machine = Machine;
             //machineshoptable.Machine = machineChoice;
             
 
@@ -370,6 +367,14 @@ namespace MvcMovie.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Test() // Action result or different ?
+        {
+            dateTimeTest testModel = new dateTimeTest();
+            testModel.todayTest = DateTime.Now;
+
+            return RedirectToAction("Index", testModel);
         }
     }
 }

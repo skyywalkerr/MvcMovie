@@ -111,5 +111,8 @@ namespace MvcMovie.Models
         //    IEnumerable<MachineShopTable> MainTableView { get; set; }
         //}
 
-        
+        public class dateTimeTest
+        {
+            public DateTime todayTest { get; set; }
+        }
 }
