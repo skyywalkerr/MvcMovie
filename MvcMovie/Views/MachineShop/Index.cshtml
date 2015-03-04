@@ -53,7 +53,7 @@
                            {*@
                             @*<h3>Currently Displayed</h3>*@
                             <tr>
-                               
+
                                 <td>Department: </td>
 
                                 <td>@ViewData["Department"]</td>
@@ -76,7 +76,7 @@
                             <tr>
                                 <td>Date: </td>
                                 <td>  
-                                    @System.DateTime.Today.Month;
+                                    @System.DateTime.Now.ToShortDateString()
                                     @*@Html.DisplayFor(testModel.todayTest);*@
                                    @*@foreach (var item in Model)
                                    {
@@ -115,7 +115,6 @@
                                             @*Title: @Html.TextBox("SearchString")
                                             <input type="submit" value="Search !" /> <br />*@
 
-                                    
                                     <tr>
                                         <td>Date Single :</td>
                                         <td>
@@ -124,6 +123,13 @@
 
                                             <input class="datefield" data-val="true" 
                                                    id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />  
+
+                                            
+                                            @*TEST*@
+                                                    @*@Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })                                               
+                                                    @Html.EditorFor(model => model.Date)
+                                                    @Html.ValidationMessageFor(model => model.Date)*@
+                                                @*TEST*@
 
 
 
@@ -143,25 +149,16 @@
                                     </tr>
                                     <tr>
                                         <td>Department :</td>
-                                        <td>@Html.DropDownList("deptChoice")
-                                        
-                                           @*@Html.DropDownList(
-                                                "ddl", ViewData["AvailableList"] as SelectList,
-                                                new { onchange = @"
-                                                var form = document.forms[0];
-                                                form.action='MyMethod';
-                                                form.submit();"
-                                                } )*@ 
-                                            
+                                        <td>@Html.DropDownList("deptChoice","Choose a department...")                                 
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Work Center :</td>
-                                        <td>@Html.DropDownList("wcChoice")</td>
+                                        <td>@Html.DropDownList("wcChoice","Choose a work center...")</td>
                                     </tr>
                                     <tr>
                                         <td>Machine:</td>
-                                        <td>@Html.DropDownList("machineChoice")</td>
+                                        <td>@Html.DropDownList("machineChoice","Choose a machine...")</td>
                                     </tr>
                                     <tr>
                                         <td>Show All Data :</td>

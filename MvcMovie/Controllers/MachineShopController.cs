@@ -28,7 +28,7 @@ namespace MvcMovie.Controllers
             
             //VERY MAIN QUERY 
             var machineShopQry = from m in db.MainTableObj
-                                 where m.Date == System.DateTime.Today
+                                 //where m.Date == System.DateTime.Today
                                  select m;
 
             // CALCULATE SUM variable
@@ -225,9 +225,26 @@ namespace MvcMovie.Controllers
 
             if (SingleDate.HasValue) // single date pick box
             {
-                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+                machineShopQry = machineShopQry.Where(x => x.Date.Equals(SingleDate));
             }
-            
+
+            //Department filter
+            if (!String.IsNullOrEmpty(deptChoice))
+            {
+                machineShopQry = machineShopQry.Where(s => s.Department.Equals(deptChoice));
+
+
+            }
+            //Work center filter
+            if (!String.IsNullOrEmpty(wcChoice))
+            {
+                machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wcChoice));
+            }
+            //Machine filter
+            if (!String.IsNullOrEmpty(machineChoice))
+            {
+                machineShopQry = machineShopQry.Where(s => s.Machine.Equals(machineChoice));
+            }
 
             //return View(db.MainTableObj.ToList());
 
@@ -236,14 +253,14 @@ namespace MvcMovie.Controllers
 
         }
 
-        public static Expression<Func<TEntity, bool>> GetPropertyEqualityExpression<TEntity, TProperty>(string propertyName, TProperty propertyValue)
-        {
-            var parameter = Expression.Parameter(typeof(TEntity));
-            var property = Expression.Property(parameter, propertyName, null);
-            var equality = Expression.Equal(property, Expression.Constant(propertyValue));
-            var lambda = Expression.Lambda<Func<TEntity, bool>>(equality, parameter);
-            return lambda;
-        }
+        //public static Expression<Func<TEntity, bool>> GetPropertyEqualityExpression<TEntity, TProperty>(string propertyName, TProperty propertyValue)
+        //{
+        //    var parameter = Expression.Parameter(typeof(TEntity));
+        //    var property = Expression.Property(parameter, propertyName, null);
+        //    var equality = Expression.Equal(property, Expression.Constant(propertyValue));
+        //    var lambda = Expression.Lambda<Func<TEntity, bool>>(equality, parameter);
+        //    return lambda;
+        //}
 
 
         // GET: /MachineShop/Details/5
