@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<MvcMovie.Models.MachineShopTable>
 
-
 @{
     ViewBag.Title = "Index";
 }
@@ -139,26 +138,26 @@
 
                                         <td>Date Range :</td>
                                         <td>
-                                            <input class="datefield" data-val="true" data-val-required="Date is required"
-                                                   id="ReleaseDate" name="ReleaseDate" type="date" value="1/11/1989" />
+                                            <input class="datefield" data-val="true"
+                                                   id="DateStart" name="DateStart" type="date" value="1/11/1989" />
                                         </td>
                                         <td>
-                                            <input class="datefield" data-val="true" data-val-required="Date is required"
-                                                   id="ReleaseDate" name="ReleaseDate" type="date" value="1/11/1989" />
+                                            <input class="datefield" data-val="true"
+                                                   id="DateEnd" name="DateEnd" type="date" value="1/11/1989" />
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Department :</td>
-                                        <td>@Html.DropDownList("deptChoice","Choose a department...")                                 
+                                        <td>@Html.DropDownList("deptChoice","None.")                                 
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Work Center :</td>
-                                        <td>@Html.DropDownList("wcChoice","Choose a work center...")</td>
+                                        <td>@Html.DropDownList("wcChoice","None.")</td>
                                     </tr>
                                     <tr>
                                         <td>Machine:</td>
-                                        <td>@Html.DropDownList("machineChoice","Choose a machine...")</td>
+                                        <td>@Html.DropDownList("machineChoice","None.")</td>
                                     </tr>
                                     <tr>
                                         <td>Show All Data :</td>
@@ -184,7 +183,7 @@
                                     <table cellpadding="10">
                                         <tr>
                                             <td>Operator: </td>
-                                            <td>list</td>
+                                            <td>@Html.DropDownList("operatorChoice","None.")</td>
                                         </tr>
 
                                     </table>
@@ -199,25 +198,25 @@
 
                                         <tr>
                                             <td>Item No.: </td>
-                                            <td>list</td>
+                                            <td>@Html.DropDownList("partChoice","None.")</td>
                                         </tr>
 
                                     </table>
-                                    SEARCH <\br>
+                                    <input type="submit" value="Search !" /> <br />
                                 </div>
 
                                 <div role="tabpanel" class="tab-pane" id="messages">
                                     <table cellpadding="10">
                                         <tr>
                                             <td>Operator: </td>
-                                            <td>list</td>
+                                            <td>@Html.DropDownList("operatorChoice2","None.")</td>
                                             <td>Item No.: </td>
-                                            <td>list</td>
+                                            <td>@Html.DropDownList("partChoice2", "None.")</td>
                                         </tr>
 
                                     </table>
 
-                                    SEARCH <\br>
+                                    <input type="submit" value="Search !" /> <br />
                                 </div>
 
                                 <div role="tabpanel" class="tab-pane" id="settings">

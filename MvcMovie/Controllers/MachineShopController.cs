@@ -15,16 +15,16 @@ namespace MvcMovie.Controllers
     public class MachineShopController : Controller
     {
         private MachineShopDB db = new MachineShopDB();
-        MachineShopTable mainTableObject = new MachineShopTable();
+        //MachineShopTable mainTableObject = new MachineShopTable();
 
         // GET: /MachineShop/
-        public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate)
+        public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
 
             //MachineShopTable mainTableObject = new MachineShopTable(); moved to global
-            OperatorsModel test = new OperatorsModel();
-            test.Operator = "TEST";           
+            //OperatorsModel test = new OperatorsModel();
+            //test.Operator = "TEST";           
             
             //VERY MAIN QUERY 
             var machineShopQry = from m in db.MainTableObj
@@ -128,11 +128,33 @@ namespace MvcMovie.Controllers
             var columnsList = new List<string>();
             //string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Qty","Hours","Standarad Rate",
             //"Percent","Setup","Cleaning","Down","Other","Nonconf Parts","Comments" };
-            string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Comments" };
+            string[] listData = new string[] { "Item No.", "Operation","Operator","Comments" };
             columnsList.AddRange(listData);
             ViewBag.colList = new SelectList(columnsList);
 
             //LISTS//end
+
+            //unique Operator list
+            var operatorList = new List<string>();
+            var operatorsQry = from x in db.MainTableObj
+                               select x.Operator;
+            operatorList.AddRange(operatorsQry.Distinct());
+            ViewBag.operatorChoice = new SelectList(operatorList);
+
+            //unique Operator list END
+
+            //item no list
+            var partsList = new List<string>();
+            var partsQry = from x in db.MainTableObj
+                           select x.ItemNo;
+            partsList.AddRange(partsQry.Distinct());
+            ViewBag.partChoice = new SelectList(partsList);
+            //item no list - end
+
+            //operator and item no list            
+            ViewBag.partChoice2 = new SelectList(partsList);
+            ViewBag.operatorChoice2 = new SelectList(operatorList);
+            //item no list - end
 
             #endregion
 
@@ -141,10 +163,13 @@ namespace MvcMovie.Controllers
             if(!String.IsNullOrEmpty(searchString))
             {
 
-                if(colList == "Date")
-                {
-                    machineShopQry = machineShopQry.Where(s => s.Date.Equals(Convert.ToDateTime(searchString)));
-                }
+                //if(colList == "Date")
+                //{
+                //    //machineShopQry = machineShopQry.Where(s => s.Date.Equals(Convert.ToDateTime(searchString)));
+                //    //machineShopQry = machineShopQry.Where(x => x.Date.Equals(searchString));
+                //    machineShopQry = machineShopQry.Where(x => x.Date.Equals(Convert.ToDateTime(searchString)));
+
+                //}
                 if (colList == "Item No.")
                 {
                     machineShopQry = machineShopQry.Where(s => s.ItemNo.Contains(searchString));
@@ -219,21 +244,32 @@ namespace MvcMovie.Controllers
                 searchString = "";
                 machineShopQry = from m in db.MainTableObj
                                      select m;
-
                 //s = virtual lambda variable used just to initate this function and return result
             }
 
             if (SingleDate.HasValue) // single date pick box
             {
-                machineShopQry = machineShopQry.Where(x => x.Date.Equals(SingleDate));
+                //machineShopQry = machineShopQry.Where(x => x.Date.Equals(SingleDate));
+                //machineShopQry = machineShopQry.Where(x => x.Date.Equals(Convert.ToDateTime(SingleDate)));
+
+                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+            }
+
+            if(DateStart.HasValue && DateEnd.HasValue)
+            {
+                //machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+
+                //machineShopQry = from x in db.MainTableObj
+                //                 where DateStart >= x.Date 
+                //                 && DateEnd <= x.Date
+                //                 select x;
+                machineShopQry = machineShopQry.Where(p => p.Date >= DateStart && p.Date <= DateEnd);
             }
 
             //Department filter
             if (!String.IsNullOrEmpty(deptChoice))
             {
                 machineShopQry = machineShopQry.Where(s => s.Department.Equals(deptChoice));
-
-
             }
             //Work center filter
             if (!String.IsNullOrEmpty(wcChoice))
@@ -245,10 +281,28 @@ namespace MvcMovie.Controllers
             {
                 machineShopQry = machineShopQry.Where(s => s.Machine.Equals(machineChoice));
             }
+            //Operator filter
+            if (!String.IsNullOrEmpty(operatorChoice))
+            {
+                machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice));
+            }
+            //Parts filter
+            if (!String.IsNullOrEmpty(partChoice))
+            {
+                machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice));
+            }
+            //Operator and Parts filter
+            if (!String.IsNullOrEmpty(partChoice2))
+            {                
+                machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice2));
+            }
+            if (!String.IsNullOrEmpty(operatorChoice2))
+            {
+                machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice2));
+            }
+            //Operator and Parts filter - end
 
-            //return View(db.MainTableObj.ToList());
-
-            //machineShopQry - model object
+            //machineShopQry - model object which will be a collection of all queries through a controller, qr = qr1 + qr2, result of all
             return View(machineShopQry); 
 
         }
@@ -386,13 +440,13 @@ namespace MvcMovie.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Test() // Action result or different ?
-        {
-            dateTimeTest testModel = new dateTimeTest();
-            testModel.todayTest = DateTime.Now;
+        //public ActionResult Test() // Action result or different ?
+        //{
+        //    dateTimeTest testModel = new dateTimeTest();
+        //    testModel.todayTest = DateTime.Now;
 
-            return RedirectToAction("Index", testModel);
-        }
+        //    return RedirectToAction("Index", testModel);
+        //}
     }
 }
 
