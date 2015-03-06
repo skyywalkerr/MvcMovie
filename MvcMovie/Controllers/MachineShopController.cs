@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using MvcMovie.Models;
 using System.Linq.Expressions;
+using System.Web.UI.WebControls;
+using System.IO;
+using System.Web.UI;
 
 
 namespace MvcMovie.Controllers
@@ -438,6 +441,31 @@ namespace MvcMovie.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ExportData()
+        {   
+            GridView gv = new GridView();
+            gv.DataSource = db.MainTableObj.ToList(); // Movies - name of database
+            gv.DataBind();
+            Response.ClearContent();
+            Response.Buffer = true;
+            //Response.AddHeader("content-disposition", "attachment; filename=MachineShop.pdf");
+            //Response.ContentType = "application/pdf";
+
+            Response.AddHeader("content-disposition", "attachment; filename=Marklist.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+            gv.RenderControl(htw);
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+            return RedirectToAction("Index");
         }
 
         //public ActionResult Test() // Action result or different ?

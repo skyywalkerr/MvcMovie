@@ -382,6 +382,14 @@
                     </table>
                 </div>
 
+@using (Html.BeginForm("ExportData", "MachineShop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <table>
+        <tr><td></td><td><input type="submit" name="Export" id="Export" value="Export" /></td></tr>
+
+    </table>
+}
+
                 @*<table class="table">
                     <tr style="color:red">
                         <td></td>
