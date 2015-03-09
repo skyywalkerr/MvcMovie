@@ -45,14 +45,19 @@ namespace MvcMovie.Controllers
 
             //INCOMING DATA//
             //This view data sending results of action link from HOME view to Index view of MachineShop controller
-            ViewData["Department"] = Department;
-            ViewData["WorkCenter"] = WorkCenter;
+            //ViewData["Department"] = Department;
+            //ViewData["WorkCenter"] = WorkCenter;
             
             //TempData sending data between action methods of same controller
-            TempData["deptFromHome"] = Department;
-            TempData["workCentrFromHome"] = WorkCenter;
+            //TempData["deptFromHome"] = Department;
+            //TempData["workCentrFromHome"] = WorkCenter;
 
-            ViewBag.department = Department;
+            if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
+            {
+                Session["Department"] = Department;
+                Session["WorkCenter"] = WorkCenter;
+                //ViewBag.department = Department;
+            }
             //INCOMING DATA -end//
 
             #region Currently DISPLAYED
@@ -62,11 +67,14 @@ namespace MvcMovie.Controllers
             var machTxtQry = from m in db.Machines
                                    where m.Department == Department && m.WorkCenter == WorkCenter
                                    select m.Machine;
-            if((machTxtQry != null) && (Department !=null) && (WorkCenter !=null))
+            //if((machTxtQry != null) && (Department !=null) && (WorkCenter !=null))
+            if (((machTxtQry != null)) && (!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
             {
-                ViewBag.machineTxt = Convert.ToString(machTxtQry.First());
-                //mainTableObject.Machine = Convert.ToString(machTxtQry.First());
+                //ViewBag.machineTxt = Convert.ToString(machTxtQry.First());
+                Session["machineTxt"] = Convert.ToString(machTxtQry.First());
             }
+
+            
 
             //machLst.AddRange(machTxtQry.Distinct());
             //ViewBag.machineTxt = new SelectList(machLst);
@@ -358,11 +366,13 @@ namespace MvcMovie.Controllers
             //TempData["workCentrFromHome"] = WorkCenter;
 
             //Set Departmetn and WorkCenter values for results of choice from Home view, during creation those field will be filled out automatically
-            machineshoptable.Department = Department;
-            machineshoptable.WorkCenter = WorkCenter;
-            machineshoptable.Machine = Machine;
-            //machineshoptable.Machine = machineChoice;
+            //machineshoptable.Department = Department;
+            //machineshoptable.WorkCenter = WorkCenter;
+            //machineshoptable.Machine = Machine;
             
+            machineshoptable.Department = Session["Department"].ToString();
+            machineshoptable.WorkCenter = Session["WorkCenter"].ToString();
+            machineshoptable.Machine = Session["machineTxt"].ToString();
 
             if (ModelState.IsValid)
             {

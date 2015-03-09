@@ -4,8 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h3>@ViewData["Department"]</h3>
-<h4>Work Center: @ViewData["WorkCenter"]</h4>
+<h3>@Session["Department"]</h3>
+<h4>Work Center: @Session["WorkCenter"]</h4>
 
 @*<h2>Index</h2>*@
 
@@ -55,21 +55,23 @@
 
                                 <td>Department: </td>
 
-                                <td>@ViewData["Department"]</td>
+                                <td>@Session["Department"]</td>
+                                @*<td>@ViewData["Department"]</td>*@
                                 @*<td>@Html.DisplayFor(modelA => item.Department)</td>*@
                                 <td></td>
 
                             </tr>
                             <tr>
                                 <td>Work Center: </td>
-                                <td>@ViewData["WorkCenter"]</td>
+                                <td>@Session["WorkCenter"]</td>
+                                @*<td>@ViewData["WorkCenter"]</td>*@
                                 @*<td>@Html.DisplayFor(itemA => item.WorkCenter)</td>*@
                             </tr>
                             <tr>
                                 <td>Machine: </td>
                                 @*<td>@Html.DropDownList("machineTxt")</td>                               
                                 <td> text : @Html.DisplayName("machineTxt")</td>*@
-                                <td>@ViewBag.machineTxt</td>
+                                <td>@Session["machineTxt"]</td>
                               
                             </tr>
                             <tr>
@@ -113,39 +115,44 @@
 
                                             @*Title: @Html.TextBox("SearchString")
                                             <input type="submit" value="Search !" /> <br />*@
-
                                     <tr>
-                                        <td>Date Single :</td>
-                                        <td>
-                                            @*<input class="datefield" data-val="true" data-val-required="Date is required"
-                                                   id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />*@  
-
-                                            <input class="datefield" data-val="true" 
-                                                   id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />  
-
-                                            
-                                            @*TEST*@
-                                                    @*@Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })                                               
-                                                    @Html.EditorFor(model => model.Date)
-                                                    @Html.ValidationMessageFor(model => model.Date)*@
+                                        <td><label><input type="checkbox" name="singleDate" value="singleDate"> Choose single date.</label></td>
+                                        <td><label><input type="checkbox" name="dateSpan" value="dateSpan"> Choose date span.</label></td>
+                                    </tr>       
+                                                                             
+                                    <tr>
+                                            <td class="single box">Date Single :</td>
+                                            <td class="single box">
+                                                @*<input class="datefield" data-val="true" data-val-required="Date is required"
+            id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />*@
+                                                <input class="datefield" data-val="true"
+                                                       id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />
                                                 @*TEST*@
+                                                @*@Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.Date)
+            @Html.ValidationMessageFor(model => model.Date)*@
+                                                @*TEST*@
+                                                @*@Html.EditorFor(model => model.Date)*@
 
-
-
-                                            @*@Html.EditorFor(model => model.Date)*@
-
-                                        </td>
-
-                                        <td>Date Range :</td>
-                                        <td>
-                                            <input class="datefield" data-val="true"
-                                                   id="DateStart" name="DateStart" type="date" value="1/11/1989" />
-                                        </td>
-                                        <td>
-                                            <input class="datefield" data-val="true"
-                                                   id="DateEnd" name="DateEnd" type="date" value="1/11/1989" />
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        
+                                            <td class="dateSpan box">Date Range :</td>
+                                            <td class="dateSpan box">
+                                                <label>
+                                                    Start date: 
+                                                <input class="datefield" data-val="true"
+                                                       id="DateStart" name="DateStart" type="date" value="1/11/1989" />
+                                                </label>
+                                            @*</td>
+                                            <td class="dateSpan box">*@
+                                                <label>
+                                                    End date:
+                                                    <input class="datefield" data-val="true"
+                                                           id="DateEnd" name="DateEnd" type="date" value="1/11/1989" />
+                                                </label>
+                                            </td>                                      
+                                    </tr>                                   
+                                
                                     <tr>
                                         <td>Department :</td>
                                         <td>@Html.DropDownList("deptChoice","None.")                                 
@@ -159,10 +166,7 @@
                                         <td>Machine:</td>
                                         <td>@Html.DropDownList("machineChoice","None.")</td>
                                     </tr>
-                                    <tr>
-                                        <td>Show All Data :</td>
-                                        <td>@Html.CheckBox("checkBoxState")</td>
-                                    </tr>
+                                    
 
                                 </table>
                             
@@ -174,6 +178,7 @@
                                 <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Item No.</a></li>
                                 <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Operator and Item</a></li>
                                 <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Searcher</a></li>
+                                <li role="presentation"><a href="#alldata" aria-controls="alldata" role="tab" data-toggle="tab">All Data</a></li>
                             </ul>
 
                             <!-- Tab panes -->
@@ -217,7 +222,7 @@
                                     </table>
 
                                     <input type="submit" value="Search !" /> <br />
-                                </div>
+                                </div>                             
 
                                 <div role="tabpanel" class="tab-pane" id="settings">
 
@@ -229,6 +234,27 @@
                                             <td>@Html.TextBox("SearchString")</td>
 
                                         </tr>
+
+                                    </table>
+                                    <input type="submit" value="Search !" /> <br />
+                                </div>
+
+                                <div role="tabpanel" class="tab-pane" id="alldata">
+
+                                    <table cellpadding="10">
+                                        <tr>
+                                            <td>Show All Data :</td>
+                                            <td>@Html.CheckBox("checkBoxState")</td>
+
+                                        <td>
+                                            <font color="red">
+                                                CAUTION. This function will load all the data from database.   <br/>
+                                                Depend on the current size of database it can take some time.
+                                            </font>
+                                        </td>
+                                        </tr>
+
+                                        
 
                                     </table>
                                     <input type="submit" value="Search !" /> <br />
@@ -390,56 +416,68 @@
     </table>
 }
 
-                @*<table class="table">
-                    <tr style="color:red">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>@ViewBag.totalSumQty</td>
-                        <td>@ViewBag.totalSumHours</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>@ViewBag.totalSumSetup</td>
-                        <td>@ViewBag.totalSumCleaning</td>
-                        <td>@ViewBag.totalSumDown</td>
-                        <td></td>
-                        <td></td>
-                        <td>@ViewBag.totalSumOther</td>
-                    </tr>
-                </table>*@
+@*hide unhide*@
 
-@*<script>
+<style type="text/css">
+    .box {
+        /*padding: 20px;*/
+        display: none;
+        /*margin-top: 20px;
+        border: 1px solid #000;*/
+    }
+</style>
+
+<script type="text/javascript">
     $(document).ready(function () {
-        $("p").click(function () {
-            $(this).hide();
+        $('input[type="checkbox"]').click(function () {
+            if ($(this).attr("value") == "singleDate") {
+                $(".single").toggle();
+            }
+            if ($(this).attr("value") == "dateSpan") {
+                $(".dateSpan").toggle();                
+            }
         });
     });
 </script>
 
-<p>CLICK TO DISSAPPEAR - jQuery</p>
+@*hide unhide - END *@
 
-<button onclick="this.innerHTML=Date()">WHAT IME IT IS ? - JS</button>
 
-<script>
-    function loadXMLDoc() {
-        var xmlhttp;
-        if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        }
-        else {// code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function () {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
-            }
-        }
-        xmlhttp.open("GET", "ajax_info.txt", true);
-        xmlhttp.send();
+
+
+    @*<div id="remember" > <label for="remember" > CHECK ME</label > <input id="remember" name="remember" type="checkbox" onclick="validate()" / > </div > <script type="text/javascript" > function validate() {
+        if (document.getElementById('remember').checked);
+
+    {
+        alert("checked");
     }
-</script>
 
-<div id="myDiv"><h2>Let AJAX change this text</h2></div>
-<button type="button" onclick="loadXMLDoc()">Change Content</button>*@
+    }
+
+    </script >*@ @*<table class="table" > <tr style="color:red" > <td > </td > <td > </td > <td > </td > <td > </td > <td > @ViewBag.totalSumQty</td > <td > @ViewBag.totalSumHours</td > <td > </td > <td > </td > <td > </td > <td > @ViewBag.totalSumSetup</td > <td > @ViewBag.totalSumCleaning</td > <td > @ViewBag.totalSumDown</td > <td > </td > <td > </td > <td > @ViewBag.totalSumOther</td > </tr > </table > *@ @*<script > $(document).ready(function () {
+        $("p").click(function () {
+            $(this).hide();
+        });
+    }); </script > <p > CLICK TO DISSAPPEAR - jQuery</p > <button onclick="this.innerHTML=Date()" > WHAT IME IT IS ? - JS</button > <script > function loadXMLDoc() {
+        var xmlhttp;
+        if (window.XMLHttpRequest);
+
+    {
+        // code for IE7+, Firefox, Chrome, Opera, Safari xmlhttp = new XMLHttpRequest();
+    }
+
+    else {
+        // code for IE6, IE5 xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    xmlhttp.onreadystatechange = function () {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200);
+
+    {
+        document .getElementById("myDiv").innerHTML = xmlhttp.responseText;
+    }
+
+    }
+    xmlhttp.open("GET", "ajax_info.txt", true); xmlhttp.send();
+    }
+    </script > <div id="myDiv" > <h2 > Let AJAX change this text</h2 > </div > <button type="button" onclick="loadXMLDoc()" > Change Content</button > *@
