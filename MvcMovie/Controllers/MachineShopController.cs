@@ -24,15 +24,42 @@ namespace MvcMovie.Controllers
         public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
-
-            //MachineShopTable mainTableObject = new MachineShopTable(); moved to global
-            //OperatorsModel test = new OperatorsModel();
-            //test.Operator = "TEST";           
-            
-            //VERY MAIN QUERY 
             var machineShopQry = from m in db.MainTableObj
+                                 //where m.WorkCenter == WorkCenter && m.Department == Department
                                  //where m.Date == System.DateTime.Today
                                  select m;
+            
+            //MachineShopTable mainTableObject = new MachineShopTable(); moved to global
+            //OperatorsModel test = new OperatorsModel();
+            //test.Operator = "TEST";
+
+            if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
+            {
+                Session["Department"] = Department;
+                Session["WorkCenter"] = WorkCenter;
+                //ViewBag.department = Department;
+
+                //small little cheat for check functionality purposes
+                WorkCenter = Session["WorkCenter"].ToString();
+                Department = Session["Department"].ToString();
+
+                machineShopQry = from m in db.MainTableObj
+                                 where m.WorkCenter == WorkCenter && m.Department == Department
+                                 //where m.Date == System.DateTime.Today
+                                 select m;                
+            }
+            else
+            {
+                //small little cheat for check functionality purposes
+                WorkCenter = Session["WorkCenter"].ToString();
+                Department = Session["Department"].ToString();
+            }
+
+            
+            
+
+            //VERY MAIN QUERY 
+            
 
             // CALCULATE SUM variable
             ViewBag.totalSumQty = 0;
@@ -52,26 +79,28 @@ namespace MvcMovie.Controllers
             //TempData["deptFromHome"] = Department;
             //TempData["workCentrFromHome"] = WorkCenter;
 
-            if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
-            {
-                Session["Department"] = Department;
-                Session["WorkCenter"] = WorkCenter;
-                //ViewBag.department = Department;
-            }
+            
             //INCOMING DATA -end//
 
             #region Currently DISPLAYED
 
             //var machLst = new List<string>();
-
+            
+            //return a first and only position for machine name, depend on name of depratment and workcenter.
+            //just for display purposes
             var machTxtQry = from m in db.Machines
                                    where m.Department == Department && m.WorkCenter == WorkCenter
                                    select m.Machine;
+            
+            //string machineResult = Convert.ToString(machTxtQry.First());
             //if((machTxtQry != null) && (Department !=null) && (WorkCenter !=null))
-            if (((machTxtQry != null)) && (!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
+            if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
             {
-                //ViewBag.machineTxt = Convert.ToString(machTxtQry.First());
-                Session["machineTxt"] = Convert.ToString(machTxtQry.First());
+                if (machTxtQry.Any())
+                { 
+                    //ViewBag.machineTxt = Convert.ToString(machTxtQry.First());
+                    Session["machineTxt"] = Convert.ToString(machTxtQry.First());
+                }
             }
 
             
@@ -280,17 +309,30 @@ namespace MvcMovie.Controllers
             //Department filter
             if (!String.IsNullOrEmpty(deptChoice))
             {
+                //machineShopQry = from m in db.MainTableObj
+                //                     where m.Department == Department
+                //                     //where m.Date == System.DateTime.Today
+                //                     select m;
+
                 machineShopQry = machineShopQry.Where(s => s.Department.Equals(deptChoice));
+                Session["Department"] = deptChoice;
             }
             //Work center filter
             if (!String.IsNullOrEmpty(wcChoice))
             {
+                 //machineShopQry = from m in db.MainTableObj
+                 //                    where m.WorkCenter == WorkCenter
+                 //                    //where m.Date == System.DateTime.Today
+                 //                    select m;
+
                 machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wcChoice));
+                Session["WorkCenter"] = wcChoice;
             }
             //Machine filter
             if (!String.IsNullOrEmpty(machineChoice))
             {
                 machineShopQry = machineShopQry.Where(s => s.Machine.Equals(machineChoice));
+                Session["machineTxt"] = machineChoice;
             }
             //Operator filter
             if (!String.IsNullOrEmpty(operatorChoice))
