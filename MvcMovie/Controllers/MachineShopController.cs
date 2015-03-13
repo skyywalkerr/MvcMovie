@@ -520,6 +520,20 @@ namespace MvcMovie.Controllers
             return RedirectToAction("Index");
         }
 
+        public JsonResult WorkCenterList(string Departments)
+        {
+            
+            var wcLst = new List<string>();
+            var wcQuery = from c in db.Machines
+                          //where c.Department == deptChoice
+                          where c.Department == Departments
+                          select c.WorkCenter;
+            wcLst.AddRange(wcQuery.Distinct());
+            ViewBag.wcChoice = new SelectList(wcLst);
+
+            return Json(wcLst);
+        }
+
         //public ActionResult Test() // Action result or different ?
         //{
         //    dateTimeTest testModel = new dateTimeTest();

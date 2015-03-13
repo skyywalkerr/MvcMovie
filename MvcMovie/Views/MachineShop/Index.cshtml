@@ -155,12 +155,32 @@
                                 
                                     <tr>
                                         <td>Department :</td>
-                                        <td>@Html.DropDownList("deptChoice","None.")                                 
+                                        <td id="jsDeptList" onchange="func1()">
+                                            @Html.DropDownList("deptChoice", "None.")
+
+                                            @*-----------------------------------*@
+                                            <div class="form-group">
+                                                @Html.Label("Select Country:", new { @class = "col-md-2 control-label" })
+                                                <div class="col-md-10">
+                                                    @Html.DropDownList("Departments", ViewBag.deptChoice as SelectList, new { @class = "form-control" })    @* Departments = single string of selected item to return when selected from list*@
+                                                </div>
+                                            </div><br />
+
+                                            <div class="form-group">
+                                                @Html.Label("Select Work Center:", new { @class = "col-md-2 control-label" })
+                                                <div class="col-md-10">
+                                                    <select id="WorkCenter"></select>
+                                                </div>
+                                            </div>
+                                            @*-----------------------------------*@
+
+                                            @*<%= Html.DropDownList("country", ViewData["countries"] as SelectList)%>*@
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Work Center :</td>
-                                        <td>@Html.DropDownList("wcChoice","None.")</td>
+                                        <td id="jsWcList">@Html.DropDownList("wcChoice","None.")</td>
                                     </tr>
                                     <tr>
                                         <td>Machine:</td>
@@ -439,6 +459,73 @@
         });
     });
 </script>
+
+<script>
+
+    $(document).ready(function(){
+        $("#deptChoice").change(function () {
+            var x = $("#deptChoice option:selected").text();
+            alert("Value:" + x); });
+        
+        //var y = "Department 1010";
+        //if (x==y) {
+        $("#wcChoice").append("<option value='01-01'>01-01</option>    <option value='01-02'>01-02</option>");
+            //jsWcList.innerHTML = "<select> <option value='01-01'>01-01</option>    <option value='01-02'>01-02</option> <option value='mercedes'>Mercedes</option> <option value='audi'>Audi</option> </select>";
+        //};
+            
+    });   
+
+    function func1(){
+        //this.alert("CHANGED");        
+        
+        //var x = document.getElementById("jsDeptList").childNodes[0].nodeValue;//.nodeValue;
+        //this.alert(x);           //test if value have been GET
+        //if ( x == "Department 1010") {
+        //    jsWcList.innerHTML = "<select> <option value='01-01'>01-01</option>    <option value='01-02'>01-02</option> <option value='mercedes'>Mercedes</option> <option value='audi'>Audi</option> </select>";
+        }
+     
+        //switch(jsDeptList.valueOf)
+        //{
+        //    case "Department 1010" :
+        //        jsWcList.innerHTML = "<select> <option value='01-01'>01-01</option>    <option value='01-02'>01-02</option> </select>";
+        //        break;
+
+        //    case "Department 1020":
+        //        jsWcList.innerHTML = "<select> <option value='03-01'>01-01</option>    <option value='03-02'>01-02</option></select>";
+        //        break;
+        //}
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#WorkCenter").prop("disabled", true);
+        $("#Departments").change(function () {
+            if ($("#Departments").val() != "") {
+                var DepartmentOptions = {};
+                DepartmentOptions.url = "/MachineShop/WorkCenterList";
+                DepartmentOptions.type = "POST";
+                DepartmentOptions.data = JSON.stringify({ Departments: $("#Departments").val() });
+                DepartmentOptions.datatype = "json";
+                DepartmentOptions.contentType = "application/json";
+                DepartmentOptions.success = function (wcLst) {
+                    $("#WorkCenter").empty();
+                    for (var i = 0; i < wcLst.length; i++) {
+                        $("#WorkCenter").append("<option>" + wcLst[i] + "</option>");
+                    }
+                    $("#WorkCenter").prop("disabled", false);
+                };
+                DepartmentOptions.error = function () { alert("Error in Getting Departments!!"); };
+                $.ajax(DepartmentOptions);
+                }
+            else {
+                $("#WorkCenter").empty();
+                $("#WorkCenter").prop("disabled", true);
+            }
+        });
+    });
+</script>
+
 
 @*hide unhide - END *@
 
