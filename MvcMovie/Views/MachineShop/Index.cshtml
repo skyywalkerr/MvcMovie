@@ -154,37 +154,58 @@
                                     </tr>                                   
                                 
                                     <tr>
-                                        <td>Department :</td>
+                                        
+                                        @*<td>Department :</td>
                                         <td id="jsDeptList" onchange="func1()">
-                                            @Html.DropDownList("deptChoice", "None.")
+                                            @Html.DropDownList("deptChoice", "None.")*@
 
                                             @*-----------------------------------*@
-                                            <div class="form-group">
-                                                @Html.Label("Select Country:", new { @class = "col-md-2 control-label" })
-                                                <div class="col-md-10">
-                                                    @Html.DropDownList("Departments", ViewBag.deptChoice as SelectList, new { @class = "form-control" })    @* Departments = single string of selected item to return when selected from list*@
-                                                </div>
-                                            </div><br />
+                                            @*<div class="form-group">*@
+                                                <td>
+                                                    @*@Html.Label("Select Country:", new { @class = "col-md-2 control-label" })*@
+                                                    @Html.Label("Select Country:")
+                                                </td>
+                                                <td>
+                                                    @*<div class="col-md-10">*@
 
-                                            <div class="form-group">
-                                                @Html.Label("Select Work Center:", new { @class = "col-md-2 control-label" })
-                                                <div class="col-md-10">
-                                                    <select id="WorkCenter"></select>
-                                                </div>
-                                            </div>
+                                                        @Html.DropDownList("Departments", ViewBag.deptChoice as SelectList, new { @class = "form-control" })    
+                                                        @* Departments = single string of selected item to return when selected from list*@
+
+                                                    @*</div>*@
+                                                </td>
+                                            @*</div>*@               
                                             @*-----------------------------------*@
 
                                             @*<%= Html.DropDownList("country", ViewData["countries"] as SelectList)%>*@
 
-                                        </td>
                                     </tr>
                                     <tr>
-                                        <td>Work Center :</td>
-                                        <td id="jsWcList">@Html.DropDownList("wcChoice","None.")</td>
+                                        @*<div class="form-group">*@
+                                            <td>
+                                                @Html.Label("Work Center:")
+                                            </td>
+                                            @*<div class="col-md-10">*@
+                                                <td>
+                                                    <select id="jsWorkCenter" class="form-control"></select>
+                                                </td>
+                                            @*</div>
+                                        </div>*@
+                                        @*<td>Work Center :</td>
+                                        <td id="jsWcList">@Html.DropDownList("wcChoice","None.")</td>*@
                                     </tr>
                                     <tr>
-                                        <td>Machine:</td>
-                                        <td>@Html.DropDownList("machineChoice","None.")</td>
+                                        @*<div class="form-group">*@
+                                            <td>
+                                                @Html.Label("Machine :")
+                                            </td>
+                                            @*<div class="col-md-10">*@
+                                                <td>
+                                                    <select id="Machine" class="form-control"></select>
+                                                </td>
+                                            @*</div>
+                                        </div>*@
+                                        @*<td>Machine:</td>
+                                        <td>@Html.DropDownList("machineChoice","None.")</td>*@
                                     </tr>
                                     
 
@@ -208,7 +229,11 @@
                                     <table cellpadding="10">
                                         <tr>
                                             <td>Operator: </td>
-                                            <td>@Html.DropDownList("operatorChoice","None.")</td>
+                                            <td>
+                                            
+                                                @Html.DropDownList("operatorChoice", null,"None.", new { @class = "form-control" })
+                                            
+                                            </td>
                                         </tr>
 
                                     </table>
@@ -223,7 +248,7 @@
 
                                         <tr>
                                             <td>Item No.: </td>
-                                            <td>@Html.DropDownList("partChoice","None.")</td>
+                                            <td>@Html.DropDownList("partChoice",null, "None.", new { @class = "form-control" })</td>
                                         </tr>
 
                                     </table>
@@ -234,9 +259,9 @@
                                     <table cellpadding="10">
                                         <tr>
                                             <td>Operator: </td>
-                                            <td>@Html.DropDownList("operatorChoice2","None.")</td>
+                                            <td>@Html.DropDownList("operatorChoice2", null, "None.", new { @class = "form-control" })</td>
                                             <td>Item No.: </td>
-                                            <td>@Html.DropDownList("partChoice2", "None.")</td>
+                                            <td>@Html.DropDownList("partChoice2", null, "None.", new { @class = "form-control" })</td>
                                         </tr>
 
                                     </table>
@@ -249,7 +274,7 @@
                                     <table cellpadding="10">
                                         <tr>
                                             <td>Column selection : </td>
-                                            <td>@Html.DropDownList("colList", "Make your choice...")</td>
+                                            <td>@Html.DropDownList("colList", null, "Make your choice...", new { @class = "form-control" })</td>
                                             <td>Word or phrase: </td>
                                             <td>@Html.TextBox("SearchString")</td>
 
@@ -496,35 +521,65 @@
         //}
 
 </script>
-
+    
 <script>
     $(document).ready(function () {
-        $("#WorkCenter").prop("disabled", true);
+        $("#jsWorkCenter").prop("disabled", true);
         $("#Departments").change(function () {
             if ($("#Departments").val() != "") {
                 var DepartmentOptions = {};
-                DepartmentOptions.url = "/MachineShop/WorkCenterList";
+                DepartmentOptions.url = "/MachineShop/WorkCenterList";    //  URL FOR AJAX ACTION, AJAX WILL PICKUP SINGLE ACTION METHOD FROM CONTROLLER :)
                 DepartmentOptions.type = "POST";
-                DepartmentOptions.data = JSON.stringify({ Departments: $("#Departments").val() });
+                DepartmentOptions.data = JSON.stringify({ Departments: $("#Departments").val() }); // this line is translating value of class element to string which is gonna be send as a result of 
                 DepartmentOptions.datatype = "json";
                 DepartmentOptions.contentType = "application/json";
                 DepartmentOptions.success = function (wcLst) {
-                    $("#WorkCenter").empty();
+                    $("#jsWorkCenter").empty();
                     for (var i = 0; i < wcLst.length; i++) {
-                        $("#WorkCenter").append("<option>" + wcLst[i] + "</option>");
+                        $("#jsWorkCenter").append("<option>" + wcLst[i] + "</option>");
                     }
-                    $("#WorkCenter").prop("disabled", false);
+                    $("#jsWorkCenter").prop("disabled", false);
                 };
                 DepartmentOptions.error = function () { alert("Error in Getting Departments!!"); };
                 $.ajax(DepartmentOptions);
                 }
             else {
-                $("#WorkCenter").empty();
-                $("#WorkCenter").prop("disabled", true);
+                $("#jsWorkCenter").empty();
+                $("#jsWorkCenter").prop("disabled", true);
             }
         });
     });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $("#Machine").prop("disabled", true);
+        $("#jsWorkCenter").change(function () {
+            if ($("#jsWorkCenter").val() != "") {
+                var WorkCenterOptions = {};
+                WorkCenterOptions.url = "/MachineShop/MachineList";    //  URL FOR AJAX ACTION, AJAX WILL PICKUP SINGLE ACTION METHOD FROM CONTROLLER :)
+                WorkCenterOptions.type = "POST";
+                WorkCenterOptions.data = JSON.stringify({ jsWorkCenter: $("#jsWorkCenter").val() });
+                WorkCenterOptions.datatype = "json";
+                WorkCenterOptions.contentType = "application/json";
+                WorkCenterOptions.success = function (machineLst) {
+                    $("#Machine").empty();
+                    for (var i = 0; i < machineLst.length; i++) {
+                        $("#Machine").append("<option>" + machineLst[i] + "</option>");
+                    }
+                    $("#Machine").prop("disabled", false);
+                };
+                WorkCenterOptions.error = function () { alert("Error in Getting Machine!!"); };
+                $.ajax(WorkCenterOptions);
+            }
+            else {
+                $("#Machine").empty();
+                $("#Machine").prop("disabled", true);
+            }
+        });
+    });
+</script>
+                              
 
 
 @*hide unhide - END *@

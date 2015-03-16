@@ -21,9 +21,18 @@ namespace MvcMovie.Controllers
         //MachineShopTable mainTableObject = new MachineShopTable();
 
         // GET: /MachineShop/
-        public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
+        public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+            if (String.IsNullOrEmpty(Department))            
+            {
+                Department = Departments;
+            }
+            
+            //deptChoice = Departments;
+            //wcChoice = Session["WorkCenter"].ToString();
+            //machineChoice = Session["machineTxt"].ToString();
+
             var machineShopQry = from m in db.MainTableObj
                                  //where m.WorkCenter == WorkCenter && m.Department == Department
                                  //where m.Date == System.DateTime.Today
@@ -307,33 +316,60 @@ namespace MvcMovie.Controllers
             }
 
             //Department filter
-            if (!String.IsNullOrEmpty(deptChoice))
+            //////if (!String.IsNullOrEmpty(deptChoice))
+            //////{
+            //////    //machineShopQry = from m in db.MainTableObj
+            //////    //                     where m.Department == Department
+            //////    //                     //where m.Date == System.DateTime.Today
+            //////    //                     select m;
+
+            //////    machineShopQry = machineShopQry.Where(s => s.Department.Equals(deptChoice));
+            //////    Session["Department"] = deptChoice;
+            //////}
+
+            if (Session["Department"] != null)
+            {
+                string dept = Session["Department"].ToString();
+                machineShopQry = machineShopQry.Where(s => s.Department.Equals(dept));
+            }
+
+            //Work center filter
+            //////if (!String.IsNullOrEmpty(wcChoice))
+            //////{
+            //////     //machineShopQry = from m in db.MainTableObj
+            //////     //                    where m.WorkCenter == WorkCenter
+            //////     //                    //where m.Date == System.DateTime.Today
+            //////     //                    select m;
+
+            //////    machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wcChoice));
+            //////    Session["WorkCenter"] = wcChoice;
+            //////}    
+
+            if (Session["WorkCenter"]!= null)
             {
                 //machineShopQry = from m in db.MainTableObj
-                //                     where m.Department == Department
-                //                     //where m.Date == System.DateTime.Today
-                //                     select m;
-
-                machineShopQry = machineShopQry.Where(s => s.Department.Equals(deptChoice));
-                Session["Department"] = deptChoice;
+                //                    where m.WorkCenter == WorkCenter
+                //                    //where m.Date == System.DateTime.Today
+                //                    select m;
+                string wc = Session["WorkCenter"].ToString();
+                machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wc));
             }
-            //Work center filter
-            if (!String.IsNullOrEmpty(wcChoice))
-            {
-                 //machineShopQry = from m in db.MainTableObj
-                 //                    where m.WorkCenter == WorkCenter
-                 //                    //where m.Date == System.DateTime.Today
-                 //                    select m;
 
-                machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wcChoice));
-                Session["WorkCenter"] = wcChoice;
-            }
+
+
             //Machine filter
-            if (!String.IsNullOrEmpty(machineChoice))
+            //////if (!String.IsNullOrEmpty(machineChoice))
+            //////{
+            //////    machineShopQry = machineShopQry.Where(s => s.Machine.Equals(machineChoice));
+            //////    Session["machineTxt"] = machineChoice;
+            //////}
+
+            if (Session["machineTxt"]!= null)
             {
-                machineShopQry = machineShopQry.Where(s => s.Machine.Equals(machineChoice));
-                Session["machineTxt"] = machineChoice;
+                string mach = Session["machineTxt"].ToString();
+                machineShopQry = machineShopQry.Where(s => s.Machine.Equals(mach));
             }
+
             //Operator filter
             if (!String.IsNullOrEmpty(operatorChoice))
             {
@@ -523,15 +559,31 @@ namespace MvcMovie.Controllers
         public JsonResult WorkCenterList(string Departments)
         {
             
-            var wcLst = new List<string>();
+            var wcLst = new List<string>();            
             var wcQuery = from c in db.Machines
                           //where c.Department == deptChoice
                           where c.Department == Departments
                           select c.WorkCenter;
-            wcLst.AddRange(wcQuery.Distinct());
-            ViewBag.wcChoice = new SelectList(wcLst);
-
+            wcLst.AddRange(wcQuery.Distinct());            
+            //ViewBag.wcChoice = new SelectList(wcLst);            
+            Session["Department"] = Departments;
             return Json(wcLst);
+            
+        }
+
+        public JsonResult MachineList(string jsWorkCenter)
+        {
+            var machineLst = new List<string>();
+            var machineQuery = from a in db.Machines
+                               where a.WorkCenter == jsWorkCenter
+                               select a.Machine;
+            machineLst.AddRange(machineQuery.Distinct());
+            //ViewBag.machineChoice = new SelectList(machineLst);
+
+            Session["WorkCenter"] = jsWorkCenter;
+            Session["machineTxt"] = machineLst.First();
+
+            return Json(machineLst);
         }
 
         //public ActionResult Test() // Action result or different ?
