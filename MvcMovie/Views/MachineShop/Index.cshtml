@@ -11,12 +11,12 @@
 
 <p> 
     @*This one will send Department and WorkCenter values from machineShop controller Index method to Create action method*@ 
-    @Html.ActionLink("Create New",
+    @*@Html.ActionLink("Create New",
                              "Create", new { Department = @ViewData["Department"], WorkCenter = @ViewData["WorkCenter"], Machine = ViewBag.machineTxt },
                                              htmlAttributes: new { @class = "btn btn-primary" }  
                                              
                                                //"Create", new { Department = @ViewData["Department"] -- sending var Department, which gonna be catched as a string in Create method of MachineShopController
-    )
+    )*@
 
     <a href="@Url.Action("Create", "MachineShop", new { Department = @ViewData["Department"], WorkCenter = @ViewData["WorkCenter"] })" class="btn btn-primary"><span class="glyphicon glyphicon-plus-sign"></span> Create New</a>
 </p>
@@ -168,7 +168,7 @@
                                                 <td>
                                                     @*<div class="col-md-10">*@
 
-                                                        @Html.DropDownList("Departments", ViewBag.deptChoice as SelectList, new { @class = "form-control" })    
+                                                        @Html.DropDownList("Departments", ViewBag.deptChoice as SelectList,"None.", new { @class = "form-control" })    
                                                         @* Departments = single string of selected item to return when selected from list*@
 
                                                     @*</div>*@
@@ -186,7 +186,9 @@
                                             </td>
                                             @*<div class="col-md-10">*@
                                                 <td>
-                                                    <select id="jsWorkCenter" class="form-control"></select>
+                                                    <select id="jsWorkCenter" class="form-control">
+                                                        
+                                                    </select>
                                                 </td>
                                             @*</div>
                                         </div>*@
@@ -200,7 +202,9 @@
                                             </td>
                                             @*<div class="col-md-10">*@
                                                 <td>
-                                                    <select id="Machine" class="form-control"></select>
+                                                    <select id="Machine" class="form-control">
+                                                        <option value="None" selected>None.</option>
+                                                    </select>
                                                 </td>
                                             @*</div>
                                         </div>*@
@@ -276,7 +280,7 @@
                                             <td>Column selection : </td>
                                             <td>@Html.DropDownList("colList", null, "Make your choice...", new { @class = "form-control" })</td>
                                             <td>Word or phrase: </td>
-                                            <td>@Html.TextBox("SearchString")</td>
+                                            <td>@Html.TextBox("SearchString", null, new { @class = "form-control" })</td>
 
                                         </tr>
 
@@ -536,9 +540,11 @@
                 DepartmentOptions.success = function (wcLst) {
                     $("#jsWorkCenter").empty();
                     for (var i = 0; i < wcLst.length; i++) {
-                        $("#jsWorkCenter").append("<option>" + wcLst[i] + "</option>");
+                        $("#jsWorkCenter").append("<option>" + wcLst[i] + "</option>");      
                     }
+                    $("#jsWorkCenter").append("<option selected>None.</option>");  //default option
                     $("#jsWorkCenter").prop("disabled", false);
+                    $('select option[value="1"]').attr("selected", true);//
                 };
                 DepartmentOptions.error = function () { alert("Error in Getting Departments!!"); };
                 $.ajax(DepartmentOptions);
@@ -568,6 +574,7 @@
                         $("#Machine").append("<option>" + machineLst[i] + "</option>");
                     }
                     $("#Machine").prop("disabled", false);
+                    $('select option[value="1"]').attr("selected", true);//
                 };
                 WorkCenterOptions.error = function () { alert("Error in Getting Machine!!"); };
                 $.ajax(WorkCenterOptions);

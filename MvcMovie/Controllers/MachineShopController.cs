@@ -287,9 +287,15 @@ namespace MvcMovie.Controllers
             {
                 //SingleDate=;
                 //ReleaseDate="";
-                deptChoice = "";
-                wcChoice = "";
-                machineChoice = "";
+
+                ////deptChoice = "";
+                ////wcChoice = "";
+                ////machineChoice = "";
+
+                Session["Department"] = null;
+                Session["WorkCenter"] = null;
+                Session["machineTxt"] = null;
+
                 searchString = "";
                 machineShopQry = from m in db.MainTableObj
                                      select m;
@@ -483,8 +489,13 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken,Authorize(Roles="admin,moderator")]
-        public ActionResult Edit([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
+        public ActionResult Edit([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,WorkCenter,Machine,Department")] MachineShopTable machineshoptable)
         {
+
+            machineshoptable.Department = Session["Department"].ToString();
+            machineshoptable.WorkCenter = Session["WorkCenter"].ToString();
+            machineshoptable.Machine = Session["machineTxt"].ToString();
+
             if (ModelState.IsValid)
             {
                 db.Entry(machineshoptable).State = EntityState.Modified;
