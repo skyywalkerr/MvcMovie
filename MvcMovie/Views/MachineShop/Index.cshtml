@@ -55,7 +55,7 @@
 
                                 <td>Department: </td>
 
-                                <td>@Session["Department"]</td>
+                                <td id="jsDepartment">@Session["Department"]</td>
                                 @*<td>@ViewData["Department"]</td>*@
                                 @*<td>@Html.DisplayFor(modelA => item.Department)</td>*@
                                 <td></td>
@@ -63,7 +63,7 @@
                             </tr>
                             <tr>
                                 <td>Work Center: </td>
-                                <td>@Session["WorkCenter"]</td>
+                                <td id="jsWorkCenter">@Session["WorkCenter"]</td>
                                 @*<td>@ViewData["WorkCenter"]</td>*@
                                 @*<td>@Html.DisplayFor(itemA => item.WorkCenter)</td>*@
                             </tr>
@@ -71,7 +71,7 @@
                                 <td>Machine: </td>
                                 @*<td>@Html.DropDownList("machineTxt")</td>                               
                                 <td> text : @Html.DisplayName("machineTxt")</td>*@
-                                <td>@Session["machineTxt"]</td>
+                                <td id="jsMachine">@Session["machineTxt"]</td>
                               
                             </tr>
                             <tr>
@@ -323,7 +323,7 @@
                 <br />
 
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover table-condensed">
+                    <table class="table table-striped table-bordered table-hover table-condensed" id="testTable">
                         <tr>
                             <th>
                                 @Html.DisplayNameFor(model => model.Date)
@@ -428,7 +428,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Comments)
                                 </td>
-                                <td>
+                                <td id="editsTable">
                                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                                     @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
@@ -441,15 +441,15 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>@ViewBag.totalSumQty</td>
-                            <td>@ViewBag.totalSumHours</td>
+                            <td id="totalSumQty">@ViewBag.totalSumQty</td>
+                            <td id="totalSumHours">@ViewBag.totalSumHours</td>
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td>@ViewBag.totalSumSetup</td>
-                            <td>@ViewBag.totalSumCleaning</td>
-                            <td>@ViewBag.totalSumDown</td>
-                            <td>@ViewBag.totalSumOther</td>
+                            <td id="totalSumSetup">@ViewBag.totalSumSetup</td>
+                            <td id="totalSumCleaning">@ViewBag.totalSumCleaning</td>
+                            <td id="totalSumDown">@ViewBag.totalSumDown</td>
+                            <td id="totalSumOther">@ViewBag.totalSumOther</td>
                             <td></td>
                             <td></td>
                         </tr>
@@ -457,13 +457,240 @@
                     </table>
                 </div>
 
+@*<button id="testPrint">Print Report</button>*@
+
+<button id="testPrint4">Print Report</button>
+@*<button class="print">EXPORT JS 2 </button>*@
+
+@*@Html.ActionLink("print pdf","PrintInvoice")
+@Html.ActionLink("print pdf", "PrintInvoice")*@
+
+@*<button id="testPrint">Print Report</button>*@
+
 @using (Html.BeginForm("ExportData", "MachineShop", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <table>
-        <tr><td></td><td><input type="submit" name="Export" id="Export" value="Export" /></td></tr>
+    @*<table>
+        <tr><td></td><td>*@
+            
+    
+            <input type="submit" name="Export" id="Export" value="Export ot Excel" />
+            
+            @*</td></tr>
 
-    </table>
+    </table>*@
 }
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../jQuery.print.js"></script> 
+
+<script>        
+        $("#printable").find('.print').on('click', function() {
+
+            $("#printable").print({
+
+                // Use Global styles
+                globalStyles : false, 
+
+                // Add link with attrbute media=print
+                mediaPrint : false, 
+
+                //Custom stylesheet
+                stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata", 
+
+                //Print in a hidden iframe
+                iframe : false, 
+
+                // Don't print this
+                noPrintSelector : ".avoid-this",
+
+                // Add this on top
+                append : "Free jQuery Plugins<br/>", 
+
+                // Add this at bottom
+                prepend : "<br/>jQueryScript.net",
+
+                // Manually add form values
+                manuallyCopyFormValues: true,
+
+                // resolves after print and restructure the code for better maintainability
+                deferred: $.Deferred()
+
+            });
+        });    
+</script>
+@*//// EXCEL EXPORT FUNCTION*@
+<script>
+        $("#testPrint").click(function () {
+            //$("#editsTable").hide();
+            $("#editsTable").prop("disabled", true);
+       
+            var divToPrint = document.getElementById('testTable');
+            
+            var jsDepartment = document.getElementById('jsDepartment');
+            var jsWorkCenter = document.getElementById('jsWorkCenter');
+            var jsMachine = document.getElementById('jsMachine');            
+
+        newWin = window.open("");
+        var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop Database.</title></head>";
+        var endDoc = "</body></html>";
+        //var tableConfig = "";
+        newWin.document.write(topDoc, "<body>");
+        newWin.document.write("<h1>Machine Shop report.</h1>");
+        newWin.document.write("<h3>Raport details.</h3>");
+        newWin.document.write("<h4>Department : " + jsDepartment.outerHTML + "</h4>");
+        newWin.document.write("<h4>Work Center : " + jsWorkCenter.outerHTML + "</h4>");
+        newWin.document.write("<h4>Machine : " + jsMachine.outerHTML+"</h4>");
+        //self.focus();
+        //newWin.document.open("");
+        //newWin.document.write('');
+            //newWin.document.write("<table class=\"table table-striped table-bordered table-hover table-condensed\">");
+
+            //newWin.document.write("<table border=\"1\"");
+        newWin.document.write("<table style=\" background-color: #fff ; border: 1px solid #ddd \"");
+
+        newWin.document.write(divToPrint.outerHTML);
+        //newWin.document.write();
+        //$('#testTable')[0].outerHtml;
+        //$('testTable')[0].outerHtml;
+
+        //getElementChildrenAndStyles("#testTable");
+        newWin.document.write("</table>");
+        //newWin.document.write('');
+        newWin.document.write(endDoc);
+        newWin.document.close('');
+        newWin.print();
+        newWin.close();
+        $("#editsTable").prop("disabled", false);
+    });
+            // PERFECTLY WOKRING EXAMPLE
+            //$("#testPrint4").click(function () {
+            //    var divToPrint = document.getElementById('testTable');
+            //    var htmlToPrint = '' +
+            //        '<style type="text/css">' +
+            //        'table th, table td {' +
+            //        'border:1px solid #000;' +
+            //        'padding;0.5em;' +
+            //        '}' +
+            //        '</style>';
+            //    htmlToPrint += divToPrint.outerHTML;
+            //    newWin = window.open("");
+            //    newWin.document.write(htmlToPrint);
+            //    newWin.print();
+            //    newWin.close();
+            
+    //});
+
+        $("#testPrint4").click(function () {
+
+            var jsDepartment = document.getElementById('jsDepartment');
+            var jsWorkCenter = document.getElementById('jsWorkCenter');
+            var jsMachine = document.getElementById('jsMachine');
+
+            var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop production Report.</title></head>";
+            var endDoc = "</body></html>";
+
+            var divToPrint = document.getElementById('testTable');
+            var cssObject = '' +
+        '<style type="text/css">' +
+        'body {' +
+        'font-family: Helvetica;' +
+        'font-size: 10px;'+
+        '}' +
+        'table th {' +
+        'background-color: light-blue;' +
+        '}'+
+        'table th, table td {' +
+        'padding: 5px 5px 5px;' +
+        'font-family: Helvetica;' +
+        'font-size: 10px;'+
+        'text-align: center;' +
+        'border-top: 1px solid #e0e0e0;' +
+        'border-right: 1px solid #e0e0e0;' +
+        'border-left: 1px solid #e0e0e0;' +
+        'border-bottom: 1px solid #e0e0e0;' +
+        '}' +
+
+        '</style>';
+
+            //htmlToPrint += divToPrint.outerHTML;
+            newWin = window.open("");
+
+            newWin.document.write(topDoc, "<body>");
+            newWin.document.write(cssObject);
+            newWin.document.write("<h4>Machine Shop report.</h4>");            
+            newWin.document.write("<h5>Department : " + jsDepartment.outerHTML + "</h5>");
+            newWin.document.write("<h5>Work Center : " + jsWorkCenter.outerHTML + "</h5>");
+            newWin.document.write("<h5>Machine : " + jsMachine.outerHTML + "</h5>");
+
+            newWin.document.write(divToPrint.outerHTML);
+
+            newWin.document.write(endDoc);
+
+            newWin.print();
+            newWin.close();
+
+        });
+
+    function getElementChildrenAndStyles(selector) {
+        var html = $(selector).outerHTML();
+
+        selector = selector.split(",").map(function (subselector) {
+            return subselector + "," + subselector + " *";
+        }).join(",");
+        elts = $(selector);
+
+        var rulesUsed = [];
+        // main part: walking through all declared style rules
+        // and checking, whether it is applied to some element
+        sheets = document.styleSheets;
+        for (var c = 0; c < sheets.length; c++) {
+            var rules = sheets[c].rules || sheets[c].cssRules;
+            for (var r = 0; r < rules.length; r++) {
+                var selectorText = rules[r].selectorText;
+                var matchedElts = $(selectorText);
+                for (var i = 0; i < elts.length; i++) {
+                    if (matchedElts.index(elts[i]) != -1) {
+                        rulesUsed.push(rules[r]); break;
+                    }
+                }
+            }
+        }
+        var style = rulesUsed.map(function (cssRule) {
+            if ($.browser.msie) {
+                var cssText = cssRule.style.cssText.toLowerCase();
+            } else {
+                var cssText = cssRule.cssText;
+            }
+            // some beautifying of css
+            return cssText.replace(/(\{|;)\s+/g, "\$1\n  ").replace(/\A\s+}/, "}");
+            //                 set indent for css here ^ 
+        }).join("\n");
+        return "<style>\n" + style + "\n</style>\n\n" + html;
+    }
+</script>
+
+
+
+@*<script>
+    $("#testPrint").click(function () {
+        var str = "";
+        $('tr').each(function () {
+
+            $(this).find('td').each(function () {
+
+                str = str + $(this).html() + "\t";
+            });
+
+            str = str + "\n";
+
+        });
+
+        alert(str);
+
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(str));
+    });
+</script>*@
+@*//// EXCEL EXPORT FUNCTION*@
 
 @*hide unhide*@
 

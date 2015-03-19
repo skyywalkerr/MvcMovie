@@ -7,6 +7,7 @@
 }
 
 <h2>Index</h2>
+@*<h1>RESULT OF TEST : @ViewBag.sessionTest</h1>*@
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -23,7 +24,7 @@
               IEnumerable<SelectListItem > in the  ViewBag. The ViewBag was  populated in the action  method:
             *@
 
-            Title: @Html.TextBox("SearchString")
+            Title: @Html.TextBox("SearchString")            
             <input type="submit" value="Search !" /> <br/>
         </p>
     }

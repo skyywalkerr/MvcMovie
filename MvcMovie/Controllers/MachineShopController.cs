@@ -11,6 +11,12 @@ using System.Linq.Expressions;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Web.UI;
+using System.Xml.Linq;
+using Rotativa;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
+
 
 
 namespace MvcMovie.Controllers
@@ -24,6 +30,10 @@ namespace MvcMovie.Controllers
         public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+            //send session var between controllers - test
+            //Session["test1"] = "TEST";
+
+
             if (String.IsNullOrEmpty(Department))            
             {
                 Department = Departments;
@@ -398,6 +408,19 @@ namespace MvcMovie.Controllers
             //Operator and Parts filter - end
 
             //machineShopQry - model object which will be a collection of all queries through a controller, qr = qr1 + qr2, result of all
+
+            //List<string> headerList = new List<string>;
+            //headerList.Add("1");
+            //headerList.Add("2");
+
+            //List<string> footerList = new List<string>;
+            //footerList.Add("3");
+            //footerList.Add("4");
+            
+            //var listMSQ = machineShopQry.ToList(); 
+            //listMSQ.AddRange(footerList);
+
+            Session["machineShopQry"] = machineShopQry.ToList();
             return View(machineShopQry); 
 
         }
@@ -542,11 +565,84 @@ namespace MvcMovie.Controllers
             base.Dispose(disposing);
         }
 
+         //public ActionResult ExportData2()
+         //{
+         //   var machineShopQry = Session["machineShopQry"];
+         //   GridView gv = new GridView();
+         //   //gv.DataSource = db.MainTableObj.ToList(); // Movies - name of database            
+            
+         //   gv.DataSource = machineShopQry; // Movies - name of database
+            
+         //   gv.DataBind();
+
+            
+         //   //DumpExcel(gv);
+
+         // }
+
         public ActionResult ExportData()
-        {   
+        {
+            //Excel.Application xlApp = new Excel.Application();
+ 
+            var machineShopQry = Session["machineShopQry"];
             GridView gv = new GridView();
-            gv.DataSource = db.MainTableObj.ToList(); // Movies - name of database
+            //gv.DataSource = db.MainTableObj.ToList(); // Movies - name of database            
+            
+            gv.DataSource = machineShopQry; // Movies - name of database
+            
             gv.DataBind();
+
+            
+            //gv.HeaderRow.Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[0].Visible = false;
+            gv.HeaderRow.Cells[16].Visible = false;
+            gv.HeaderRow.Cells[17].Visible = false;                          
+            gv.HeaderRow.Cells[18].Visible = false;            
+
+            gv.HeaderRow.Cells[1].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[2].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[3].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[4].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[5].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[6].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[7].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[8].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[9].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[10].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[11].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[12].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[13].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[14].Style.Add("background-color", "#E2F1F9");
+            gv.HeaderRow.Cells[15].Style.Add("background-color", "#E2F1F9");
+            
+            System.Web.UI.WebControls.GridView test = new System.Web.UI.WebControls.GridView();
+            ////////////////////////
+            var rowsNumber = gv.Rows.Count; // total number of rows in data table stsrts from 0
+            for (int i = 0; i < gv.Rows.Count; i++)
+            {
+
+                GridViewRow row = gv.Rows[i];
+
+                //row.Cells[1].Text = rowsNumber.ToString();
+                row.Cells[0].Visible = false;
+                row.Cells[16].Visible = false;
+                row.Cells[17].Visible = false;
+                row.Cells[18].Visible = false;
+   
+            }
+
+            //test.Rows[rowsNumber + 2].Cells[6].Text = "6x6";
+
+            //gv.Rows[rowsNumber + 2].Cells[6].Text = "6x6";
+            //gv.Rows[rowsNumber + 2].Cells[7].Text = "7x6";
+            //gv.Rows[rowsNumber + 2].Cells[11].Text = "11x6";
+            //gv.Rows[rowsNumber + 2].Cells[12].Text = "12x6";
+            //gv.Rows[rowsNumber + 2].Cells[13].Text = "13x6";
+            //gv.Rows[rowsNumber + 2].Cells[14].Text = "14x6";
+
+            ////////////////
+
+
             Response.ClearContent();
             Response.Buffer = true;
             //Response.AddHeader("content-disposition", "attachment; filename=MachineShop.pdf");
@@ -595,6 +691,45 @@ namespace MvcMovie.Controllers
             Session["machineTxt"] = machineLst.First();
 
             return Json(machineLst);
+        }
+
+        public ActionResult PrintInvoice()
+        {
+            return new ActionAsPdf( "Index" ) { FileName = "Invoice.pdf" };
+        }
+        
+        /////////////
+        private void DumpExcel(DataTable tbl)
+        {
+            using (ExcelPackage pck = new ExcelPackage())
+            {
+                //Create the worksheet
+                ExcelWorksheet ws = pck.Workbook.Worksheets.Add("Demo");
+
+                //Load the datatable into the sheet, starting from cell A1. Print the column names on row 1
+                ws.Cells["A1"].LoadFromDataTable(tbl, true);
+
+                //Format the header for column 1-3
+                using (ExcelRange rng = ws.Cells["A1:C1"])
+                {
+                    rng.Style.Font.Bold = true;
+                    rng.Style.Fill.PatternType = ExcelFillStyle.Solid;                      //Set Pattern for the background to Solid
+                    rng.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(79, 129, 189));  //Set color to dark blue
+                    rng.Style.Font.Color.SetColor(Color.White);
+                }
+
+                //Example how to Format Column 1 as numeric 
+                using (ExcelRange col = ws.Cells[2, 1, 2 + tbl.Rows.Count, 1])
+                {
+                    col.Style.Numberformat.Format = "#,##0.00";
+                    col.Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+                }
+
+                //Write it back to the client
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment;  filename=ExcelDemo.xlsx");
+                Response.BinaryWrite(pck.GetAsByteArray());
+            }
         }
 
         //public ActionResult Test() // Action result or different ?

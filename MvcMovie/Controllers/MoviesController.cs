@@ -39,7 +39,7 @@ namespace MvcMovie.Controllers
 
         //    if(!String.IsNullOrEmpty(searchString))
         //    {
-        //        movies = movies.Where(s => s.Title.Contains(searchString)); 
+        //        movies = movies.Where(s => s.Contains.Title(searchString)); 
         //        //s = virtual lambda variable used just to initate this function and return result
         //    }
 
@@ -48,6 +48,9 @@ namespace MvcMovie.Controllers
 
         public ActionResult Index(string movieGenre, string searchString) // use ID portion of URL to transport search string
         {
+
+            //test of session var from machine controller
+            //ViewBag.sessionTest = Session["test1"].ToString();
             var GenreLst = new List<string>(); // list to store results
 
             var GenreQry = from a in db.Movies
