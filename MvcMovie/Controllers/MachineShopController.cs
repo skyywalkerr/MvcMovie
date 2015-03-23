@@ -72,8 +72,25 @@ namespace MvcMovie.Controllers
                 //small little cheat for check functionality purposes
                 WorkCenter = Session["WorkCenter"].ToString();
                 Department = Session["Department"].ToString();
+
+                //if ((!String.IsNullOrEmpty(Department)) && (String.IsNullOrEmpty(WorkCenter)))
+                //{
+                //    Session["Department"] = Department;
+                //    Session["WorkCenter"] = null;
+                //    //ViewBag.department = Department;
+
+                //    //small little cheat for check functionality purposes
+                //    WorkCenter = Session["WorkCenter"].ToString();
+                //    Department = Session["Department"].ToString();
+
+                //    machineShopQry = from m in db.MainTableObj
+                //                     where m.Department == Department
+                //                     //where m.Date == System.DateTime.Today
+                //                     select m;
+                //}
             }
 
+            
             
             
 
@@ -305,6 +322,10 @@ namespace MvcMovie.Controllers
                 Session["Department"] = null;
                 Session["WorkCenter"] = null;
                 Session["machineTxt"] = null;
+
+                //Session["DepartmentDescription"] = "Department 1010, Department 1020, Department 1030.";
+                //Session["WorkCenterDescription"] = "All Work Centers";
+                //Session["machineTxtDescription"] = "All Machines";
 
                 searchString = "";
                 machineShopQry = from m in db.MainTableObj

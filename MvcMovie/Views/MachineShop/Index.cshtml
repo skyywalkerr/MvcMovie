@@ -55,7 +55,7 @@
 
                                 <td>Department: </td>
 
-                                <td id="jsDepartment">@Session["Department"]</td>
+                                <td id="jsDepartmentTxt">@Session["Department"]</td>
                                 @*<td>@ViewData["Department"]</td>*@
                                 @*<td>@Html.DisplayFor(modelA => item.Department)</td>*@
                                 <td></td>
@@ -63,7 +63,7 @@
                             </tr>
                             <tr>
                                 <td>Work Center: </td>
-                                <td id="jsWorkCenter">@Session["WorkCenter"]</td>
+                                <td id="jsWorkCenterTxt">@Session["WorkCenter"]</td>
                                 @*<td>@ViewData["WorkCenter"]</td>*@
                                 @*<td>@Html.DisplayFor(itemA => item.WorkCenter)</td>*@
                             </tr>
@@ -71,7 +71,7 @@
                                 <td>Machine: </td>
                                 @*<td>@Html.DropDownList("machineTxt")</td>                               
                                 <td> text : @Html.DisplayName("machineTxt")</td>*@
-                                <td id="jsMachine">@Session["machineTxt"]</td>
+                                <td id="jsMachineTxt">@Session["machineTxt"]</td>
                               
                             </tr>
                             <tr>
@@ -458,32 +458,37 @@
                 </div>
 
 @*<button id="testPrint">Print Report</button>*@
+<hr />
+<table>
+    <tr >
+        <td>
+            <button id="testPrint4" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>   Print Report</button>
+        </td>
+        @*<button class="print">EXPORT JS 2 </button>*@
 
-<button id="testPrint4">Print Report</button>
-@*<button class="print">EXPORT JS 2 </button>*@
+        @*@Html.ActionLink("print pdf","PrintInvoice")
+            @Html.ActionLink("print pdf", "PrintInvoice")*@
 
-@*@Html.ActionLink("print pdf","PrintInvoice")
-@Html.ActionLink("print pdf", "PrintInvoice")*@
+        @*<button id="testPrint">Print Report</button>*@
+        <td>
+            @using (Html.BeginForm("ExportData", "MachineShop", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @*<table>
+                <tr><td></td><td>*@
 
-@*<button id="testPrint">Print Report</button>*@
+    <span class="glyphicon glyphicon-print"></span> <input type="submit" name="Export" id="Export" value="Export to Excel" class="btn btn-primary" />
+                @*</td></tr>
 
-@using (Html.BeginForm("ExportData", "MachineShop", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @*<table>
-        <tr><td></td><td>*@
-            
-    
-            <input type="submit" name="Export" id="Export" value="Export ot Excel" />
-            
-            @*</td></tr>
+                </table>*@
+            }
+        </td>
+    </tr>
+</table>
 
-    </table>*@
-}
+@*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../jQuery.print.js"></script>*@ 
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="../jQuery.print.js"></script> 
-
-<script>        
+@*<script>        
         $("#printable").find('.print').on('click', function() {
 
             $("#printable").print({
@@ -517,51 +522,51 @@
 
             });
         });    
-</script>
+</script>*@
 @*//// EXCEL EXPORT FUNCTION*@
 <script>
-        $("#testPrint").click(function () {
-            //$("#editsTable").hide();
-            $("#editsTable").prop("disabled", true);
+    //    $("#testPrint").click(function () {
+    //        //$("#editsTable").hide();
+    //        $("#editsTable").prop("disabled", true);
        
-            var divToPrint = document.getElementById('testTable');
+    //        var divToPrint = document.getElementById('testTable');
             
-            var jsDepartment = document.getElementById('jsDepartment');
-            var jsWorkCenter = document.getElementById('jsWorkCenter');
-            var jsMachine = document.getElementById('jsMachine');            
+    //        var jsDepartment = document.getElementById('jsDepartment');
+    //        var jsWorkCenter = document.getElementById('jsWorkCenter');
+    //        var jsMachine = document.getElementById('jsMachine');            
 
-        newWin = window.open("");
-        var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop Database.</title></head>";
-        var endDoc = "</body></html>";
-        //var tableConfig = "";
-        newWin.document.write(topDoc, "<body>");
-        newWin.document.write("<h1>Machine Shop report.</h1>");
-        newWin.document.write("<h3>Raport details.</h3>");
-        newWin.document.write("<h4>Department : " + jsDepartment.outerHTML + "</h4>");
-        newWin.document.write("<h4>Work Center : " + jsWorkCenter.outerHTML + "</h4>");
-        newWin.document.write("<h4>Machine : " + jsMachine.outerHTML+"</h4>");
-        //self.focus();
-        //newWin.document.open("");
-        //newWin.document.write('');
-            //newWin.document.write("<table class=\"table table-striped table-bordered table-hover table-condensed\">");
+    //    newWin = window.open("");
+    //    var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop Database.</title></head>";
+    //    var endDoc = "</body></html>";
+    //    //var tableConfig = "";
+    //    newWin.document.write(topDoc, "<body>");
+    //    newWin.document.write("<h1>Machine Shop report.</h1>");
+    //    newWin.document.write("<h3>Raport details.</h3>");
+    //    newWin.document.write("<h4>Department : " + jsDepartment.outerHTML + "</h4>");
+    //    newWin.document.write("<h4>Work Center : " + jsWorkCenter.outerHTML + "</h4>");
+    //    newWin.document.write("<h4>Machine : " + jsMachine.outerHTML+"</h4>");
+    //    //self.focus();
+    //    //newWin.document.open("");
+    //    //newWin.document.write('');
+    //        //newWin.document.write("<table class=\"table table-striped table-bordered table-hover table-condensed\">");
 
-            //newWin.document.write("<table border=\"1\"");
-        newWin.document.write("<table style=\" background-color: #fff ; border: 1px solid #ddd \"");
+    //        //newWin.document.write("<table border=\"1\"");
+    //    newWin.document.write("<table style=\" background-color: #fff ; border: 1px solid #ddd \"");
 
-        newWin.document.write(divToPrint.outerHTML);
-        //newWin.document.write();
-        //$('#testTable')[0].outerHtml;
-        //$('testTable')[0].outerHtml;
+    //    newWin.document.write(divToPrint.outerHTML);
+    //    //newWin.document.write();
+    //    //$('#testTable')[0].outerHtml;
+    //    //$('testTable')[0].outerHtml;
 
-        //getElementChildrenAndStyles("#testTable");
-        newWin.document.write("</table>");
-        //newWin.document.write('');
-        newWin.document.write(endDoc);
-        newWin.document.close('');
-        newWin.print();
-        newWin.close();
-        $("#editsTable").prop("disabled", false);
-    });
+    //    //getElementChildrenAndStyles("#testTable");
+    //    newWin.document.write("</table>");
+    //    //newWin.document.write('');
+    //    newWin.document.write(endDoc);
+    //    newWin.document.close('');
+    //    newWin.print();
+    //    newWin.close();
+    //    $("#editsTable").prop("disabled", false);
+    //});
             // PERFECTLY WOKRING EXAMPLE
             //$("#testPrint4").click(function () {
             //    var divToPrint = document.getElementById('testTable');
@@ -582,9 +587,9 @@
 
         $("#testPrint4").click(function () {
 
-            var jsDepartment = document.getElementById('jsDepartment');
-            var jsWorkCenter = document.getElementById('jsWorkCenter');
-            var jsMachine = document.getElementById('jsMachine');
+            var jsDepartment = document.getElementById('jsDepartmentTxt');
+            var jsWorkCenter = document.getElementById('jsWorkCenterTxt');
+            var jsMachine = document.getElementById('jsMachineTxt');
 
             var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop production Report.</title></head>";
             var endDoc = "</body></html>";
@@ -631,42 +636,42 @@
 
         });
 
-    function getElementChildrenAndStyles(selector) {
-        var html = $(selector).outerHTML();
+    //function getElementChildrenAndStyles(selector) {
+    //    var html = $(selector).outerHTML();
 
-        selector = selector.split(",").map(function (subselector) {
-            return subselector + "," + subselector + " *";
-        }).join(",");
-        elts = $(selector);
+    //    selector = selector.split(",").map(function (subselector) {
+    //        return subselector + "," + subselector + " *";
+    //    }).join(",");
+    //    elts = $(selector);
 
-        var rulesUsed = [];
-        // main part: walking through all declared style rules
-        // and checking, whether it is applied to some element
-        sheets = document.styleSheets;
-        for (var c = 0; c < sheets.length; c++) {
-            var rules = sheets[c].rules || sheets[c].cssRules;
-            for (var r = 0; r < rules.length; r++) {
-                var selectorText = rules[r].selectorText;
-                var matchedElts = $(selectorText);
-                for (var i = 0; i < elts.length; i++) {
-                    if (matchedElts.index(elts[i]) != -1) {
-                        rulesUsed.push(rules[r]); break;
-                    }
-                }
-            }
-        }
-        var style = rulesUsed.map(function (cssRule) {
-            if ($.browser.msie) {
-                var cssText = cssRule.style.cssText.toLowerCase();
-            } else {
-                var cssText = cssRule.cssText;
-            }
-            // some beautifying of css
-            return cssText.replace(/(\{|;)\s+/g, "\$1\n  ").replace(/\A\s+}/, "}");
-            //                 set indent for css here ^ 
-        }).join("\n");
-        return "<style>\n" + style + "\n</style>\n\n" + html;
-    }
+    //    var rulesUsed = [];
+    //    // main part: walking through all declared style rules
+    //    // and checking, whether it is applied to some element
+    //    sheets = document.styleSheets;
+    //    for (var c = 0; c < sheets.length; c++) {
+    //        var rules = sheets[c].rules || sheets[c].cssRules;
+    //        for (var r = 0; r < rules.length; r++) {
+    //            var selectorText = rules[r].selectorText;
+    //            var matchedElts = $(selectorText);
+    //            for (var i = 0; i < elts.length; i++) {
+    //                if (matchedElts.index(elts[i]) != -1) {
+    //                    rulesUsed.push(rules[r]); break;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    var style = rulesUsed.map(function (cssRule) {
+    //        if ($.browser.msie) {
+    //            var cssText = cssRule.style.cssText.toLowerCase();
+    //        } else {
+    //            var cssText = cssRule.cssText;
+    //        }
+    //        // some beautifying of css
+    //        return cssText.replace(/(\{|;)\s+/g, "\$1\n  ").replace(/\A\s+}/, "}");
+    //        //                 set indent for css here ^ 
+    //    }).join("\n");
+    //    return "<style>\n" + style + "\n</style>\n\n" + html;
+    //}
 </script>
 
 
@@ -716,7 +721,7 @@
     });
 </script>
 
-<script>
+@*<script>
 
     $(document).ready(function(){
         $("#deptChoice").change(function () {
@@ -751,7 +756,7 @@
         //        break;
         //}
 
-</script>
+</script>*@
     
 <script>
     $(document).ready(function () {
@@ -767,7 +772,9 @@
                 DepartmentOptions.success = function (wcLst) {
                     $("#jsWorkCenter").empty();
                     for (var i = 0; i < wcLst.length; i++) {
-                        $("#jsWorkCenter").append("<option>" + wcLst[i] + "</option>");      
+                        $("#jsWorkCenter").append("<option>" + wcLst[i] + "</option>");
+                        $("#jsWorkCenterTxt").append("<option>" + wcLst[i] + "</option>");
+                        
                     }
                     $("#jsWorkCenter").append("<option selected>None.</option>");  //default option
                     $("#jsWorkCenter").prop("disabled", false);
