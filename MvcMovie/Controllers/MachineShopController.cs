@@ -30,6 +30,7 @@ namespace MvcMovie.Controllers
         public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+            Session["preciseQ"] = null;
             //send session var between controllers - test
             //Session["test1"] = "TEST";
 
@@ -67,28 +68,41 @@ namespace MvcMovie.Controllers
                                  //where m.Date == System.DateTime.Today
                                  select m;                
             }
-            else
-            {
+            //else
+            //{
                 //small little cheat for check functionality purposes
-                WorkCenter = Session["WorkCenter"].ToString();
-                Department = Session["Department"].ToString();
+                //WorkCenter = Session["WorkCenter"].ToString();
+                //Department = Session["Department"].ToString();
 
-                //if ((!String.IsNullOrEmpty(Department)) && (String.IsNullOrEmpty(WorkCenter)))
-                //{
-                //    Session["Department"] = Department;
-                //    Session["WorkCenter"] = null;
-                //    //ViewBag.department = Department;
+                if ((!String.IsNullOrEmpty(Department)) && (String.IsNullOrEmpty(WorkCenter)))
+                {
+                    Session["Department"] = Department;
+                    Session["WorkCenter"] = null;
+                    //ViewBag.department = Department;
 
-                //    //small little cheat for check functionality purposes
-                //    WorkCenter = Session["WorkCenter"].ToString();
-                //    Department = Session["Department"].ToString();
+                    //small little cheat for check functionality purposes
+                    WorkCenter = null;
+                    Department = Session["Department"].ToString();
 
-                //    machineShopQry = from m in db.MainTableObj
-                //                     where m.Department == Department
-                //                     //where m.Date == System.DateTime.Today
-                //                     select m;
-                //}
-            }
+                    machineShopQry = from m in db.MainTableObj
+                                     where m.Department == Department
+                                     //where m.Date == System.DateTime.Today
+                                     select m;
+                }
+
+                if ((String.IsNullOrEmpty(Department)) && (String.IsNullOrEmpty(WorkCenter)))
+                {
+                    Session["Department"] = null;
+                    Session["WorkCenter"] = null;
+
+                    WorkCenter = null;
+                    Department = null;
+
+                    machineShopQry = from m in db.MainTableObj                                     
+                                     //where m.Date == System.DateTime.Today
+                                     select m;
+                }
+            //}
 
             
             
@@ -249,14 +263,17 @@ namespace MvcMovie.Controllers
                 if (colList == "Item No.")
                 {
                     machineShopQry = machineShopQry.Where(s => s.ItemNo.Contains(searchString));
+                    Session["preciseQ"] += "Item No. : " + searchString + " | ";
                 }
                 if (colList == "Operation")
                 {
                     machineShopQry = machineShopQry.Where(s => s.Operation.Contains(searchString));
+                    Session["preciseQ"] += "Operation : " + searchString + " | ";
                 }
                 if (colList == "Operator")
                 {
                     machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString));
+                    Session["preciseQ"] += "Operator : " + searchString + " | ";
                 }
                 #region COMMENTED ANOTHER COLUMNS
                 //if (colList == "Qty")
@@ -303,6 +320,7 @@ namespace MvcMovie.Controllers
                 if (colList == "Comments")
                 {
                     machineShopQry = machineShopQry.Where(s => s.Comments.Contains(searchString));
+                    Session["preciseQ"] += "Comments : " + searchString + " | ";
                 }
                 
                 //machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString));
@@ -330,6 +348,8 @@ namespace MvcMovie.Controllers
                 searchString = "";
                 machineShopQry = from m in db.MainTableObj
                                      select m;
+
+                Session["preciseQ"] += "Show all data from database.";
                 //s = virtual lambda variable used just to initate this function and return result
             }
 
@@ -405,26 +425,31 @@ namespace MvcMovie.Controllers
             {
                 string mach = Session["machineTxt"].ToString();
                 machineShopQry = machineShopQry.Where(s => s.Machine.Equals(mach));
+                //Session["preciseQ"] += mach+" - ";
             }
 
             //Operator filter
             if (!String.IsNullOrEmpty(operatorChoice))
             {
                 machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice));
+                Session["preciseQ"] +="Operator : "+operatorChoice + " | ";
             }
             //Parts filter
             if (!String.IsNullOrEmpty(partChoice))
             {
                 machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice));
+                Session["preciseQ"] += "Item No. : " + partChoice + " | ";
             }
             //Operator and Parts filter
             if (!String.IsNullOrEmpty(partChoice2))
             {                
                 machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice2));
+                Session["preciseQ"] += "Item No. : " + partChoice2 + " | ";
             }
             if (!String.IsNullOrEmpty(operatorChoice2))
             {
                 machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice2));
+                Session["preciseQ"] += "Operator : " + operatorChoice2 + " | ";
             }
             //Operator and Parts filter - end
 

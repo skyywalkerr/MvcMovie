@@ -53,7 +53,7 @@
                             @*<h3>Currently Displayed</h3>*@
                             <tr>
 
-                                <td>Department: </td>
+                                <td>Department : </td>
 
                                 <td id="jsDepartmentTxt">@Session["Department"]</td>
                                 @*<td>@ViewData["Department"]</td>*@
@@ -62,17 +62,24 @@
 
                             </tr>
                             <tr>
-                                <td>Work Center: </td>
+                                <td>Work Center : </td>
                                 <td id="jsWorkCenterTxt">@Session["WorkCenter"]</td>
                                 @*<td>@ViewData["WorkCenter"]</td>*@
                                 @*<td>@Html.DisplayFor(itemA => item.WorkCenter)</td>*@
                             </tr>
                             <tr>
-                                <td>Machine: </td>
+                                <td>Machine : </td>
                                 @*<td>@Html.DropDownList("machineTxt")</td>                               
                                 <td> text : @Html.DisplayName("machineTxt")</td>*@
                                 <td id="jsMachineTxt">@Session["machineTxt"]</td>
                               
+                            </tr>
+                            <tr>
+                                <td>Precise queries : </td>
+                                @*<td>@Html.DropDownList("machineTxt")</td>
+            <td> text : @Html.DisplayName("machineTxt")</td>*@
+                                <td id="preciseQTxt">@Session["preciseQ"]</td>
+
                             </tr>
                             <tr>
                                 <td>Date: </td>
@@ -163,7 +170,7 @@
                                             @*<div class="form-group">*@
                                                 <td>
                                                     @*@Html.Label("Select Country:", new { @class = "col-md-2 control-label" })*@
-                                                    @Html.Label("Select Country:")
+                                                    @Html.Label("Department :")
                                                 </td>
                                                 <td>
                                                     @*<div class="col-md-10">*@
@@ -182,7 +189,7 @@
                                     <tr>
                                         @*<div class="form-group">*@
                                             <td>
-                                                @Html.Label("Work Center:")
+                                                @Html.Label("Work Center :")
                                             </td>
                                             @*<div class="col-md-10">*@
                                                 <td>
@@ -476,10 +483,10 @@
                 @*<table>
                 <tr><td></td><td>*@
 
-    <span class="glyphicon glyphicon-print"></span> <input type="submit" name="Export" id="Export" value="Export to Excel" class="btn btn-primary" />
-                @*</td></tr>
-
-                </table>*@
+     <input type="submit" name="Export" id="Export" value="Export to Excel" class="btn btn-primary " />
+                            @*</td></tr>
+                        <span class="glyphicon glyphicon-print"></span>
+        </table>*@
             }
         </td>
     </tr>
@@ -590,6 +597,7 @@
             var jsDepartment = document.getElementById('jsDepartmentTxt');
             var jsWorkCenter = document.getElementById('jsWorkCenterTxt');
             var jsMachine = document.getElementById('jsMachineTxt');
+            var jspreciseQ = document.getElementById('preciseQTxt');
 
             var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop production Report.</title></head>";
             var endDoc = "</body></html>";
@@ -626,6 +634,7 @@
             newWin.document.write("<h5>Department : " + jsDepartment.outerHTML + "</h5>");
             newWin.document.write("<h5>Work Center : " + jsWorkCenter.outerHTML + "</h5>");
             newWin.document.write("<h5>Machine : " + jsMachine.outerHTML + "</h5>");
+            newWin.document.write("<h5>Precise queries : " + jspreciseQ.outerHTML + "</h5>");
 
             newWin.document.write(divToPrint.outerHTML);
 
@@ -764,7 +773,8 @@
         $("#Departments").change(function () {
             if ($("#Departments").val() != "") {
                 var DepartmentOptions = {};
-                DepartmentOptions.url = "/MachineShop/WorkCenterList";    //  URL FOR AJAX ACTION, AJAX WILL PICKUP SINGLE ACTION METHOD FROM CONTROLLER :)
+                //DepartmentOptions.url = "/MachineShop/WorkCenterList"; //hard coded URL will cause issue on live IIS server - USE URL HELPER
+                DepartmentOptions.url = '@Url.Action("WorkCenterList", "MachineShop")';//  URL FOR AJAX ACTION, AJAX WILL PICKUP SINGLE ACTION METHOD FROM CONTROLLER :)
                 DepartmentOptions.type = "POST";
                 DepartmentOptions.data = JSON.stringify({ Departments: $("#Departments").val() }); // this line is translating value of class element to string which is gonna be send as a result of 
                 DepartmentOptions.datatype = "json";
@@ -797,7 +807,8 @@
         $("#jsWorkCenter").change(function () {
             if ($("#jsWorkCenter").val() != "") {
                 var WorkCenterOptions = {};
-                WorkCenterOptions.url = "/MachineShop/MachineList";    //  URL FOR AJAX ACTION, AJAX WILL PICKUP SINGLE ACTION METHOD FROM CONTROLLER :)
+                //WorkCenterOptions.url = "/MachineShop/MachineList";    //  URL FOR AJAX ACTION, AJAX WILL PICKUP SINGLE ACTION METHOD FROM CONTROLLER :)
+                WorkCenterOptions.url = '@Url.Action("MachineList", "MachineShop")';
                 WorkCenterOptions.type = "POST";
                 WorkCenterOptions.data = JSON.stringify({ jsWorkCenter: $("#jsWorkCenter").val() });
                 WorkCenterOptions.datatype = "json";
