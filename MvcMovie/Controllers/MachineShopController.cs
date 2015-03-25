@@ -31,38 +31,15 @@ namespace MvcMovie.Controllers
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
             Session["preciseQ"] = null;
+            Session["WorkCenterAll"] = null;
             string sessionDepartmentString = null;
             string sessionWorkCenterString = null;
 
-            //Session["Department"] = null;
-            //Session["WorkCenter"] = null;
-
-            //send session var between controllers - test
-            //Session["test1"] = "TEST";
-
-
-            //if (String.IsNullOrEmpty(Department))            
-            //{
-            //    Department = Departments; // departments = variable from drop down list choice : Department js
-            //}
-            //if (String.IsNullOrEmpty(WorkCenter))
-            //{
-            //    WorkCenter = jsWorkCenter; // jsWorkCenter = variable from drop down list choice : Department js
-            //}
-            
-            //deptChoice = Departments;
-            //wcChoice = Session["WorkCenter"].ToString();
-            //machineChoice = Session["machineTxt"].ToString();
-
-            // BBY DEFAULT SHOW EVERYTHING ?
+            // BBY DEFAULT SHOW EVERYTHING
             var machineShopQry = from m in db.MainTableObj
                                  //where m.WorkCenter == WorkCenter && m.Department == Department
                                  //where m.Date == System.DateTime.Today
-                                 select m;
-            
-            //MachineShopTable mainTableObject = new MachineShopTable(); moved to global
-            //OperatorsModel test = new OperatorsModel();
-            //test.Operator = "TEST";
+                                 select m;          
 
             if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
             {
@@ -79,9 +56,6 @@ namespace MvcMovie.Controllers
             }
             else
             {
-                //small little cheat for check functionality purposes
-                //WorkCenter = Session["WorkCenter"].ToString();
-                //Department = Session["Department"].ToString();
 
                 if ((Session["Department"] != null) && (Session["WorkCenter"]==null) )
                 {                                        
@@ -93,6 +67,17 @@ namespace MvcMovie.Controllers
                                      where m.Department == sessionDepartmentString
                                      //where m.Date == System.DateTime.Today
                                      select m;
+                    
+                    //DISPLAY ALL MACHINES FOR CHOOSEN DEPT                  
+                    var allMachines = new List<string>();            
+                    var wcQueryAll = from c in db.Machines
+                          //where c.Department == deptChoice
+                          where c.Department == sessionDepartmentString
+                          select c.WorkCenter;
+                    allMachines.AddRange(wcQueryAll.Distinct());
+                    var result = String.Join(", ", allMachines.ToArray());
+                    Session["WorkCenterAll"] = result;
+                                           
                 }
 
                 if ((Session["Department"] == null) && (Session["WorkCenter"] == null))

@@ -5,7 +5,7 @@
 }
 
 <h3>@Session["Department"]</h3>
-<h4>Work Center: @Session["WorkCenter"]</h4>
+<h4>Work Center: @Session["WorkCenter"]@Session["WorkCenterAll"]</h4>
 
 @*<h2>Index</h2>*@
 
@@ -63,7 +63,8 @@
                             </tr>
                             <tr>
                                 <td>Work Center : </td>
-                                <td id="jsWorkCenterTxt">@Session["WorkCenter"]</td>
+                                <td id="jsWorkCenterTxt">@Session["WorkCenter"]@Session["WorkCenterAll"]</td>
+
                                 @*<td>@ViewData["WorkCenter"]</td>*@
                                 @*<td>@Html.DisplayFor(itemA => item.WorkCenter)</td>*@
                             </tr>
@@ -285,7 +286,7 @@
                                     <table cellpadding="10">
                                         <tr>
                                             <td>Column selection : </td>
-                                            <td>@Html.DropDownList("colList", null, "Make your choice...", new { @class = "form-control" })</td>
+                                            <td>@Html.DropDownList("colList", null, "None.", new { @class = "form-control" })</td>
                                             <td>Word or phrase: </td>
                                             <td>@Html.TextBox("SearchString", null, new { @class = "form-control" })</td>
 
