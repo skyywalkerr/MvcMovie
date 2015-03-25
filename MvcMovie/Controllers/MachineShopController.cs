@@ -27,23 +27,34 @@ namespace MvcMovie.Controllers
         //MachineShopTable mainTableObject = new MachineShopTable();
 
         // GET: /MachineShop/
-        public ActionResult Index(string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
+        public ActionResult Index(string jsWorkCenter,string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
             Session["preciseQ"] = null;
+            string sessionDepartmentString = null;
+            string sessionWorkCenterString = null;
+
+            //Session["Department"] = null;
+            //Session["WorkCenter"] = null;
+
             //send session var between controllers - test
             //Session["test1"] = "TEST";
 
 
-            if (String.IsNullOrEmpty(Department))            
-            {
-                Department = Departments;
-            }
+            //if (String.IsNullOrEmpty(Department))            
+            //{
+            //    Department = Departments; // departments = variable from drop down list choice : Department js
+            //}
+            //if (String.IsNullOrEmpty(WorkCenter))
+            //{
+            //    WorkCenter = jsWorkCenter; // jsWorkCenter = variable from drop down list choice : Department js
+            //}
             
             //deptChoice = Departments;
             //wcChoice = Session["WorkCenter"].ToString();
             //machineChoice = Session["machineTxt"].ToString();
 
+            // BBY DEFAULT SHOW EVERYTHING ?
             var machineShopQry = from m in db.MainTableObj
                                  //where m.WorkCenter == WorkCenter && m.Department == Department
                                  //where m.Date == System.DateTime.Today
@@ -57,52 +68,46 @@ namespace MvcMovie.Controllers
             {
                 Session["Department"] = Department;
                 Session["WorkCenter"] = WorkCenter;
-                //ViewBag.department = Department;
 
-                //small little cheat for check functionality purposes
-                WorkCenter = Session["WorkCenter"].ToString();
-                Department = Session["Department"].ToString();
+                sessionDepartmentString = Session["Department"].ToString();
+                sessionWorkCenterString = Session["WorkCenter"].ToString(); 
 
                 machineShopQry = from m in db.MainTableObj
-                                 where m.WorkCenter == WorkCenter && m.Department == Department
+                                 where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString
                                  //where m.Date == System.DateTime.Today
                                  select m;                
             }
-            //else
-            //{
+            else
+            {
                 //small little cheat for check functionality purposes
                 //WorkCenter = Session["WorkCenter"].ToString();
                 //Department = Session["Department"].ToString();
 
-                if ((!String.IsNullOrEmpty(Department)) && (String.IsNullOrEmpty(WorkCenter)))
-                {
-                    Session["Department"] = Department;
-                    Session["WorkCenter"] = null;
-                    //ViewBag.department = Department;
+                if ((Session["Department"] != null) && (Session["WorkCenter"]==null) )
+                {                                        
 
-                    //small little cheat for check functionality purposes
-                    WorkCenter = null;
-                    Department = Session["Department"].ToString();
+                    sessionDepartmentString = Session["Department"].ToString();
+                    sessionWorkCenterString = null; 
 
                     machineShopQry = from m in db.MainTableObj
-                                     where m.Department == Department
+                                     where m.Department == sessionDepartmentString
                                      //where m.Date == System.DateTime.Today
                                      select m;
                 }
 
-                if ((String.IsNullOrEmpty(Department)) && (String.IsNullOrEmpty(WorkCenter)))
+                if ((Session["Department"] == null) && (Session["WorkCenter"] == null))
                 {
                     Session["Department"] = null;
                     Session["WorkCenter"] = null;
 
-                    WorkCenter = null;
-                    Department = null;
+                    sessionDepartmentString = null;
+                    sessionWorkCenterString = null; 
 
                     machineShopQry = from m in db.MainTableObj                                     
                                      //where m.Date == System.DateTime.Today
                                      select m;
                 }
-            //}
+            }
 
             
             
@@ -138,13 +143,15 @@ namespace MvcMovie.Controllers
             
             //return a first and only position for machine name, depend on name of depratment and workcenter.
             //just for display purposes
+
+
             var machTxtQry = from m in db.Machines
-                                   where m.Department == Department && m.WorkCenter == WorkCenter
+                                   where m.Department == sessionDepartmentString && m.WorkCenter == sessionWorkCenterString
                                    select m.Machine;
             
             //string machineResult = Convert.ToString(machTxtQry.First());
             //if((machTxtQry != null) && (Department !=null) && (WorkCenter !=null))
-            if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
+            if ((!String.IsNullOrEmpty(sessionDepartmentString)) && (!String.IsNullOrEmpty(sessionWorkCenterString)))
             {
                 if (machTxtQry.Any())
                 { 
@@ -720,6 +727,9 @@ namespace MvcMovie.Controllers
             wcLst.AddRange(wcQuery.Distinct());            
             //ViewBag.wcChoice = new SelectList(wcLst);            
             Session["Department"] = Departments;
+            Session["WorkCenter"] = null; //Can be initialize by js WorkCenter drop down list click
+            Session["machineTxt"] = null; //Can be initialize by js WorkCenter drop down list click 
+
             return Json(wcLst);
             
         }
