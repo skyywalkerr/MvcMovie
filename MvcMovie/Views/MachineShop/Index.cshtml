@@ -86,6 +86,7 @@
                                 <td>Date: </td>
                                 <td>  
                                     @System.DateTime.Now.ToShortDateString()
+                                     Start Date : @Session["StartDateAuto"] End Date : @Session["EndDateAuto"]
                                     @*@Html.DisplayFor(testModel.todayTest);*@
                                    @*@foreach (var item in Model)
                                    {
@@ -124,7 +125,7 @@
                                             @*Title: @Html.TextBox("SearchString")
                                             <input type="submit" value="Search !" /> <br />*@
                                     <tr>
-                                        <td><label><input type="checkbox" name="singleDate" value="singleDate"> Choose single date.</label></td>
+                                        <td><label><input type="checkbox" name="singleDateJs" value="singleDateJs"> Choose single date.</label></td>
                                         <td><label><input type="checkbox" name="dateSpan" value="dateSpan"> Choose date span.</label></td>
                                     </tr>       
                                                                              
@@ -134,13 +135,8 @@
                                                 @*<input class="datefield" data-val="true" data-val-required="Date is required"
             id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />*@
                                                 <input class="datefield" data-val="true"
-                                                       id="SingleDate" name="SingleDate" type="date" value="2/25/2015" />
-                                                @*TEST*@
-                                                @*@Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
-            @Html.EditorFor(model => model.Date)
-            @Html.ValidationMessageFor(model => model.Date)*@
-                                                @*TEST*@
-                                                @*@Html.EditorFor(model => model.Date)*@
+                                                       id="SingleDate" name="SingleDate" type="date" value="1/11/1989" />
+                                              
 
                                             </td>
                                         
@@ -721,7 +717,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('input[type="checkbox"]').click(function () {
-            if ($(this).attr("value") == "singleDate") {
+            if ($(this).attr("value") == "singleDateJs") {
                 $(".single").toggle();
             }
             if ($(this).attr("value") == "dateSpan") {

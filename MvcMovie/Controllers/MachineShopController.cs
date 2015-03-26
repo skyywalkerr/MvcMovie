@@ -15,7 +15,7 @@ using System.Xml.Linq;
 using Rotativa;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System.Drawing;
+using System.Drawing;                                                                                    
 
 
 
@@ -35,6 +35,13 @@ namespace MvcMovie.Controllers
             string sessionDepartmentString = null;
             string sessionWorkCenterString = null;
 
+            DateTime StartDateAuto = Convert.ToDateTime(DayOfWeek.Monday);
+            DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
+
+            Session["StartDateAuto"] = Convert.ToDateTime(StartDateAuto);
+            Session["EndDateAuto"] = Convert.ToString(EndDateAuto);
+            
+
             // BBY DEFAULT SHOW EVERYTHING
             var machineShopQry = from m in db.MainTableObj
                                  //where m.WorkCenter == WorkCenter && m.Department == Department
@@ -50,9 +57,11 @@ namespace MvcMovie.Controllers
                 sessionWorkCenterString = Session["WorkCenter"].ToString(); 
 
                 machineShopQry = from m in db.MainTableObj
-                                 where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString
+                                 where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString                                 
                                  //where m.Date == System.DateTime.Today
-                                 select m;                
+                                 select m;
+
+                machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= DateEnd);
             }
             else
             {
