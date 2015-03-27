@@ -41,7 +41,7 @@
             @Html.LabelFor(model => model.ItemNo, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ItemNo)
-                @Html.ValidationMessageFor(model => model.ItemNo)
+                @*@Html.ValidationMessageFor(model => model.ItemNo)*@
             </div>
         </div>
 
@@ -49,7 +49,7 @@
             @Html.LabelFor(model => model.Operation, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Operation)
-                @Html.ValidationMessageFor(model => model.Operation)
+                @*@Html.ValidationMessageFor(model => model.Operation)*@
             </div>
         </div>
 
@@ -57,7 +57,7 @@
             @Html.LabelFor(model => model.Operator, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Operator)
-                @Html.ValidationMessageFor(model => model.Operator)
+                @*@Html.ValidationMessageFor(model => model.Operator)*@
             </div>
         </div>
 
@@ -65,7 +65,7 @@
             @Html.LabelFor(model => model.Qty, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Qty)
-                @Html.ValidationMessageFor(model => model.Qty)
+                @*@Html.ValidationMessageFor(model => model.Qty)*@
             </div>
         </div>
 
@@ -73,31 +73,31 @@
             @Html.LabelFor(model => model.Hours, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Hours)
-                @Html.ValidationMessageFor(model => model.Hours)
+                @*@Html.ValidationMessageFor(model => model.Hours)*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ActualRate, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10" id="jsActualRate">
                 @Html.EditorFor(model => model.ActualRate)
-                @Html.ValidationMessageFor(model => model.ActualRate)
+                @*@Html.ValidationMessageFor(model => model.ActualRate)*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.StandardRate, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10" id="jsStandardRate">
                 @Html.EditorFor(model => model.StandardRate)
-                @Html.ValidationMessageFor(model => model.StandardRate)
+                @*@Html.ValidationMessageFor(model => model.StandardRate)*@
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Percent, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <div class="col-md-10" id="jsPercent">
                 @Html.EditorFor(model => model.Percent)
-                @Html.ValidationMessageFor(model => model.Percent)
+                @*@Html.ValidationMessageFor(model => model.Percent)*@
             </div>
         </div>
 
@@ -105,7 +105,7 @@
             @Html.LabelFor(model => model.Setup, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Setup)
-                @Html.ValidationMessageFor(model => model.Setup)
+                @*@Html.ValidationMessageFor(model => model.Setup)*@
             </div>
         </div>
 
@@ -113,7 +113,7 @@
             @Html.LabelFor(model => model.Cleaning, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Cleaning)
-                @Html.ValidationMessageFor(model => model.Cleaning)
+                @*@Html.ValidationMessageFor(model => model.Cleaning)*@
             </div>
         </div>
 
@@ -121,7 +121,7 @@
             @Html.LabelFor(model => model.Down, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Down)
-                @Html.ValidationMessageFor(model => model.Down)
+                @*@Html.ValidationMessageFor(model => model.Down)*@
             </div>
         </div>
 
@@ -129,7 +129,7 @@
             @Html.LabelFor(model => model.Other, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Other)
-                @Html.ValidationMessageFor(model => model.Other)
+                @*@Html.ValidationMessageFor(model => model.Other)*@
             </div>
         </div>
 
@@ -137,7 +137,7 @@
             @Html.LabelFor(model => model.NonconfParts, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.NonconfParts)
-                @Html.ValidationMessageFor(model => model.NonconfParts)
+                @*@Html.ValidationMessageFor(model => model.NonconfParts)*@
             </div>
         </div>
 
@@ -145,7 +145,7 @@
             @Html.LabelFor(model => model.Comments, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Comments)
-                @Html.ValidationMessageFor(model => model.Comments)
+                @*@Html.ValidationMessageFor(model => model.Comments)*@
             </div>
         </div>
 
@@ -161,6 +161,53 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
+
+<script>
+    $(document).ready(function () {
+        $("#jsActualRate").change(function () {
+
+            //var extender = $find("<%= htmlEditorExtender.ClientID %>");
+            //alert($("#ActualRate").val());
+
+            if (($("#ActualRate").val() != null) && ($("#StandardRate").val() != null)) {
+
+                //var jsActualRate = $("#jsActualRate").val();
+                //alert($("#ActualRate").val());
+
+                //var jsStandardRate = $("#jsStandardRate").val();
+                //alert($("#StandardRate").val());
+
+                //if ((jsActualRate != null) && (jsStandardRate != null)) {
+                //$("#Percent").html(($("#ActualRate").val()) / ($("#StandardRate").val()));
+
+                //Percent.innerHtml = (($("#ActualRate").val()) / ($("#StandardRate").val()));
+                var result = (($("#ActualRate").val()) / ($("#StandardRate").val()));
+                //$("input#Percent").val($(this).html());
+                $("input#Percent").val(result);
+                //alert($("#Percent").val());
+                
+            }
+        });
+
+        $("#StandardRate").change(function () {
+            if (($("#ActualRate").val() != null) && ($("#StandardRate").val() != null)) {
+                var result = (($("#ActualRate").val()) / ($("#StandardRate").val()))*100;
+                var finalResult = result.toFixed(0)+"%";
+
+                $("input#Percent").val(finalResult);
+            }
+        });
+
+        $("#Qty").change(function () {
+            if (($("#Qty").val() != null) && ($("#Hours").val() != null)) {
+                var result = (($("#Qty").val()) / ($("#Hours").val()));
+                var finalResult = result.toFixed(0);
+
+                $("input#ActualRate").val(finalResult);
+            }
+        });
+    });
+</script>

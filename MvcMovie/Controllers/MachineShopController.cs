@@ -45,15 +45,14 @@ namespace MvcMovie.Controllers
             //Session["StartDateAutoStr"] = StartDateAuto.ToString(TimeFormat);
             //Session["EndDateAutoStr"] = EndDateAuto.ToString(TimeFormat);
             //Session["SingleDateStr"] = null;
-
-            Session["DateStr"] = null;
             
 
             // BBY DEFAULT SHOW EVERYTHING
-            var machineShopQry = from m in db.MainTableObj
-                                 //where m.WorkCenter == WorkCenter && m.Department == Department
-                                 //where m.Date == System.DateTime.Today
-                                 select m;          
+            var machineShopQry = from m in db.MainTableObj                                 
+                                 select m;
+
+            //machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+            //Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
 
             if ((!String.IsNullOrEmpty(Department)) && (!String.IsNullOrEmpty(WorkCenter)))
             {
