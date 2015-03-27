@@ -55,7 +55,7 @@
 
                                 <td>Department : </td>
 
-                                <td id="jsDepartmentTxt">@Session["Department"]</td>
+                                <td id="jsDepartmentTxt">@Session["Department"]@Session["DepartmentTxt"]</td>
                                 @*<td>@ViewData["Department"]</td>*@
                                 @*<td>@Html.DisplayFor(modelA => item.Department)</td>*@
                                 <td></td>
@@ -83,16 +83,10 @@
 
                             </tr>
                             <tr>
-                                <td>Date: </td>
-                                <td>  
-                                    @System.DateTime.Now.ToShortDateString()
-                                     Start Date : @Session["StartDateAuto"] End Date : @Session["EndDateAuto"]
-                                    @*@Html.DisplayFor(testModel.todayTest);*@
-                                   @*@foreach (var item in Model)
-                                   {
-                                        @Html.DisplayFor(itemA => item.Date)
-                                   }*@
-                               </td>
+                                <td >Date: </td>
+                                <td id ="jsDate">
+                                    @Session["DateStr"]
+                                </td>
                             </tr>
                             @*<tr>
                                 <td>Prepared by: </td>
@@ -595,6 +589,7 @@
             var jsWorkCenter = document.getElementById('jsWorkCenterTxt');
             var jsMachine = document.getElementById('jsMachineTxt');
             var jspreciseQ = document.getElementById('preciseQTxt');
+            var jsDate = document.getElementById('jsDate');
 
             var topDoc = "<html><head><title>WaterSaver Faucet Co. Machine Shop production Report.</title></head>";
             var endDoc = "</body></html>";
@@ -632,6 +627,8 @@
             newWin.document.write("<h5>Work Center : " + jsWorkCenter.outerHTML + "</h5>");
             newWin.document.write("<h5>Machine : " + jsMachine.outerHTML + "</h5>");
             newWin.document.write("<h5>Precise queries : " + jspreciseQ.outerHTML + "</h5>");
+            newWin.document.write("<h5>Date : " + jsDate.outerHTML + "</h5>");
+
 
             newWin.document.write(divToPrint.outerHTML);
 

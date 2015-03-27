@@ -35,11 +35,18 @@ namespace MvcMovie.Controllers
             string sessionDepartmentString = null;
             string sessionWorkCenterString = null;
 
-            DateTime StartDateAuto = Convert.ToDateTime(DayOfWeek.Monday);
-            DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
+            //DateTime StartDateAuto = Convert.ToDateTime(DayOfWeek.Monday);
+            //DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
 
-            Session["StartDateAuto"] = Convert.ToDateTime(StartDateAuto);
-            Session["EndDateAuto"] = Convert.ToString(EndDateAuto);
+            DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+            DateTime EndDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Friday);
+
+            string TimeFormat = "MM/d/yyyy";
+            //Session["StartDateAutoStr"] = StartDateAuto.ToString(TimeFormat);
+            //Session["EndDateAutoStr"] = EndDateAuto.ToString(TimeFormat);
+            //Session["SingleDateStr"] = null;
+
+            Session["DateStr"] = null;
             
 
             // BBY DEFAULT SHOW EVERYTHING
@@ -59,9 +66,11 @@ namespace MvcMovie.Controllers
                 machineShopQry = from m in db.MainTableObj
                                  where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString                                 
                                  //where m.Date == System.DateTime.Today
+                                 orderby m.Date ascending
                                  select m;
-
-                machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= DateEnd);
+                //Display results just in this date frame
+                machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+                Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
             }
             else
             {
@@ -74,9 +83,15 @@ namespace MvcMovie.Controllers
 
                     machineShopQry = from m in db.MainTableObj
                                      where m.Department == sessionDepartmentString
+                                     orderby m.Date ascending
                                      //where m.Date == System.DateTime.Today
                                      select m;
-                    
+                    if ((!SingleDate.HasValue) && (!DateStart.HasValue) && (!DateEnd.HasValue))
+                    {
+                    machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+
+                    Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
+                    }
                     //DISPLAY ALL MACHINES FOR CHOOSEN DEPT                  
                     var allMachines = new List<string>();            
                     var wcQueryAll = from c in db.Machines
@@ -86,6 +101,8 @@ namespace MvcMovie.Controllers
                     allMachines.AddRange(wcQueryAll.Distinct());
                     var result = String.Join(", ", allMachines.ToArray());
                     Session["WorkCenterAll"] = result;
+
+
                                            
                 }
 
@@ -99,7 +116,14 @@ namespace MvcMovie.Controllers
 
                     machineShopQry = from m in db.MainTableObj                                     
                                      //where m.Date == System.DateTime.Today
+                                     orderby m.Date ascending
                                      select m;
+
+                    if ((!SingleDate.HasValue) && (!DateStart.HasValue) && (!DateEnd.HasValue))
+                    {
+                        machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+                        Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
+                    }
                 }
             }
 
@@ -341,6 +365,7 @@ namespace MvcMovie.Controllers
                 Session["Department"] = null;
                 Session["WorkCenter"] = null;
                 Session["machineTxt"] = null;
+                Session["DateStr"] = "From beginning of times.";
 
                 //Session["DepartmentDescription"] = "Department 1010, Department 1020, Department 1030.";
                 //Session["WorkCenterDescription"] = "All Work Centers";
@@ -348,6 +373,7 @@ namespace MvcMovie.Controllers
 
                 searchString = "";
                 machineShopQry = from m in db.MainTableObj
+                                 orderby m.Date ascending
                                      select m;
 
                 Session["preciseQ"] += "Show all data from database.";
@@ -360,6 +386,8 @@ namespace MvcMovie.Controllers
                 //machineShopQry = machineShopQry.Where(x => x.Date.Equals(Convert.ToDateTime(SingleDate)));
 
                 machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+
+                Session["DateStr"] = SingleDate.Value.ToString(TimeFormat);
             }
 
             if(DateStart.HasValue && DateEnd.HasValue)
@@ -371,6 +399,8 @@ namespace MvcMovie.Controllers
                 //                 && DateEnd <= x.Date
                 //                 select x;
                 machineShopQry = machineShopQry.Where(p => p.Date >= DateStart && p.Date <= DateEnd);
+
+                Session["DateStr"] =  DateStart.Value.ToString(TimeFormat) + " -- " + DateEnd.Value.ToString(TimeFormat);
             }
 
             //Department filter
@@ -565,6 +595,7 @@ namespace MvcMovie.Controllers
             machineshoptable.Department = Session["Department"].ToString();
             machineshoptable.WorkCenter = Session["WorkCenter"].ToString();
             machineshoptable.Machine = Session["machineTxt"].ToString();
+            
 
             if (ModelState.IsValid)
             {
@@ -789,6 +820,21 @@ namespace MvcMovie.Controllers
 
         //    return RedirectToAction("Index", testModel);
         //}
+    }
+
+    // adding Day of a week functionality to a date time - extending existing funciton
+    public static class DateTimeExtensions
+    {
+        public static DateTime StartOfWeek(this DateTime dt, DayOfWeek startOfWeek)
+        {
+            int diff = dt.DayOfWeek - startOfWeek;
+            if (diff < 0)
+            {
+                diff += 7;
+            }
+
+            return dt.AddDays(-1 * diff).Date;
+        }
     }
 }
 
