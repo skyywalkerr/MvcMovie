@@ -368,7 +368,7 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Comments)
                             </th>
-                            <th></th>
+                            @*<th id="jsCRUD"></th>*@
                         </tr>
 
                         @foreach (var item in Model)
@@ -465,8 +465,8 @@
 
 
 
-                            <td></td>
-                            <td></td>
+                            @*<td></td>
+                            <td></td>*@
                         </tr>
 
                     </table>
@@ -599,8 +599,12 @@
             //    newWin.close();
             
     //});
-
+                                 
         $("#testPrint4").click(function () {
+            
+            //HIDE CRUD COLUMN
+                $('td:nth-child(16)').hide();
+            
 
             var jsDepartment = document.getElementById('jsDepartmentTxt');
             var jsWorkCenter = document.getElementById('jsWorkCenterTxt');
@@ -653,6 +657,9 @@
 
             newWin.print();
             newWin.close();
+
+            // UNHIDE CRUD COLUMN
+            $('td:nth-child(16)').show();
 
         });
 
@@ -780,6 +787,16 @@
     
 <script>
     $(document).ready(function () {
+        $("#Departments").val("<option selected>None.</option>");
+        $("#operatorChoice").val(null);
+        $("#partChoice").val(null);
+        $("#operatorChoice2").val(null);
+        $("#partChoice2").val(null);
+        $("#colList").val(null);
+        $("#SearchString").val(null);
+
+        //$('select option[value="1"]').attr("selected", true);//
+
         $("#jsWorkCenter").prop("disabled", true);
         $("#Departments").change(function () {
             if ($("#Departments").val() != "") {
