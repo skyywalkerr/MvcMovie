@@ -37,9 +37,11 @@ namespace MvcMovie.Controllers
 
             //DateTime StartDateAuto = Convert.ToDateTime(DayOfWeek.Monday);
             //DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
+            var today = DateTime.Today;
+            DateTime friday = today.AddDays(-(int)today.DayOfWeek).AddDays(5).Date;
 
             DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
-            DateTime EndDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Friday);
+            DateTime EndDateAuto = friday;
 
             string TimeFormat = "MM/d/yyyy";
             //Session["StartDateAutoStr"] = StartDateAuto.ToString(TimeFormat);
@@ -69,6 +71,7 @@ namespace MvcMovie.Controllers
                                  select m;
                 //Display results just in this date frame
                 machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+                //Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
                 Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
             }
             else
@@ -835,6 +838,13 @@ namespace MvcMovie.Controllers
 
             return dt.AddDays(-1 * diff).Date;
         }
+        public static DateTime EndOfWeek(this DateTime dt, DayOfWeek endOfWeek)
+        {
+            var daysTillFriday = (int)dt.DayOfWeek - (int)endOfWeek;
+            return dt.AddDays(daysTillFriday).Date;
+        }
     }
+
+
 }
 
