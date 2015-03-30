@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Qty, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Qty)
+                @Html.EditorFor(model => model.Qty, new{value="0"})
                 @*@Html.ValidationMessageFor(model => model.Qty)*@
             </div>
         </div>
@@ -195,7 +195,8 @@
         $("#StandardRate").change(function () {
             if (($("#ActualRate").val() != null) && ($("#StandardRate").val() != null)) {
                 var result = (($("#ActualRate").val()) / ($("#StandardRate").val()))*100;
-                var finalResult = result.toFixed(0)+"%";
+                //var finalResult = result.toFixed(0)+"%";
+                var finalResult = result.toFixed(0);
 
                 $("input#Percent").val(finalResult);
             }
@@ -209,5 +210,76 @@
                 $("input#ActualRate").val(finalResult);
             }
         });
+
+        $("#Hours").change(function () {
+            if(($("#Qty").val() != null) && ($("#Hours").val() != null))
+            {
+                var result = ($("#Qty").val() / $("#Hours").val());
+                var finalResult = result.toFixed(0);
+
+                $("input#ActualRate").val(finalResult);
+            }
+        });
+      
+
+        $("#Qty").ready(function () {            
+                $("#Qty").val("0");
+        });
+        $("#Hours").ready(function () {
+            $("#Hours").val("0");
+        });
+        $("#ActualRate").ready(function () {
+            $("#ActualRate").val("0");
+        });
+        $("#StandardRate").ready(function () {
+            $("#StandardRate").val("0");
+        });
+        $("#Percent").ready(function () {
+            $("#Percent").val("0");
+        });
+        $("#Setup").ready(function () {
+            $("#Setup").val("0");
+        });
+        $("#Cleaning").ready(function () {
+            $("#Cleaning").val("0");
+        });
+        $("#Down").ready(function () {
+            $("#Down").val("0");
+        });
+        $("#Other").ready(function () {
+            $("#Other").val("0");
+        });
+        $("#NonconfParts").ready(function () {
+            $("#NonconfParts").val("0");
+        });
+
+        
+            //$("#totalSumHours").ready(function () {
+            //    var x = $("#totalSumHours").val();
+            //    var result = x.toFixed(2);
+            //    $("#totalSumHours").val(result);
+            //});
+            //$("#totalSumSetup").ready(function () {
+            //    var x = $("#totalSumSetup").val();
+            //    var result = x.toFixed(2);
+            //    $("#totalSumSetup").val(result);
+            //});
+            //$("#totalSumCleaning").ready(function () {
+            //    var x = $("#totalSumCleaning").val();
+            //    var result = x.toFixed(2);
+            //    $("#totalSumCleaning").val(result);
+            //});
+            //$("#totalSumDown").ready(function () {
+            //    var x = $("#totalSumDown").val();
+            //    var result = x.toFixed(2);
+            //    $("#totalSumDown").val(result);
+            //});
+            //$("#totalSumOther").ready(function () {
+            //    var x = $("#totalSumOther").val();
+            //    var result = x.toFixed(2);
+            //    $("#totalSumOther").val(result);
+            //});
+
+        
     });
 </script>

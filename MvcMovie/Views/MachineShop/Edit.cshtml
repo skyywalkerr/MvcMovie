@@ -20,7 +20,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Date, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Date)
+                <div id="xyz">
+                    @*@Html.EditorFor(model => model.Date)*@
+                    @Html.TextBoxFor(model => model.Date, new { @Value = Model.Date.ToString("MM/dd/yyyy"), @class = "form-control datepicker" })
+                </div>
                 @Html.ValidationMessageFor(model => model.Date)
             </div>
         </div>
@@ -146,9 +149,32 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to List", "Index")*@
 </div>
 
-@section Scripts {
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+}*@
+
+<script>
+    //$(document).ready(function () {
+
+
+    //    $("#xyz").ready(function () {
+    //        var x =   $("#xyz").val()
+    //        alert("ready" + x);
+
+    //        $("input#Date").val(x);
+    //    });
+
+    //    $("#Date").change(function () {
+    //        var x =   $("#Date").val()
+    //        alert("change" + x);
+
+    //        $("input#Date").val(x);
+    //    });
+
+
+
+    //    });
+  </script>

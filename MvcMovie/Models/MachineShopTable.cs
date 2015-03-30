@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System;                       
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
@@ -12,6 +12,7 @@ namespace MvcMovie.Models
             [Display(Name = "Date")]
             [DataType(DataType.Date)]
             //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+            //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
             [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
             public DateTime Date { get; set; }
 
@@ -41,6 +42,7 @@ namespace MvcMovie.Models
             public float StandardRate { get; set; } // PROPERTY TITLE
 
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
+            [DataType("Percent")]
             public float Percent { get; set; } // PROPERTY TITLE
 
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
