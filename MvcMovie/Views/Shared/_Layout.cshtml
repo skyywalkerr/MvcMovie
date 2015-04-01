@@ -11,7 +11,7 @@
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #0092D0">*@
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" >@*style="background-color: #E0ECF6">*@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -23,7 +23,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><img src="/Content/Images/WSF_logo.png" height="48px" width="180px" /></li>
+                    <li><img src="~/Content/Images/WSF_logo.png" height="48px" width="195px" /></li>
                     @*<li>@Html.ActionLink("Main Table", "Index", "MachineShop")</li>*@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
@@ -34,7 +34,7 @@
                 </ul>
                 @*LOGIN AND REGISTER BUTTONS*@
                 @Html.Partial("_LoginPartial")
-                
+
             </div>
         </div>
     </div>

@@ -30,6 +30,8 @@ namespace MvcMovie.Controllers
         public ActionResult Index(string jsWorkCenter,string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
+            
+
             Session["preciseQ"] = null;
             Session["WorkCenterAll"] = null;
             string sessionDepartmentString = null;
@@ -38,10 +40,11 @@ namespace MvcMovie.Controllers
             //DateTime StartDateAuto = Convert.ToDateTime(DayOfWeek.Monday);
             //DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
             var today = DateTime.Today;
-            DateTime friday = today.AddDays(-(int)today.DayOfWeek).AddDays(5).Date;
+            //DateTime friday = today.AddDays(-(int)today.DayOfWeek).AddDays(5).Date;
+            DateTime saturday = today.AddDays(-(int)today.DayOfWeek).AddDays(6).Date;
 
             DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
-            DateTime EndDateAuto = friday;
+            DateTime EndDateAuto = saturday;
 
             string TimeFormat = "MM/d/yyyy";
             //Session["StartDateAutoStr"] = StartDateAuto.ToString(TimeFormat);
@@ -143,6 +146,8 @@ namespace MvcMovie.Controllers
             ViewBag.totalSumCleaning = 0;
             ViewBag.totalSumDown = 0;
             ViewBag.totalSumOther = 0;
+            ViewBag.totalSumNonC = 0;
+
             // CALCULATE SUM - end            
 
             //INCOMING DATA//
@@ -239,6 +244,8 @@ namespace MvcMovie.Controllers
                             select c.WorkCenter;
             wcLst.AddRange(wcQuery.Distinct());
             ViewBag.wcChoice = new SelectList(wcLst);
+
+            //Session["WCamount"] =  
 
             //Column names list
 

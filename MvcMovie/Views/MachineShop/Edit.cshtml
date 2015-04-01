@@ -157,24 +157,81 @@
 }*@
 
 <script>
-    //$(document).ready(function () {
+    $(document).ready(function () {
+        $("#jsActualRate").change(function () {
+
+            //var extender = $find("<%= htmlEditorExtender.ClientID %>");
+            //alert($("#ActualRate").val());
+
+            if (($("#ActualRate").val() != null) && ($("#StandardRate").val() != null)) {
+               
+                var result = (($("#ActualRate").val()) / ($("#StandardRate").val()));
+                //$("input#Percent").val($(this).html());
+                $("input#Percent").val(result);
+                //alert($("#Percent").val());
+
+            }
+        });
+
+        $("#StandardRate").change(function () {
+            if (($("#ActualRate").val() != null) && ($("#StandardRate").val() != null)) {
+                var result = (($("#ActualRate").val()) / ($("#StandardRate").val()))*100;
+                //var finalResult = result.toFixed(0)+"%";
+                var finalResult = result.toFixed(0);
+
+                $("input#Percent").val(finalResult);
+            }
+        });
+
+        $("#Qty").change(function () {
+            if (($("#Qty").val() != null) && ($("#Hours").val() != null)) {
+                var result = (($("#Qty").val()) / ($("#Hours").val()));
+                var finalResult = result.toFixed(0);
+
+                $("input#ActualRate").val(finalResult);
+            }
+        });
+
+        $("#Hours").change(function () {
+            if(($("#Qty").val() != null) && ($("#Hours").val() != null))
+            {
+                var result = ($("#Qty").val() / $("#Hours").val());
+                var finalResult = result.toFixed(0);
+
+                $("input#ActualRate").val(finalResult);
+            }
+        });
 
 
-    //    $("#xyz").ready(function () {
-    //        var x =   $("#xyz").val()
-    //        alert("ready" + x);
-
-    //        $("input#Date").val(x);
-    //    });
-
-    //    $("#Date").change(function () {
-    //        var x =   $("#Date").val()
-    //        alert("change" + x);
-
-    //        $("input#Date").val(x);
-    //    });
-
-
-
-    //    });
-  </script>
+        //$("#Qty").ready(function () {
+        //        $("#Qty").val("0");
+        //});
+        //$("#Hours").ready(function () {
+        //    $("#Hours").val("0");
+        //});
+        //$("#ActualRate").ready(function () {
+        //    $("#ActualRate").val("0");
+        //});
+        //$("#StandardRate").ready(function () {
+        //    $("#StandardRate").val("0");
+        //});
+        //$("#Percent").ready(function () {
+        //    $("#Percent").val("0");
+        //});
+        //$("#Setup").ready(function () {
+        //    $("#Setup").val("0");
+        //});
+        //$("#Cleaning").ready(function () {
+        //    $("#Cleaning").val("0");
+        //});
+        //$("#Down").ready(function () {
+        //    $("#Down").val("0");
+        //});
+        //$("#Other").ready(function () {
+        //    $("#Other").val("0");
+        //});
+        //$("#NonconfParts").ready(function () {
+        //    $("#NonconfParts").val("0");
+        //});
+    });
+</script>
