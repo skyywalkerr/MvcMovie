@@ -76,6 +76,10 @@ namespace MvcMovie.Controllers
                 machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
                 //Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
                 Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
+
+                string[] wcTable = new string[1];
+                wcTable[0] = sessionWorkCenterString; //adding all list elements to array
+                ViewBag.manyWC = wcTable;
             }
             else
             {
@@ -106,6 +110,9 @@ namespace MvcMovie.Controllers
                     allMachines.AddRange(wcQueryAll.Distinct());
                     var result = String.Join(", ", allMachines.ToArray());
                     Session["WorkCenterAll"] = result;
+                    
+                    string[] wcTable = allMachines.ToArray(); //adding all list elements to array
+                    ViewBag.manyWC = wcTable;
 
 
                                            
@@ -245,7 +252,7 @@ namespace MvcMovie.Controllers
             wcLst.AddRange(wcQuery.Distinct());
             ViewBag.wcChoice = new SelectList(wcLst);
 
-            //Session["WCamount"] =  
+            //Session["WCamount"] = wcLst.Count();
 
             //Column names list
 
@@ -370,6 +377,7 @@ namespace MvcMovie.Controllers
                 ////deptChoice = "";
                 ////wcChoice = "";
                 ////machineChoice = "";
+                Session["hideCRUD"] = null;
 
                 Session["Department"] = null;
                 Session["WorkCenter"] = null;
@@ -601,11 +609,10 @@ namespace MvcMovie.Controllers
         public ActionResult Edit([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,WorkCenter,Machine,Department")] MachineShopTable machineshoptable)
         {
 
-            //machineshoptable.Department = Session["Department"].ToString();
-            //machineshoptable.WorkCenter = Session["WorkCenter"].ToString();
-            //machineshoptable.Machine = Session["machineTxt"].ToString();
-
-            
+            machineshoptable.Department = Session["Department"].ToString();
+            machineshoptable.WorkCenter = Session["WorkCenter"].ToString();
+            machineshoptable.Machine = Session["machineTxt"].ToString();
+             
 
             if (ModelState.IsValid)
             {
