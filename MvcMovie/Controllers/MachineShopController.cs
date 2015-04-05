@@ -35,7 +35,7 @@ namespace MvcMovie.Controllers
             Session["preciseQ"] = null;
             Session["WorkCenterAll"] = null;
             string sessionDepartmentString = null;
-            string sessionWorkCenterString = null;
+            string sessionWorkCenterString = null;            
 
             //DateTime StartDateAuto = Convert.ToDateTime(DayOfWeek.Monday);
             //DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
@@ -458,6 +458,10 @@ namespace MvcMovie.Controllers
                 //                    select m;
                 string wc = Session["WorkCenter"].ToString();
                 machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wc));
+
+                string[] wcTable = new string[1];
+                wcTable[0] = wc; //adding all list elements to array
+                ViewBag.manyWC = wcTable;
             }
 
 
@@ -787,6 +791,10 @@ namespace MvcMovie.Controllers
 
             Session["WorkCenter"] = jsWorkCenter;
             Session["machineTxt"] = machineLst.First();
+
+            string[] wcTable = new string[1];
+            wcTable[0] = jsWorkCenter; //adding all list elements to array
+            ViewBag.manyWC = wcTable;
 
             return Json(machineLst);
         }
