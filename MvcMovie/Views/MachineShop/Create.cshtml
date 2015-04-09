@@ -158,7 +158,8 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <button class="btn btn-primary" onclick="JavaScript: window.history.back(1); return false;"><span class="glyphicon glyphicon-arrow-left"></span>   Go back</button>
+    @*@Html.ActionLink("Back to List", "Index")*@
 </div>
 
 @*@section Scripts {

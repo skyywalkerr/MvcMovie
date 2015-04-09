@@ -64,6 +64,9 @@ input[type="checkbox"].input-validation-error {
 #testPrint4{
     display:none;
 }
+#mainPrint{
+    display:none;
+}
 #Export{
     display:none;
 }

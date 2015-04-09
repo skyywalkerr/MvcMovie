@@ -547,7 +547,10 @@
     <table>
         <tr>
             <td>
-                <button id="testPrint4" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>   Print Report</button>
+                @*<input type="button" value="Print this page" onclick="window.print()" id="mainPrint" class="btn btn-primary">*@
+                <button id="mainPrint" class="btn btn-primary" onclick="window.print()"><span class="glyphicon glyphicon-print"></span>   Print Report</button>
+                @*This is the one controlled by JS*@
+                @*<button id="testPrint4" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span>   Print Report</button>*@
             </td>
             @*<button class="print">EXPORT JS 2 </button>*@
 

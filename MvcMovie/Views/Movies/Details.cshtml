@@ -56,4 +56,6 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
+    
+    <button class="btn btn-primary" onclick="JavaScript: window.history.back(1); return false;"><span class="glyphicon glyphicon-print"></span>   Go back</button>
 </p>

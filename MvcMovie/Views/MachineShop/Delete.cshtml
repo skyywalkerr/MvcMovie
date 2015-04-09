@@ -137,8 +137,10 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+
+            <input type="submit" value="Delete" class="btn btn-primary" /> |
+            @*@Html.ActionLink("Back to List", "Index")*@
+            <button class="btn btn-primary" onclick="JavaScript: window.history.back(1); return false;"><span class="glyphicon glyphicon-arrow-left"></span>   Go back</button>
         </div>
     }
 </div>
