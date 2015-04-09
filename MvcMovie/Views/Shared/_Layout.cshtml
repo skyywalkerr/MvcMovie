@@ -3,15 +3,24 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Machine Shop Database</title>
-    @Styles.Render("~/Content/css")
+    <title id="mainTitle">WaterSaver Faucet Co. Machine Shop Database</title>
+    @*<title id="reportTitle">WaterSaver Faucet Co. Machine Shop production Report.</title>*@
+    @*@Styles.Render("~/Content/css")*@
+    <link href="@Styles.Url("~/Content/css")" rel="stylesheet" type="text/css" media="screen" />
+    @*<link href="@Styles.Url("~/Content/Site.css")" rel="stylesheet" type="text/css" media="screen" />
+    <link href="@Styles.Url("~/Content/bootstrap.css")" rel="stylesheet" type="text/css" media="screen" />
+    <link href="@Styles.Url("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" media="screen" />*@
+
+    <link href="@Styles.Url("~/Content/Site_print.css")" rel="stylesheet" type="text/css" media="print" />
+    <link href="@Styles.Url("~/Content/bootstrapPrint.css")" rel="stylesheet" type="text/css" media="print" />
+    @*<link href="@Styles.Url("~/Content/bootstrap.minPrint.css")" rel="stylesheet" type="text/css" media="print" />*@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
 
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #0092D0">*@
-    <div class="navbar navbar-inverse navbar-fixed-top" >@*style="background-color: #E0ECF6">*@
+    <div class="navbar navbar-inverse navbar-fixed-top" id="navigationBar">@*style="background-color: #E0ECF6">*@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,7 +52,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer id="mainFooter">
             <p>&copy; @DateTime.Now.Year - Machine Shop Database | WaterSaver Faucet Co.</p>
         </footer>
     </div>

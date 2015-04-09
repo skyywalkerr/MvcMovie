@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -41,6 +41,54 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+#createBtnTop{
+    display:none;
+}
+
+#currDispl{
+    display:none;
+}
+#filtTool{
+    display:none;
+}
+#deptNameTop{
+    display:none;
+}
+#wcNameTop{
+    display:none;
+}
+#currDisplTable{
+    font-size:12px;
+    font-weight :bolder;
+}
+#testPrint4{
+    display:none;
+}
+#Export{
+    display:none;
+}
+.mainTable{
+    font-size:8px;
+    width:auto;
+    page-break-inside: avoid
+}
+#editsTable{
+    display:none;
+}
+#sumQuantities{
+    color:red;
+    font-weight:bold;
+    border-bottom: none !important;
+    border-left:hidden;
+    border-right:hidden;
+}
+#wcNameTable{
+    font-size:10px;
+    page-break-inside:avoid;
+}
+#mainFooter{
+    font-size:10px;    
+}
 #td1{
      border-bottom: none !important;
     border-left:none !important;
@@ -80,12 +128,15 @@ input[type="checkbox"].input-validation-error {
     border-left:none !important;   
 }
 #reportName{
-    display:none;
-    margin-top: 0px;
+    text-align:center;
 }
-#printBr{
+#navigationBar{
     display:none;
 }
-/*#reportTitle{
-    display:none;
-}*/
+
+/*#totalSumHours
+#totalSumSetup
+#totalSumCleaning
+#totalSumDown
+#totalSumOther
+#totalSumNonC*/

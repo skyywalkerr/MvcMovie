@@ -255,9 +255,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrapPrint.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.minPrint.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\WSF_logo.png" />
+    <Content Include="Content\Site_print.css" />
     <Content Include="ExportHelperReadMe.txt" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
