@@ -67,13 +67,16 @@ namespace MvcMovie.Controllers
                 sessionDepartmentString = Session["Department"].ToString();
                 sessionWorkCenterString = Session["WorkCenter"].ToString(); 
 
+                
+                //Display results just in this date frame                
+
                 machineShopQry = from m in db.MainTableObj
-                                 where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString                                 
+                                 where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString
                                  //where m.Date == System.DateTime.Today
                                  orderby m.Date ascending
                                  select m;
-                //Display results just in this date frame
-                machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+                machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto).OrderBy(p => p.Date);
+
                 //Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
                 Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
 
@@ -97,10 +100,11 @@ namespace MvcMovie.Controllers
                                      select m;
                     if ((!SingleDate.HasValue) && (!DateStart.HasValue) && (!DateEnd.HasValue))
                     {
-                    machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+                        machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto).OrderBy(p => p.Date);
 
-                    Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
+                        Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
                     }
+
                     //DISPLAY ALL MACHINES FOR CHOOSEN DEPT                  
                     var allMachines = new List<string>();            
                     var wcQueryAll = from c in db.Machines
@@ -126,14 +130,13 @@ namespace MvcMovie.Controllers
                     sessionDepartmentString = null;
                     sessionWorkCenterString = null; 
 
-                    machineShopQry = from m in db.MainTableObj                                     
+                    machineShopQry = from m in db.MainTableObj
                                      //where m.Date == System.DateTime.Today
                                      orderby m.Date ascending
                                      select m;
-
                     if ((!SingleDate.HasValue) && (!DateStart.HasValue) && (!DateEnd.HasValue))
                     {
-                        machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
+                        machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto).OrderBy(p => p.Date);
                         Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
                     }
                 }
@@ -303,17 +306,17 @@ namespace MvcMovie.Controllers
                 //}
                 if (colList == "Item No.")
                 {
-                    machineShopQry = machineShopQry.Where(s => s.ItemNo.Contains(searchString));
+                    machineShopQry = machineShopQry.Where(s => s.ItemNo.Contains(searchString)).OrderBy(s => s.Date);
                     Session["preciseQ"] += "Item No. : " + searchString + " | ";
                 }
                 if (colList == "Operation")
                 {
-                    machineShopQry = machineShopQry.Where(s => s.Operation.Contains(searchString));
+                    machineShopQry = machineShopQry.Where(s => s.Operation.Contains(searchString)).OrderBy(s => s.Date);
                     Session["preciseQ"] += "Operation : " + searchString + " | ";
                 }
                 if (colList == "Operator")
                 {
-                    machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString));
+                    machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString)).OrderBy(s => s.Date);
                     Session["preciseQ"] += "Operator : " + searchString + " | ";
                 }
                 #region COMMENTED ANOTHER COLUMNS
@@ -360,7 +363,7 @@ namespace MvcMovie.Controllers
 #endregion
                 if (colList == "Comments")
                 {
-                    machineShopQry = machineShopQry.Where(s => s.Comments.Contains(searchString));
+                    machineShopQry = machineShopQry.Where(s => s.Comments.Contains(searchString)).OrderBy(s => s.Date);
                     Session["preciseQ"] += "Comments : " + searchString + " | ";
                 }
                 
@@ -402,7 +405,7 @@ namespace MvcMovie.Controllers
                 //machineShopQry = machineShopQry.Where(x => x.Date.Equals(SingleDate));
                 //machineShopQry = machineShopQry.Where(x => x.Date.Equals(Convert.ToDateTime(SingleDate)));
 
-                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate).OrderBy(x => x.Date);
 
                 Session["DateStr"] = SingleDate.Value.ToString(TimeFormat);
             }
@@ -415,7 +418,7 @@ namespace MvcMovie.Controllers
                 //                 where DateStart >= x.Date 
                 //                 && DateEnd <= x.Date
                 //                 select x;
-                machineShopQry = machineShopQry.Where(p => p.Date >= DateStart && p.Date <= DateEnd);
+                machineShopQry = machineShopQry.Where(p => p.Date >= DateStart && p.Date <= DateEnd).OrderBy(p => p.Date);
 
                 Session["DateStr"] =  DateStart.Value.ToString(TimeFormat) + " -- " + DateEnd.Value.ToString(TimeFormat);
             }
@@ -435,7 +438,7 @@ namespace MvcMovie.Controllers
             if (Session["Department"] != null)
             {
                 string dept = Session["Department"].ToString();
-                machineShopQry = machineShopQry.Where(s => s.Department.Equals(dept));
+                machineShopQry = machineShopQry.Where(s => s.Department.Equals(dept)).OrderBy(s => s.Date);
             }
 
             //Work center filter
@@ -457,7 +460,7 @@ namespace MvcMovie.Controllers
                 //                    //where m.Date == System.DateTime.Today
                 //                    select m;
                 string wc = Session["WorkCenter"].ToString();
-                machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wc));
+                machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wc)).OrderBy(s => s.Date);
 
                 string[] wcTable = new string[1];
                 wcTable[0] = wc; //adding all list elements to array
@@ -476,7 +479,7 @@ namespace MvcMovie.Controllers
             if (Session["machineTxt"]!= null)
             {
                 string mach = Session["machineTxt"].ToString();
-                machineShopQry = machineShopQry.Where(s => s.Machine.Equals(mach));
+                machineShopQry = machineShopQry.Where(s => s.Machine.Equals(mach)).OrderBy(s => s.Date);
                 //Session["preciseQ"] += mach+" - ";
             }
 
@@ -489,18 +492,18 @@ namespace MvcMovie.Controllers
             //Parts filter
             if (!String.IsNullOrEmpty(partChoice))
             {
-                machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice));
+                machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice)).OrderBy(s => s.Date);
                 Session["preciseQ"] += "Item No. : " + partChoice + " | ";
             }
             //Operator and Parts filter
             if (!String.IsNullOrEmpty(partChoice2))
-            {                
-                machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice2));
+            {
+                machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice2)).OrderBy(s => s.Date);
                 Session["preciseQ"] += "Item No. : " + partChoice2 + " | ";
             }
             if (!String.IsNullOrEmpty(operatorChoice2))
             {
-                machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice2));
+                machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice2)).OrderBy(s=>s.Date);
                 Session["preciseQ"] += "Operator : " + operatorChoice2 + " | ";
             }
             //Operator and Parts filter - end
