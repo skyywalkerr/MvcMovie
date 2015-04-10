@@ -350,7 +350,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Date)
                     </th>
-                    <th>
+                    <th >
                         @Html.DisplayNameFor(model => model.ItemNo)
                     </th>
                     <th>
@@ -365,11 +365,15 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Hours)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ActualRate)
+                    <th id="arHover" title="AR - Actual Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ActualRate)
+                        </span>
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.StandardRate)
+                    <th id="srHover" title="SR - Standard Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.StandardRate)
+                        </span>
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Percent)
@@ -386,8 +390,10 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Other)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.NonconfParts)
+                    <th id="npHover" title="NP - Nonconfirmed Parts">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.NonconfParts)
+                            </span>
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Comments)
@@ -423,7 +429,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
-                <td>
+                <td id="itemNoWrap">
                     @Html.DisplayFor(modelItem => item.ItemNo)
                 </td>
                 <td>

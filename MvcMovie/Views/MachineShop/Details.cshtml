@@ -147,7 +147,8 @@
 </div>
 <p>
     <button class="btn btn-primary" onclick="JavaScript: window.history.back(1); return false;"><span class="glyphicon glyphicon-arrow-left"></span>   Go back</button>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |*@
+    <a href="@Url.Action("Edit", "MachineShop", new { id = Model.ID })" class="btn btn-primary" ><span class="glyphicon glyphicon-wrench"></span> Edit</a>
     
     @*@Html.ActionLink("Back to List", "Index")*@
 </p>

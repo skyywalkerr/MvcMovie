@@ -33,11 +33,11 @@ namespace MvcMovie.Models
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public float Hours { get; set; } // PROPERTY TITLE
 
-            [Display(Name = "Actual Rate")]
+            [Display(Name = "AR")]
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public float ActualRate { get; set; } // PROPERTY TITLE
 
-            [Display(Name = "Standard Rate")]
+            [Display(Name = "SR")]
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public float StandardRate { get; set; } // PROPERTY TITLE
 
@@ -57,7 +57,7 @@ namespace MvcMovie.Models
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public float Other { get; set; } // PROPERTY TITLE
 
-            [Display(Name = "Nonconf Parts")]
+            [Display(Name = "NP")]
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public float NonconfParts { get; set; } // PROPERTY TITLE
 

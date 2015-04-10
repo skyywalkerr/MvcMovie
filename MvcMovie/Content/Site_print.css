@@ -92,12 +92,12 @@ input[type="checkbox"].input-validation-error {
 #mainFooter{
     font-size:10px;    
 }
-#td1{
+#td1,#td2,#td3,#td4,#td6{
      border-bottom: none !important;
     border-left:none !important;
     border-right:none !important;
 }
-#td2{
+/*#td2{
       border-bottom: none !important;
     border-left:none !important;
     border-right:none !important;
@@ -111,16 +111,16 @@ input[type="checkbox"].input-validation-error {
       border-bottom: none !important;
     border-left:none !important;
     border-right:none !important;
-}
+}*/
 #td5{
       border-bottom: none !important;
     border-right:none !important;
 }
-#td6{
+/*#td6{
       border-bottom: none !important;
     border-left:none !important;
     border-right:none !important;
-}
+}*/
 #td7{
       border-bottom: none !important;
     border-left:none !important;
@@ -135,6 +135,10 @@ input[type="checkbox"].input-validation-error {
 }
 #navigationBar{
     display:none;
+}
+.mainTable td th{
+    text-align:center; 
+    vertical-align:middle;
 }
 
 /*#totalSumHours
