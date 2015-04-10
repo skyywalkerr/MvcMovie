@@ -20,7 +20,7 @@
 </head>
 <body>
     @*<div class="navbar navbar-inverse navbar-fixed-top" style="background-color: #0092D0">*@
-    <div class="navbar navbar-inverse navbar-fixed-top" id="navigationBar" style="background-color: #002839">
+    <div class="navbar navbar-inverse navbar-fixed-top" id="navigationBar" @*style="background-color: #002839"*@>
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -30,7 +30,7 @@
                 </button>
 
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" id="mainMenuTop">
                 <ul class="nav navbar-nav">
                     <li><img src="~/Content/Images/WSF_logo.png" height="36px" width="155px" style="margin:5px" /></li>
                     @*<li>@Html.ActionLink("Main Table", "Index", "MachineShop")</li>*@

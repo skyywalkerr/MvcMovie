@@ -124,6 +124,9 @@ input[type="checkbox"].input-validation-error {
 #itemNoWrap{
     white-space: nowrap;
 }
+#mainMenuTop{
+    color:white;
+}
 
 /*#reportTitle{
     display:none;

@@ -1,7 +1,12 @@
 ﻿@using Microsoft.Owin.Security
 
-<h4>Google chrome is recommended web-browser.</h4>
-<hr />
+<h4>Google chrome is recommended browser.</h4>
+
+<div style="text-align:center">
+    <a href="https://www.google.com/chrome/browser/desktop/index.html"><img alt="Google Chrome" src="https://www.google.com/chrome/assets/common/images/chrome_logo_2x.png" width="246" height="80"></a>
+    @*<a href="https://www.google.com/chrome/browser/desktop/index.html"><img alt="Google Chrome" src="https://www.google.com/chrome/assets/common/images/marquee/benefits-5-mobile.png" width="448" height="289"></a>*@
+    <a href="https://www.google.com/chrome/browser/desktop/index.html"><img alt="Google Chrome" src="http://www.toolsplanning.com/WP/wp-content/uploads/2014/05/Download-Google-Chrome-Button-300x59.png" width="300" height="59"></a>
+</div>
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0)

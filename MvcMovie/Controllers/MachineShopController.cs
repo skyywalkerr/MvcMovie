@@ -117,9 +117,7 @@ namespace MvcMovie.Controllers
                     
                     string[] wcTable = allMachines.ToArray(); //adding all list elements to array
                     ViewBag.manyWC = wcTable;
-
-
-                                           
+                          
                 }
 
                 if ((Session["Department"] == null) && (Session["WorkCenter"] == null))
