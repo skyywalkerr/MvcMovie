@@ -17,8 +17,10 @@
                                              
                                                //"Create", new { Department = @ViewData["Department"] -- sending var Department, which gonna be catched as a string in Create method of MachineShopController
     )*@
-
+    @if(Session["WorkCenter"]!=null)
+    { 
     <a href="@Url.Action("Create", "MachineShop", new { Department = @ViewData["Department"], WorkCenter = @ViewData["WorkCenter"] })" class="btn btn-primary" id="createBtnTop"><span class="glyphicon glyphicon-plus-sign"></span> Create New</a>
+    }
 </p>
 
 <div class="row">
@@ -339,6 +341,15 @@
 
                         @*<p style="text-align:center"><h4 id="wcNameTable">Work Center : @wcTable[a].ToString()</h4></p>
                             <br />*@
+                
+                        ViewBag.totalSumQty = 0;
+                        ViewBag.totalSumHours = 0;
+                        ViewBag.totalSumSetup = 0;
+                        ViewBag.totalSumCleaning = 0;
+                        ViewBag.totalSumDown = 0;
+                        ViewBag.totalSumOther = 0;
+                        ViewBag.totalSumNonC = 0;                
+
     <div class="mainTable">
         <p style="text-align:center"><h4 id="wcNameTable">Work Center : @wcTable[a].ToString()</h4></p>
         <br />
@@ -400,6 +411,7 @@
                     </th>
                     @*<th id="jsCRUD"></th>*@
                 </tr>
+                                                             
 
                 @foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString()))
             {
@@ -471,11 +483,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Comments)
                 </td>
+                @if(Session["WorkCenter"]!=null)
+                {
                 <td id="editsTable">
                     @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
                     @Html.ActionLink("Details", "Details", new { id = item.ID }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.ID })
                 </td>
+                }
             </tr>
                 //}
                 //}
@@ -579,6 +594,13 @@
         </tr>
     </table>
 
+@*<div ng-app="">
+
+    <p>Input something in the input box:</p>
+    <p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
+    <h1>Hello {{name}}</h1>
+
+</div>*@
 
 
     @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

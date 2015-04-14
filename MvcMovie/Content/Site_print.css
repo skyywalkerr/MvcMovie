@@ -136,7 +136,11 @@ input[type="checkbox"].input-validation-error {
 #navigationBar{
     display:none;
 }
-.mainTable td th{
+.mainTable th {
+    text-align:center; 
+    vertical-align:middle;
+}
+.mainTable td{
     text-align:center; 
     vertical-align:middle;
 }
