@@ -55,6 +55,22 @@ namespace MvcMovie.Controllers
             // BBY DEFAULT SHOW EVERYTHING
             var machineShopQry = from m in db.MainTableObj                                 
                                  select m;
+            ////machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto).OrderBy(p => p.Date);
+            /////////////
+            ////if ((Session["Department"] != null) && (Session["WorkCenter"] != null))
+            ////{
+            ////    sessionDepartmentString = Session["Department"].ToString();
+            ////    sessionWorkCenterString = Session["WorkCenter"].ToString();
+ 
+            ////    machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto).OrderBy(p => p.Date);
+
+            ////    machineShopQry = from m in db.MainTableObj
+            ////                     where m.WorkCenter == sessionWorkCenterString && m.Department == sessionDepartmentString
+            ////                     orderby m.Date ascending
+            ////                     select m;
+            ////}
+            /////////////
+
 
             //machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto);
             //Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
@@ -398,28 +414,7 @@ namespace MvcMovie.Controllers
                 //s = virtual lambda variable used just to initate this function and return result
             }
 
-            if (SingleDate.HasValue) // single date pick box
-            {
-                //machineShopQry = machineShopQry.Where(x => x.Date.Equals(SingleDate));
-                //machineShopQry = machineShopQry.Where(x => x.Date.Equals(Convert.ToDateTime(SingleDate)));
-
-                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate).OrderBy(x => x.Date);
-
-                Session["DateStr"] = SingleDate.Value.ToString(TimeFormat);
-            }
-
-            if(DateStart.HasValue && DateEnd.HasValue)
-            {
-                //machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
-
-                //machineShopQry = from x in db.MainTableObj
-                //                 where DateStart >= x.Date 
-                //                 && DateEnd <= x.Date
-                //                 select x;
-                machineShopQry = machineShopQry.Where(p => p.Date >= DateStart && p.Date <= DateEnd).OrderBy(p => p.Date);
-
-                Session["DateStr"] =  DateStart.Value.ToString(TimeFormat) + " -- " + DateEnd.Value.ToString(TimeFormat);
-            }
+            
 
             //Department filter
             //////if (!String.IsNullOrEmpty(deptChoice))
@@ -504,6 +499,37 @@ namespace MvcMovie.Controllers
                 machineShopQry = machineShopQry.Where(s => s.Operator.Equals(operatorChoice2)).OrderBy(s=>s.Date);
                 Session["preciseQ"] += "Operator : " + operatorChoice2 + " | ";
             }
+
+            if (SingleDate.HasValue) // single date pick box
+            {
+                //machineShopQry = machineShopQry.Where(x => x.Date.Equals(SingleDate));
+                //machineShopQry = machineShopQry.Where(x => x.Date.Equals(Convert.ToDateTime(SingleDate)));
+
+                machineShopQry = machineShopQry.Where(x => x.Date == SingleDate).OrderBy(x => x.Date);
+
+                Session["DateStr"] = SingleDate.Value.ToString(TimeFormat);
+            }
+
+            if (DateStart.HasValue && DateEnd.HasValue)
+            {
+                //machineShopQry = machineShopQry.Where(x => x.Date == SingleDate);
+
+                //machineShopQry = from x in db.MainTableObj
+                //                 where DateStart >= x.Date 
+                //                 && DateEnd <= x.Date
+                //                 select x;
+                machineShopQry = machineShopQry.Where(p => p.Date >= DateStart && p.Date <= DateEnd).OrderBy(p => p.Date);
+
+                Session["DateStr"] = DateStart.Value.ToString(TimeFormat) + " -- " + DateEnd.Value.ToString(TimeFormat);
+            }
+
+            if ((!SingleDate.HasValue) && (!DateStart.HasValue) && (!DateEnd.HasValue))
+            {
+                machineShopQry = machineShopQry.Where(p => p.Date >= StartDateAuto && p.Date <= EndDateAuto).OrderBy(p => p.Date);
+
+                Session["DateStr"] = StartDateAuto.ToString(TimeFormat) + " -- " + EndDateAuto.ToString(TimeFormat);
+            }
+
             //Operator and Parts filter - end
 
             //machineShopQry - model object which will be a collection of all queries through a controller, qr = qr1 + qr2, result of all

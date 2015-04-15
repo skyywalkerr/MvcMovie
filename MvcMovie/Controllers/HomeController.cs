@@ -22,7 +22,7 @@ namespace MvcMovie.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Please contact programmer if you have any questions or ideas.";
+            ViewBag.Message = "If you have any questions please contact a programmer.";
 
             return View();
         }
