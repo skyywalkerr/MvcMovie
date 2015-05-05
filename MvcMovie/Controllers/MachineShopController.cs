@@ -41,7 +41,9 @@ namespace MvcMovie.Controllers
             //DateTime EndDateAuto = Convert.ToDateTime(DayOfWeek.Friday); 
             var today = DateTime.Today;
             //DateTime friday = today.AddDays(-(int)today.DayOfWeek).AddDays(5).Date;
-            DateTime saturday = today.AddDays(-(int)today.DayOfWeek).AddDays(6).Date;
+            
+            //DateTime saturday = today.AddDays(-(int)today.DayOfWeek).AddDays(6).Date; // Saturday of current week
+            DateTime saturday = today.AddDays(-(int)today.DayOfWeek - 7).AddDays(6).Date; // // Saturday of week ago
 
             DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
             DateTime EndDateAuto = saturday;
@@ -885,12 +887,14 @@ namespace MvcMovie.Controllers
                 diff += 7;
             }
 
-            return dt.AddDays(-1 * diff).Date;
+            //return dt.AddDays(-1 * diff).Date; //Curretn week Monday
+            return dt.AddDays(-1 * diff -7).Date;// Monday a week ago            
         }
         public static DateTime EndOfWeek(this DateTime dt, DayOfWeek endOfWeek)
         {
             var daysTillFriday = (int)dt.DayOfWeek - (int)endOfWeek;
-            return dt.AddDays(daysTillFriday).Date;
+            //return dt.AddDays(daysTillFriday).Date;//Current week Saturday
+            return dt.AddDays(daysTillFriday -7).Date;//Saturday a week ago
         }
     }
 
