@@ -30,7 +30,6 @@ namespace MvcMovie.Controllers
         public ActionResult Index(string jsWorkCenter,string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
-            
 
             Session["preciseQ"] = null;
             Session["WorkCenterAll"] = null;
@@ -42,8 +41,8 @@ namespace MvcMovie.Controllers
             var today = DateTime.Today;
             //DateTime friday = today.AddDays(-(int)today.DayOfWeek).AddDays(5).Date;
             
-            //DateTime saturday = today.AddDays(-(int)today.DayOfWeek).AddDays(6).Date; // Saturday of current week
-            DateTime saturday = today.AddDays(-(int)today.DayOfWeek - 7).AddDays(6).Date; // // Saturday of week ago
+            DateTime saturday = today.AddDays(-(int)today.DayOfWeek).AddDays(6).Date; // Saturday of current week
+            //DateTime saturday = today.AddDays(-(int)today.DayOfWeek - 7).AddDays(6).Date; // // Saturday of week ago
 
             DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
             DateTime EndDateAuto = saturday;
@@ -382,6 +381,11 @@ namespace MvcMovie.Controllers
                     machineShopQry = machineShopQry.Where(s => s.Comments.Contains(searchString)).OrderBy(s => s.Date);
                     Session["preciseQ"] += "Comments : " + searchString + " | ";
                 }
+                if (colList == "WO No.")
+                {
+                    machineShopQry = machineShopQry.Where(s => s.WorkOrderNo.Contains(searchString)).OrderBy(s => s.Date);
+                    Session["preciseQ"] += "Work Order No. : " + searchString + " | ";
+                }
                 
                 //machineShopQry = machineShopQry.Where(s => s.Operator.Contains(searchString));
             }
@@ -594,7 +598,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken, Authorize(Roles="admin")] // need to authorize by login
-        public ActionResult Create(string Machine,string Department,string WorkCenter, [Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
+        public ActionResult Create(string Machine, string Department, string WorkCenter, [Bind(Include = "ID,Date,ItemNo,Operation,WorkOrderNo,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
         {
             //TempData["deptFromHome"] = Department;
             //TempData["workCentrFromHome"] = WorkCenter;
@@ -639,7 +643,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken,Authorize(Roles="admin,moderator")]
-        public ActionResult Edit([Bind(Include="ID,Date,ItemNo,Operation,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,WorkCenter,Machine,Department")] MachineShopTable machineshoptable)
+        public ActionResult Edit([Bind(Include = "ID,Date,ItemNo,Operation,WorkOrderNo,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,WorkCenter,Machine,Department")] MachineShopTable machineshoptable)
         {
 
             machineshoptable.Department = Session["Department"].ToString();

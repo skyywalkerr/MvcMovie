@@ -368,6 +368,9 @@
                         @Html.DisplayNameFor(model => model.Operation)
                     </th>
                     <th>
+                        @Html.DisplayNameFor(model => model.WorkOrderNo)
+                    </th>                    
+                    <th>
                         @Html.DisplayNameFor(model => model.Operator)
                     </th>
                     <th>
@@ -446,6 +449,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Operation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkOrderNo)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Operator)

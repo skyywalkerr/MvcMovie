@@ -23,6 +23,9 @@ namespace MvcMovie.Models
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string Operation { get; set; } // PROPERTY TITLE
 
+            [Display(Name = "WO No.")]
+            public string WorkOrderNo { get; set; }
+
             //[StringLength(60, MinimumLength = 3)] // VALIDATION - Attribute that determine : Maximum length 60, minimum 3
             public string Operator { get; set; } // PROPERTY TITLE
 
