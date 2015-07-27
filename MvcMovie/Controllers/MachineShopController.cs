@@ -295,7 +295,7 @@ namespace MvcMovie.Controllers
             var woList = new List<string>();
             var woQry = from x in db.MainTableObj
                                select x.WorkOrderNo;
-            operatorList.AddRange(woQry.Distinct());
+            woList.AddRange(woQry.Distinct());
             ViewBag.woChoice = new SelectList(woList);
             //Work Order No. list - END
 
