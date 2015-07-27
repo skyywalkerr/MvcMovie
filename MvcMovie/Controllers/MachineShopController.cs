@@ -565,8 +565,10 @@ namespace MvcMovie.Controllers
             //listMSQ.AddRange(footerList);
 
             Session["machineShopQry"] = machineShopQry.ToList();
-            return View(machineShopQry); 
 
+
+
+            return View(machineShopQry); 
         }
 
         //public static Expression<Func<TEntity, bool>> GetPropertyEqualityExpression<TEntity, TProperty>(string propertyName, TProperty propertyValue)
@@ -591,6 +593,9 @@ namespace MvcMovie.Controllers
             {
                 return HttpNotFound();
             }
+
+
+
             return View(machineshoptable);
         }
 
