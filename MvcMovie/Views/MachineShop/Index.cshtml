@@ -228,6 +228,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Operator</a></li>
                                 <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Item No.</a></li>
+                                <li role="presentation"><a href="#wo" aria-controls="wo" role="tab" data-toggle="tab">WO No.</a></li>
                                 <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Operator and Item</a></li>
                                 <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Searcher</a></li>
                                 <li role="presentation"><a href="#alldata" aria-controls="alldata" role="tab" data-toggle="tab">All Data</a></li>
@@ -265,6 +266,22 @@
                                     </table>
                                     <input type="submit" value="Search !" /> <br />
                                 </div>
+
+
+
+                                <div role="tabpanel" class="tab-pane" id="wo">
+                                    <table cellpadding="10">
+                                        <tr>
+                                            <td>Work Order No.: </td>
+                                            <td>@Html.DropDownList("woChoice", null, "None.", new { @class = "form-control" })</td>
+                                        </tr>
+                                    </table>
+                                    <input type="submit" value="Search !" /> <br />
+                                </div>
+
+
+
+
 
                                 <div role="tabpanel" class="tab-pane" id="messages">
                                     <table cellpadding="10">

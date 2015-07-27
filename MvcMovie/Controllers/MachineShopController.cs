@@ -27,7 +27,7 @@ namespace MvcMovie.Controllers
         //MachineShopTable mainTableObject = new MachineShopTable();
 
         // GET: /MachineShop/
-        public ActionResult Index(string jsWorkCenter,string partChoice2, string operatorChoice2, string partChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
+        public ActionResult Index(string jsWorkCenter,string partChoice2, string operatorChoice2, string partChoice,string woChoice, string operatorChoice, string WorkCenter, string Department, string machineChoice, string deptChoice,string Departments, string wcChoice, string checkBoxState, string searchString, string colList, DateTime? SingleDate, DateTime? DateStart, DateTime? DateEnd)
         //public ActionResult Index(string WorkCenter, string Department, string machineChoice, string deptChoice, string wcChoice, string checkBoxState, string searchString, string colList)
         {
 
@@ -277,7 +277,7 @@ namespace MvcMovie.Controllers
             var columnsList = new List<string>();
             //string[] listData = new string[] { "Date", "Item No.", "Operation","Operator","Qty","Hours","Standarad Rate",
             //"Percent","Setup","Cleaning","Down","Other","Nonconf Parts","Comments" };
-            string[] listData = new string[] { "Item No.", "Operation","Operator","Comments" };
+            string[] listData = new string[] { "Item No.", "Operation","Operator","Comments","WO No." };
             columnsList.AddRange(listData);
             ViewBag.colList = new SelectList(columnsList);
 
@@ -289,8 +289,15 @@ namespace MvcMovie.Controllers
                                select x.Operator;
             operatorList.AddRange(operatorsQry.Distinct());
             ViewBag.operatorChoice = new SelectList(operatorList);
-
             //unique Operator list END
+
+            //Work Order No. list - START
+            var woList = new List<string>();
+            var woQry = from x in db.MainTableObj
+                               select x.WorkOrderNo;
+            operatorList.AddRange(woQry.Distinct());
+            ViewBag.woChoice = new SelectList(woList);
+            //Work Order No. list - END
 
             //item no list
             var partsList = new List<string>();
@@ -303,7 +310,7 @@ namespace MvcMovie.Controllers
             //operator and item no list            
             ViewBag.partChoice2 = new SelectList(partsList);
             ViewBag.operatorChoice2 = new SelectList(operatorList);
-            //item no list - end
+            //item no list - end            
 
             #endregion
 
@@ -493,6 +500,12 @@ namespace MvcMovie.Controllers
             {
                 machineShopQry = machineShopQry.Where(s => s.ItemNo.Equals(partChoice)).OrderBy(s => s.Date);
                 Session["preciseQ"] += "Item No. : " + partChoice + " | ";
+            }
+            //WO filter
+            if (!String.IsNullOrEmpty(woChoice))
+            {
+                machineShopQry = machineShopQry.Where(s => s.WorkOrderNo.Equals(woChoice)).OrderBy(s => s.Date);
+                Session["preciseQ"] += "WO No. : " + woChoice + " | ";
             }
             //Operator and Parts filter
             if (!String.IsNullOrEmpty(partChoice2))
