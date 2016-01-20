@@ -3,6 +3,8 @@
     padding-bottom: 0px;
 }
 
+
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -70,11 +72,7 @@ input[type="checkbox"].input-validation-error {
 #Export{
     display:none;
 }
-.mainTable{
-    font-size:8px;
-    width:auto;
-    page-break-inside: avoid
-}
+
 #editsTable{
     display:none;
 }
@@ -85,12 +83,13 @@ input[type="checkbox"].input-validation-error {
     border-left:hidden;
     border-right:hidden;
 }
-#wcNameTable{
-    font-size:10px;
-    page-break-inside:avoid;
-}
+
 #mainFooter{
+    /*display: none;*/
     font-size:10px;    
+}
+#footerHr{
+    /*display:none;*/
 }
 #td1,#td2,#td3,#td4,#td6{
      border-bottom: none !important;
@@ -136,15 +135,49 @@ input[type="checkbox"].input-validation-error {
 #navigationBar{
     display:none;
 }
+
+
+@media print { 
+    html, body { height: 99%; }
+
+    a[href]:after {
+    /*content: " (" attr(href) ")";*/
+    content: none !important;
+  }
+}
+
+.mainTable{
+    font-size:8px;
+    width:auto;
+    /*page-break-inside: avoid;*/
+    page-break-after: always;
+}
+
+#wcNameTable{
+    font-size:13px;
+    font-weight:bold;
+    /*page-break-after:avoid;*/        
+}
+
+table{
+    /*page-break-inside:avoid;*/
+}
+
 .mainTable th {
+    /*page-break-inside:avoid;*/
     text-align:center; 
     vertical-align:middle;
 }
 .mainTable td{
+    /*page-break-inside:avoid;*/
     text-align:center; 
     vertical-align:middle;
 }
 
+.mainTable:last-of-type {
+    page-break-after: avoid;
+}
+  
 /*#totalSumHours
 #totalSumSetup
 #totalSumCleaning

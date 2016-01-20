@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="mainTitle">WaterSaver Faucet Co. Machine Shop Database</title>
+    <title id="mainTitle">WaterSaver Faucet Co. - Machine Shop Database</title>
     @*<title id="reportTitle">WaterSaver Faucet Co. Machine Shop production Report.</title>*@
     @*@Styles.Render("~/Content/css")*@
     <link href="@Styles.Url("~/Content/css")" rel="stylesheet" type="text/css" media="screen" />
@@ -54,7 +54,7 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        <hr id="footerHr"/>
         <footer id="mainFooter">
             <p>&copy; @DateTime.Now.Year - Machine Shop Database | WaterSaver Faucet Co.</p>
         </footer>
