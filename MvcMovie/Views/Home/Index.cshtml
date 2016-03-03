@@ -5,7 +5,8 @@
 <div class="jumbotron" style="
     width: 100%;
     height: 300px;
-    background-image: url('../../Content/images/hdr08_watersaver F_light.png');
+    /*background-image: url('../../Content/images/hdr08_watersaver F_light.png');*/
+    background-image: url('~/Content/images/hdr08_watersaver F_light.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 20% 50%;
@@ -19,7 +20,7 @@
 
 <div class="row">
     <div class="col-md-4" >
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1010" aria-expanded="false" aria-controls="Dept1010">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1010" aria-expanded="false" aria-controls="Dept1010" style="margin:5px 0px;">
             <h2>Department 1010</h2>
         </button>
         <div class="collapse" id="Dept1010">
@@ -132,8 +133,9 @@
         <p><a class="btn btn-default" href="http:\\intranet\">07-05 &raquo;</a></p>*@
 
     </div>
+    
     <div class="col-md-4">
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1020" aria-expanded="false" aria-controls="Dept1020">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1020" aria-expanded="false" aria-controls="Dept1020" style="margin:5px 0px;">
             <h2>Department 1020</h2>
         </button>
         <div class="collapse" id="Dept1020">
@@ -279,6 +281,7 @@
 
 
     </div>
+    
     <div class="col-md-4">
         @*<h2>Department 1030</h2>
         <p><a class="btn btn-default" href="http:\\intranet\">07-02 &raquo;</a></p>
@@ -288,7 +291,7 @@
         <p><a class="btn btn-default" href="http:\\intranet\">07-09 &raquo;</a></p>
         <p><a class="btn btn-default" href="http:\\intranet\">07-10 &raquo;</a></p>*@    
         
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1030" aria-expanded="false" aria-controls="Dept1030">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1030" aria-expanded="false" aria-controls="Dept1030" style="margin:5px 0px;">
             <h2>Department 1030</h2>
         </button>
         <div class="collapse" id="Dept1030">
@@ -360,7 +363,188 @@
             </div>
         </div> 
     </div>
+ 
+    <div class="col-md-4">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#Dept1040" aria-expanded="false" aria-controls="Dept1040" style="margin:5px 0px;">
+            <h2>Department 1040</h2>
+        </button>
+        <div class="collapse" id="Dept1040">
+            <div class="well">
 
+                @* Department is the string parameter in Index action of MachineShop controller same with WorkCenter*@
+                @Html.ActionLink(
+                                             linkText: "11-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "11-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                @Html.ActionLink(
+                                             linkText: "11-02",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "11-02" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                @Html.ActionLink(
+                                             linkText: "11-05",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "11-05" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                
+                <hr />
+
+                @Html.ActionLink(
+                                             linkText: "13-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "13-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "13-02",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "13-02" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                <hr />
+
+                @Html.ActionLink(
+                                             linkText: "09-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "09-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "09-02",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "09-02" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                <hr />
+                @Html.ActionLink(
+                                             linkText: "TC 11-05",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "TC 11-05" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "TC 16-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "TC 16-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+               
+
+                <hr />
+
+                @Html.ActionLink(
+                                             linkText: "10-02",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "10-02" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "10-03",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "10-03" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "10-05",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "10-05" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                <hr />
+                @Html.ActionLink(
+                                             linkText: "HP 08-05",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "HP 08-05" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "HP 08-06",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "HP 08-06" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                <hr />
+                @Html.ActionLink(
+                                             linkText: "HP 14-02",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "HP 14-02" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "DO 14-03",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "DO 14-03" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "DO 14-06",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "DO 14-06" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                <hr />
+                @Html.ActionLink(
+                                             linkText: "DP 21-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "DP 21-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "DP 21-07",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "DP 21-07" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                
+                <hr />
+                @Html.ActionLink(
+                                             linkText: "15-01",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "15-01" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "15-03",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "15-03" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                
+            </div>
+        </div>
+       
+
+    </div>
     
 
 </div>
