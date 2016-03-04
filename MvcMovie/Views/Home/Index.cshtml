@@ -99,6 +99,16 @@
                                              routeValues: new { Department = "Department 1010", WorkCenter = "11-07" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
+                @Html.ActionLink(
+                                             linkText: "15-05",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1010", WorkCenter = "15-05" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+
+
 
                 @*<p>@Html.ActionLink("Main Table", "Index", "MachineShop", ViewData["TestHomeView"]= "Text from index cshtml, from Home View", new {@class="btn btn-default"})</p>*@
 
@@ -246,6 +256,7 @@
                                              routeValues: new { Department = "Department 1020", WorkCenter = "06-04" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
+
                 @*<p><a class="btn btn-default" href="http:\\intranet\">03-01 &raquo;</a></p>*@
                 @*<p><a class="btn btn-default" href="http:\\intranet\">03-02 &raquo;</a></p>
                 <p><a class="btn btn-default" href="http:\\intranet\">05-02 &raquo;</a></p>
@@ -538,7 +549,14 @@
                                              routeValues: new { Department = "Department 1040", WorkCenter = "15-03" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
-
+                <hr />
+                @Html.ActionLink(
+                                             linkText: "Other",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "Other" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
                 
             </div>
         </div>
