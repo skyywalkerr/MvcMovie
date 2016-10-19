@@ -42,10 +42,20 @@ namespace MvcMovie.Controllers
             //DateTime friday = today.AddDays(-(int)today.DayOfWeek).AddDays(5).Date;
             
             DateTime saturday = today.AddDays(-(int)today.DayOfWeek).AddDays(6).Date; // Saturday of current week
-            //DateTime saturday = today.AddDays(-(int)today.DayOfWeek - 7).AddDays(6).Date; // // Saturday of week ago
+                                                                                      //DateTime saturday = today.AddDays(-(int)today.DayOfWeek - 7).AddDays(6).Date; // // Saturday of week ago
 
-            DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+            //DateTime StartDateAuto = DateTime.Now.StartOfWeek(DayOfWeek.Monday);
+
+
+            /////////////////////////////
+            DateTime StartDateAuto = today.AddDays(-(int)today.DayOfWeek - 60).AddDays(6).Date;
+            // 60 days back from today
+
             DateTime EndDateAuto = saturday;
+            //Saturday of this week
+            /////////////////////////////
+
+            //DateTime EndDateAuto = today.AddDays(-(int)today.DayOfWeek + 60).AddDays(6).Date;
 
             string TimeFormat = "MM/d/yyyy";
             //Session["StartDateAutoStr"] = StartDateAuto.ToString(TimeFormat);
