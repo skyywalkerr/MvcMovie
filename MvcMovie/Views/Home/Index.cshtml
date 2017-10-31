@@ -322,19 +322,27 @@
             <div class="well">
 
                 @Html.ActionLink(
+                                             linkText: "TC-R2B",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                                      routeValues: new { Department = "Department 1030", WorkCenter = "TC-R2B" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+
+                @Html.ActionLink(
                                              linkText: "07-02",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                                       routeValues: new { Department = "Department 1030", WorkCenter = "07-02" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
-                @Html.ActionLink(
+                @*@Html.ActionLink(
                                              linkText: "07-03",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1030", WorkCenter = "07-03" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
+                                )*@
                 @Html.ActionLink(
                                              linkText: "07-06",
                                              actionName: "Index",
@@ -356,13 +364,17 @@
                                              routeValues: new { Department = "Department 1030", WorkCenter = "07-08" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
-                @Html.ActionLink(
+
+    @*will be sent to Mexico.*@            
+    @*@Html.ActionLink(
                                              linkText: "07-09",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1030", WorkCenter = "07-09" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
+                                )*@
+                
+
                 @Html.ActionLink(
                                              linkText: "07-10",
                                              actionName: "Index",
@@ -375,6 +387,20 @@
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1030", WorkCenter = "07-11" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "07-12",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1030", WorkCenter = "07-12" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "07-13",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1030", WorkCenter = "07-13" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
                 @Html.ActionLink(
@@ -419,6 +445,8 @@
             <div class="well">
 
                 @* Department is the string parameter in Index action of MachineShop controller same with WorkCenter*@
+                
+
                 @Html.ActionLink(
                                              linkText: "11-01",
                                              actionName: "Index",
@@ -442,23 +470,22 @@
                                              routeValues: new { Department = "Department 1040", WorkCenter = "11-05" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )*@
-                
-                <hr />
+                             
 
-                @Html.ActionLink(
+                @*@Html.ActionLink(
                                              linkText: "13-01",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1040", WorkCenter = "13-01" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
-                @Html.ActionLink(
+                                )*@
+                @*@Html.ActionLink(
                                              linkText: "13-02",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1040", WorkCenter = "13-02" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
+                                )*@
 
                 <hr />
 
@@ -469,13 +496,13 @@
                                              routeValues: new { Department = "Department 1040", WorkCenter = "09-01" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
-                @Html.ActionLink(
+                @*@Html.ActionLink(
                                              linkText: "09-02",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1040", WorkCenter = "09-02" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
+                                )*@
 
                 <hr />
                 @Html.ActionLink(
@@ -510,13 +537,13 @@
                                              routeValues: new { Department = "Department 1040", WorkCenter = "10-03" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
-                @Html.ActionLink(
+                @*@Html.ActionLink(
                                              linkText: "10-05",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1040", WorkCenter = "10-05" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
+                                )*@
                 <hr />
                 @Html.ActionLink(
                                              linkText: "HP 08-05",
@@ -530,6 +557,13 @@
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1040", WorkCenter = "HP 08-06" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "08-09",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1040", WorkCenter = "08-09" },
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
                 <hr />
@@ -571,13 +605,13 @@
                                 )
                 
                 <hr />
-                @Html.ActionLink(
+                @*@Html.ActionLink(
                                              linkText: "15-01",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
                                              routeValues: new { Department = "Department 1040", WorkCenter = "15-01" },
                                              htmlAttributes: new { @class = "btn btn-default" }
-                                )
+                                )*@
                 @Html.ActionLink(
                                              linkText: "15-03",
                                              actionName: "Index",
