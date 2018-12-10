@@ -411,6 +411,20 @@
                                              htmlAttributes: new { @class = "btn btn-default" }
                                 )
                 @Html.ActionLink(
+                                             linkText: "07-17",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1030", WorkCenter = "07-17" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
+                                             linkText: "07-18",
+                                             actionName: "Index",
+                                             controllerName: "MachineShop",
+                                             routeValues: new { Department = "Department 1030", WorkCenter = "07-18" },
+                                             htmlAttributes: new { @class = "btn btn-default" }
+                                )
+                @Html.ActionLink(
                                              linkText: "11-06",
                                              actionName: "Index",
                                              controllerName: "MachineShop",
@@ -486,13 +500,13 @@
                      routeValues: new { Department = "Department 1040", WorkCenter = "13-01" },
                      htmlAttributes: new { @class = "btn btn-default" }
         )*@
-                @*@Html.ActionLink(
+                @Html.ActionLink(
                      linkText: "13-02",
                      actionName: "Index",
                      controllerName: "MachineShop",
                      routeValues: new { Department = "Department 1040", WorkCenter = "13-02" },
                      htmlAttributes: new { @class = "btn btn-default" }
-        )*@
+        )
 
                 <hr />
 
