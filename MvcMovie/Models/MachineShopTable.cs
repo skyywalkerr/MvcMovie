@@ -73,7 +73,18 @@ namespace MvcMovie.Models
 
             public string Department { get; set; }
 
-        }
+            public int Shift { get; set; }
+
+            [Display(Name = "ADJ.T")]
+            public float ADJ_T { get; set; }
+
+            [Display(Name = "INS.T")]
+            public float INS_T { get; set; }
+            public string Retired { get; set; } //1.23.20 variable for archiving functionality
+
+            public float RetiredFloat { get; set; }
+
+    }
 
         public class MachineShopDB : DbContext
         #region explenation

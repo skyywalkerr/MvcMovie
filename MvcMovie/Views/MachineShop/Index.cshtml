@@ -350,23 +350,27 @@
         @*@for(int i = 0; i < 3;i++)*@ 
         @*{*@
             @if(ViewBag.manyWC != null)
-                {
-                    string[] wcTable = ViewBag.manyWC;
-                    int sizeWC = wcTable.Count();
+            {
+                string[] wcTable = ViewBag.manyWC;
+                int sizeWC = wcTable.Count();
 
-                    for (int a = 0; a < sizeWC; a++)
-                    {
+                for (int a = 0; a < sizeWC; a++)
+                {
 
                         @*<p style="text-align:center"><h4 id="wcNameTable">Work Center : @wcTable[a].ToString()</h4></p>
                             <br />*@
-                
-                        ViewBag.totalSumQty = 0;
-                        ViewBag.totalSumHours = 0;
-                        ViewBag.totalSumSetup = 0;
-                        ViewBag.totalSumCleaning = 0;
-                        ViewBag.totalSumDown = 0;
-                        ViewBag.totalSumOther = 0;
-                        ViewBag.totalSumNonC = 0;                
+
+            ViewBag.totalSumQty = 0;
+            ViewBag.totalSumHours = 0;
+            ViewBag.totalSumSetup = 0;
+            ViewBag.totalSumInsT = 0;
+            ViewBag.totalSumAdjT = 0;
+            ViewBag.totalSumCleaning = 0;
+            ViewBag.totalSumDown = 0;
+            ViewBag.totalSumOther = 0;
+            ViewBag.totalSumNonC = 0;
+
+    <hr style="border-width: 4px" color="red">
 
     <div class="mainTable">
         <p style="text-align:center"><h4 id="wcNameTable">Work Center : @wcTable[a].ToString()</h4></p>
@@ -379,7 +383,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Date)
                     </th>
-                    <th >
+                    <th>
                         @Html.DisplayNameFor(model => model.ItemNo)
                     </th>
                     <th>
@@ -387,7 +391,7 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.WorkOrderNo)
-                    </th>                    
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Operator)
                     </th>
@@ -413,6 +417,16 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Setup)
                     </th>
+                    <th id="srHover" title="INS.T - Inspection Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.INS_T)
+                        </span>
+                    </th>
+                    <th id="srHover" title="ADJ.T - Adjustment Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ADJ_T)
+                        </span>
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Cleaning)
                     </th>
@@ -425,101 +439,115 @@
                     <th id="npHover" title="NP - Nonconfirmed Parts">
                         <span title="">
                             @Html.DisplayNameFor(model => model.NonconfParts)
-                            </span>
+                        </span>
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Comments)
                     </th>
+
                     @*<th id="jsCRUD"></th>*@
                 </tr>
-                                                             
 
-                @foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString()))
-            {
-                //if (ViewBag.manyWC != null)
-                //{
-                //    string[] wcTable = ViewBag.manyWC;
-                //    int sizeWC = wcTable.Count();
 
-                //    for (int a = 0; a < sizeWC; a++)
-                //    {
+                @*@foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString()))*@
+                @foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString() && i.RetiredFloat!=1))
 
-                //        if (item.WorkCenter == wcTable[a].ToString())
-                //        {
-
-                ViewBag.totalSumQty += item.Qty;
-                ViewBag.totalSumHours += item.Hours;
-                ViewBag.totalSumSetup += item.Setup;
-                ViewBag.totalSumCleaning += item.Cleaning;
-                ViewBag.totalSumDown += item.Down;
-                ViewBag.totalSumOther += item.Other;
-                ViewBag.totalSumNonC += item.NonconfParts;
-
-            @*<p style="text-align:center"><h4>@wcTable[a].ToString()</h4></p>
-                <br />*@
-
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td id="itemNoWrap">
-                    @Html.DisplayFor(modelItem => item.ItemNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Operation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.WorkOrderNo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Operator)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Qty)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hours)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ActualRate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StandardRate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Percent)%
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Setup)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Cleaning)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Down)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Other)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NonconfParts)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Comments)
-                </td>
-                @if(Session["WorkCenter"]!=null)
                 {
-                <td id="editsTable">
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
+                    //that's where the query is controlled? 1.22.20
+
+                    //if (ViewBag.manyWC != null)
+                    //{
+                    //    string[] wcTable = ViewBag.manyWC;
+                    //    int sizeWC = wcTable.Count();
+
+                    //    for (int a = 0; a < sizeWC; a++)
+                    //    {
+
+                    //        if (item.WorkCenter == wcTable[a].ToString())
+                    //        {
+
+                    ViewBag.totalSumQty += item.Qty;
+                    ViewBag.totalSumHours += item.Hours;
+                    ViewBag.totalSumSetup += item.Setup;
+                    ViewBag.totalSumInsT += item.INS_T;
+                    ViewBag.totalSumAdjT += item.ADJ_T;
+                    ViewBag.totalSumCleaning += item.Cleaning;
+                    ViewBag.totalSumDown += item.Down;
+                    ViewBag.totalSumOther += item.Other;
+                    ViewBag.totalSumNonC += item.NonconfParts;
+
+                    @*<p style="text-align:center"><h4>@wcTable[a].ToString()</h4></p>
+            <br />*@
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td id="itemNoWrap">
+                            @Html.DisplayFor(modelItem => item.ItemNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkOrderNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operator)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActualRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StandardRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Percent)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Setup)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.INS_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ADJ_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cleaning)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Down)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Other)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NonconfParts)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        @if (Session["WorkCenter"] != null)
+                        {
+                            <td id="editsTable">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        }
+
+                    </tr>
+                    //}
+                    //}
+                    //}
                 }
-            </tr>
-                //}
-                //}
-                //}
-            }
 
                 <tr class="info" style="color:red" id="sumQuantities">
                     @*<td></td>
@@ -541,17 +569,19 @@
                     <td id="td3"></td>
                     <td id="td4"></td>
                     <td id="td4_1"></td>
-                    
-                        <td id="totalSumQty">@(((decimal)@ViewBag.totalSumQty).ToString("F0"))</td>
-                        <td id="totalSumHours">@(((decimal)@ViewBag.totalSumHours).ToString("F2"))</td>
-                        <td id="td5"></td>
-                        <td id="td6"></td>
-                        <td id="td7"></td>
-                        <td id="totalSumSetup">@(((decimal)@ViewBag.totalSumSetup).ToString("F2"))</td>
-                        <td id="totalSumCleaning">@(((decimal)ViewBag.totalSumCleaning).ToString("F2"))</td>
-                        <td id="totalSumDown">@(((decimal)@ViewBag.totalSumDown).ToString("F2"))</td>
-                        <td id="totalSumOther">@(((decimal)@ViewBag.totalSumOther).ToString("F2"))</td>
-                        <td id="totalSumNonC">@(((decimal)@ViewBag.totalSumNonC).ToString("F0"))</td>
+
+                    <td id="totalSumQty">@(((decimal)@ViewBag.totalSumQty).ToString("F0"))</td>
+                    <td id="totalSumHours">@(((decimal)@ViewBag.totalSumHours).ToString("F2"))</td>
+                    <td id="td5"></td>
+                    <td id="td6"></td>
+                    <td id="td7"></td>
+                    <td id="totalSumSetup">@(((decimal)@ViewBag.totalSumSetup).ToString("F2"))</td>
+                    <td id="totalSumInsT">@(((decimal)@ViewBag.totalSumInsT).ToString("F2"))</td>
+                    <td id="totalSumAdjT">@(((decimal)@ViewBag.totalSumAdjT).ToString("F2"))</td>
+                    <td id="totalSumCleaning">@(((decimal)ViewBag.totalSumCleaning).ToString("F2"))</td>
+                    <td id="totalSumDown">@(((decimal)@ViewBag.totalSumDown).ToString("F2"))</td>
+                    <td id="totalSumOther">@(((decimal)@ViewBag.totalSumOther).ToString("F2"))</td>
+                    <td id="totalSumNonC">@(((decimal)@ViewBag.totalSumNonC).ToString("F0"))</td>
                     <td id="td8"></td>
 
 
@@ -561,12 +591,689 @@
 
             </table>
 
-                
+            <!-- START Added 1.21.20 -->
+            <br />
+            <p style="text-align:left"><h4>First Shift</h4></p>
+
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkOrderNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operator)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qty)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hours)
+                    </th>
+                    <th id="arHover" title="AR - Actual Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ActualRate)
+                        </span>
+                    </th>
+                    <th id="srHover" title="SR - Standard Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.StandardRate)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Percent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Setup)
+                    </th>
+                    <th id="srHover" title="INS.T - Inspection Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.INS_T)
+                        </span>
+                    </th>
+                    <th id="srHover" title="ADJ.T - Adjustment Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ADJ_T)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cleaning)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Down)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Other)
+                    </th>
+                    <th id="npHover" title="NP - Nonconfirmed Parts">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.NonconfParts)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+
+                    @*<th id="jsCRUD"></th>*@
+                </tr>
+
+                <!-- resetting before the next table calculation-->
+                @{
+                    ViewBag.totalSumQty = 0;
+                    ViewBag.totalSumHours = 0;
+                    ViewBag.totalSumSetup = 0;
+                    ViewBag.totalSumInsT = 0;
+                    ViewBag.totalSumAdjT = 0;
+                    ViewBag.totalSumCleaning = 0;
+                    ViewBag.totalSumDown = 0;
+                    ViewBag.totalSumOther = 0;
+                    ViewBag.totalSumNonC = 0;
+                }
+
+                @foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString() && i.Shift == 1 && i.RetiredFloat!=1))
+                {
+                    //FIRST SHIFT ONLY
+
+                    //if (ViewBag.manyWC != null)
+                    //{
+                    //    string[] wcTable = ViewBag.manyWC;
+                    //    int sizeWC = wcTable.Count();
+
+                    //    for (int a = 0; a < sizeWC; a++)
+                    //    {
+
+                    //        if (item.WorkCenter == wcTable[a].ToString())
+                    //        {
+
+                    ViewBag.totalSumQty += item.Qty;
+                    ViewBag.totalSumHours += item.Hours;
+                    ViewBag.totalSumSetup += item.Setup;
+                    ViewBag.totalSumInsT += item.INS_T;
+                    ViewBag.totalSumAdjT += item.ADJ_T;
+                    ViewBag.totalSumCleaning += item.Cleaning;
+                    ViewBag.totalSumDown += item.Down;
+                    ViewBag.totalSumOther += item.Other;
+                    ViewBag.totalSumNonC += item.NonconfParts;
+
+                    @*<p style="text-align:center"><h4>@wcTable[a].ToString()</h4></p>
+                <br />*@
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td id="itemNoWrap">
+                            @Html.DisplayFor(modelItem => item.ItemNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkOrderNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operator)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActualRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StandardRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Percent)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Setup)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.INS_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ADJ_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cleaning)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Down)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Other)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NonconfParts)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        @if (Session["WorkCenter"] != null)
+                        {
+                            <td id="editsTable">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        }
+
+                    </tr>
+                    //}
+                    //}
+                    //}
+                }
+
+                <tr class="info" style="color:red" id="sumQuantities">
+                    @*<td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalSumQty">@ViewBag.totalSumQty</td>
+                <td id="totalSumHours">@ViewBag.totalSumHours</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalSumSetup">@ViewBag.totalSumSetup</td>
+                <td id="totalSumCleaning">@ViewBag.totalSumCleaning</td>
+                <td id="totalSumDown">@ViewBag.totalSumDown</td>
+                <td id="totalSumOther">@ViewBag.totalSumOther</td>*@
+
+                    <td id="td1"></td>
+                    <td id="td2"></td>
+                    <td id="td3"></td>
+                    <td id="td4"></td>
+                    <td id="td4_1"></td>
+
+                    <td id="totalSumQty">@(((decimal)@ViewBag.totalSumQty).ToString("F0"))</td>
+                    <td id="totalSumHours">@(((decimal)@ViewBag.totalSumHours).ToString("F2"))</td>
+                    <td id="td5"></td>
+                    <td id="td6"></td>
+                    <td id="td7"></td>
+                    <td id="totalSumSetup">@(((decimal)@ViewBag.totalSumSetup).ToString("F2"))</td>
+                    <td id="totalSumInsT">@(((decimal)@ViewBag.totalSumInsT).ToString("F2"))</td>
+                    <td id="totalSumAdjT">@(((decimal)@ViewBag.totalSumAdjT).ToString("F2"))</td>
+                    <td id="totalSumCleaning">@(((decimal)ViewBag.totalSumCleaning).ToString("F2"))</td>
+                    <td id="totalSumDown">@(((decimal)@ViewBag.totalSumDown).ToString("F2"))</td>
+                    <td id="totalSumOther">@(((decimal)@ViewBag.totalSumOther).ToString("F2"))</td>
+                    <td id="totalSumNonC">@(((decimal)@ViewBag.totalSumNonC).ToString("F0"))</td>
+                    <td id="td8"></td>
+
+
+                    @*<td></td>
+                <td></td>*@
+                </tr>
+
+            </table>
+
+            <br />
+            <p style="text-align:center"><h4>Second Shift</h4></p>
+
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkOrderNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operator)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qty)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hours)
+                    </th>
+                    <th id="arHover" title="AR - Actual Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ActualRate)
+                        </span>
+                    </th>
+                    <th id="srHover" title="SR - Standard Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.StandardRate)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Percent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Setup)
+                    </th>
+                    <th id="srHover" title="INS.T - Inspection Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.INS_T)
+                        </span>
+                    </th>
+                    <th id="srHover" title="ADJ.T - Adjustment Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ADJ_T)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cleaning)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Down)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Other)
+                    </th>
+                    <th id="npHover" title="NP - Nonconfirmed Parts">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.NonconfParts)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+
+                    @*<th id="jsCRUD"></th>*@
+                </tr>
+
+                <!-- resetting before the next table calculation-->
+                @{
+                    ViewBag.totalSumQty = 0;
+                    ViewBag.totalSumHours = 0;
+                    ViewBag.totalSumSetup = 0;
+                    ViewBag.totalSumInsT = 0;
+                    ViewBag.totalSumAdjT = 0;
+                    ViewBag.totalSumCleaning = 0;
+                    ViewBag.totalSumDown = 0;
+                    ViewBag.totalSumOther = 0;
+                    ViewBag.totalSumNonC = 0;
+                }
+
+                @foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString() && i.Shift == 2 && i.RetiredFloat!=1))
+                {
+                    //if (ViewBag.manyWC != null)
+                    //{
+                    //    string[] wcTable = ViewBag.manyWC;
+                    //    int sizeWC = wcTable.Count();
+
+                    //    for (int a = 0; a < sizeWC; a++)
+                    //    {
+
+                    //        if (item.WorkCenter == wcTable[a].ToString())
+                    //        {
+
+                    ViewBag.totalSumQty += item.Qty;
+                    ViewBag.totalSumHours += item.Hours;
+                    ViewBag.totalSumSetup += item.Setup;
+                    ViewBag.totalSumInsT += item.INS_T;
+                    ViewBag.totalSumAdjT += item.ADJ_T;
+                    ViewBag.totalSumCleaning += item.Cleaning;
+                    ViewBag.totalSumDown += item.Down;
+                    ViewBag.totalSumOther += item.Other;
+                    ViewBag.totalSumNonC += item.NonconfParts;
+
+                    @*<p style="text-align:center"><h4>@wcTable[a].ToString()</h4></p>
+                <br />*@
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td id="itemNoWrap">
+                            @Html.DisplayFor(modelItem => item.ItemNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkOrderNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operator)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActualRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StandardRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Percent)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Setup)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.INS_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ADJ_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cleaning)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Down)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Other)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NonconfParts)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        @if (Session["WorkCenter"] != null)
+                        {
+                            <td id="editsTable">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        }
+
+                    </tr>
+                    //}
+                    //}
+                    //}
+                }
+
+                <tr class="info" style="color:red" id="sumQuantities">
+                    @*<td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalSumQty">@ViewBag.totalSumQty</td>
+                <td id="totalSumHours">@ViewBag.totalSumHours</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalSumSetup">@ViewBag.totalSumSetup</td>
+                <td id="totalSumCleaning">@ViewBag.totalSumCleaning</td>
+                <td id="totalSumDown">@ViewBag.totalSumDown</td>
+                <td id="totalSumOther">@ViewBag.totalSumOther</td>*@
+
+                    <td id="td1"></td>
+                    <td id="td2"></td>
+                    <td id="td3"></td>
+                    <td id="td4"></td>
+                    <td id="td4_1"></td>
+
+                    <td id="totalSumQty">@(((decimal)@ViewBag.totalSumQty).ToString("F0"))</td>
+                    <td id="totalSumHours">@(((decimal)@ViewBag.totalSumHours).ToString("F2"))</td>
+                    <td id="td5"></td>
+                    <td id="td6"></td>
+                    <td id="td7"></td>
+                    <td id="totalSumSetup">@(((decimal)@ViewBag.totalSumSetup).ToString("F2"))</td>
+                    <td id="totalSumInsT">@(((decimal)@ViewBag.totalSumInsT).ToString("F2"))</td>
+                    <td id="totalSumAdjT">@(((decimal)@ViewBag.totalSumAdjT).ToString("F2"))</td>
+                    <td id="totalSumCleaning">@(((decimal)ViewBag.totalSumCleaning).ToString("F2"))</td>
+                    <td id="totalSumDown">@(((decimal)@ViewBag.totalSumDown).ToString("F2"))</td>
+                    <td id="totalSumOther">@(((decimal)@ViewBag.totalSumOther).ToString("F2"))</td>
+                    <td id="totalSumNonC">@(((decimal)@ViewBag.totalSumNonC).ToString("F0"))</td>
+                    <td id="td8"></td>
+
+
+                    @*<td></td>
+                <td></td>*@
+                </tr>
+
+            </table>
+
+            <br />
+            <p style="text-align:left"><h4>Third Shift</h4></p>
+
+            <table class="table table-striped table-bordered table-hover table-condensed">
+                <tr>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ItemNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WorkOrderNo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Operator)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qty)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Hours)
+                    </th>
+                    <th id="arHover" title="AR - Actual Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ActualRate)
+                        </span>
+                    </th>
+                    <th id="srHover" title="SR - Standard Rate">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.StandardRate)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Percent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Setup)
+                    </th>
+                    <th id="srHover" title="INS.T - Inspection Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.INS_T)
+                        </span>
+                    </th>
+                    <th id="srHover" title="ADJ.T - Adjustment Time">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.ADJ_T)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cleaning)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Down)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Other)
+                    </th>
+                    <th id="npHover" title="NP - Nonconfirmed Parts">
+                        <span title="">
+                            @Html.DisplayNameFor(model => model.NonconfParts)
+                        </span>
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Comments)
+                    </th>
+
+                    @*<th id="jsCRUD"></th>*@
+                </tr>
+
+                <!-- resetting before the next table calculation-->
+                @{
+                    ViewBag.totalSumQty = 0;
+                    ViewBag.totalSumHours = 0;
+                    ViewBag.totalSumSetup = 0;
+                    ViewBag.totalSumInsT = 0;
+                    ViewBag.totalSumAdjT = 0;
+                    ViewBag.totalSumCleaning = 0;
+                    ViewBag.totalSumDown = 0;
+                    ViewBag.totalSumOther = 0;
+                    ViewBag.totalSumNonC = 0;
+                }
+
+                @foreach (var item in Model.Where(i => i.WorkCenter == wcTable[a].ToString() && i.Shift == 3 && i.RetiredFloat!=1))
+                {
+                    //if (ViewBag.manyWC != null)
+                    //{
+                    //    string[] wcTable = ViewBag.manyWC;
+                    //    int sizeWC = wcTable.Count();
+
+                    //    for (int a = 0; a < sizeWC; a++)
+                    //    {
+
+                    //        if (item.WorkCenter == wcTable[a].ToString())
+                    //        {
+
+                    ViewBag.totalSumQty += item.Qty;
+                    ViewBag.totalSumHours += item.Hours;
+                    ViewBag.totalSumSetup += item.Setup;
+                    ViewBag.totalSumInsT += item.INS_T;
+                    ViewBag.totalSumAdjT += item.ADJ_T;
+                    ViewBag.totalSumCleaning += item.Cleaning;
+                    ViewBag.totalSumDown += item.Down;
+                    ViewBag.totalSumOther += item.Other;
+                    ViewBag.totalSumNonC += item.NonconfParts;
+
+                    @*<p style="text-align:center"><h4>@wcTable[a].ToString()</h4></p>
+                <br />*@
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td id="itemNoWrap">
+                            @Html.DisplayFor(modelItem => item.ItemNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operation)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkOrderNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Operator)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Hours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ActualRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StandardRate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Percent)%
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Setup)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.INS_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ADJ_T)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cleaning)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Down)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Other)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NonconfParts)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comments)
+                        </td>
+                        @if (Session["WorkCenter"] != null)
+                        {
+                            <td id="editsTable">
+                                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                            </td>
+                        }
+
+                    </tr>
+                    //}
+                    //}
+                    //}
+                }
+
+                <tr class="info" style="color:red" id="sumQuantities">
+                    @*<td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalSumQty">@ViewBag.totalSumQty</td>
+                <td id="totalSumHours">@ViewBag.totalSumHours</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td id="totalSumSetup">@ViewBag.totalSumSetup</td>
+                <td id="totalSumCleaning">@ViewBag.totalSumCleaning</td>
+                <td id="totalSumDown">@ViewBag.totalSumDown</td>
+                <td id="totalSumOther">@ViewBag.totalSumOther</td>*@
+
+                    <td id="td1"></td>
+                    <td id="td2"></td>
+                    <td id="td3"></td>
+                    <td id="td4"></td>
+                    <td id="td4_1"></td>
+
+                    <td id="totalSumQty">@(((decimal)@ViewBag.totalSumQty).ToString("F0"))</td>
+                    <td id="totalSumHours">@(((decimal)@ViewBag.totalSumHours).ToString("F2"))</td>
+                    <td id="td5"></td>
+                    <td id="td6"></td>
+                    <td id="td7"></td>
+                    <td id="totalSumSetup">@(((decimal)@ViewBag.totalSumSetup).ToString("F2"))</td>
+                    <td id="totalSumInsT">@(((decimal)@ViewBag.totalSumInsT).ToString("F2"))</td>
+                    <td id="totalSumAdjT">@(((decimal)@ViewBag.totalSumAdjT).ToString("F2"))</td>
+                    <td id="totalSumCleaning">@(((decimal)ViewBag.totalSumCleaning).ToString("F2"))</td>
+                    <td id="totalSumDown">@(((decimal)@ViewBag.totalSumDown).ToString("F2"))</td>
+                    <td id="totalSumOther">@(((decimal)@ViewBag.totalSumOther).ToString("F2"))</td>
+                    <td id="totalSumNonC">@(((decimal)@ViewBag.totalSumNonC).ToString("F0"))</td>
+                    <td id="td8"></td>
+
+
+                    @*<td></td>
+                <td></td>*@
+                </tr>
+
+            </table>
+            <!-- END Added 1.21.20 -->
 
         </div>
-        @*}*@
-        <br />
-    </div>
+            @*}*@
+            <br />
+        </div>
                     }
                 }
 

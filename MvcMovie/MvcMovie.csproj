@@ -21,6 +21,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -246,6 +247,30 @@
     <Compile Include="Migrations\201507242018081_Add_WorkOrderNo.cs" />
     <Compile Include="Migrations\201507242018081_Add_WorkOrderNo.Designer.cs">
       <DependentUpon>201507242018081_Add_WorkOrderNo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001212208382_regularUpdate6.cs" />
+    <Compile Include="Migrations\202001212208382_regularUpdate6.Designer.cs">
+      <DependentUpon>202001212208382_regularUpdate6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001212210121_regularUpdate7.cs" />
+    <Compile Include="Migrations\202001212210121_regularUpdate7.Designer.cs">
+      <DependentUpon>202001212210121_regularUpdate7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001212251479_Shift_Addition.cs" />
+    <Compile Include="Migrations\202001212251479_Shift_Addition.Designer.cs">
+      <DependentUpon>202001212251479_Shift_Addition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001221841145_AdjT_Inst_T.cs" />
+    <Compile Include="Migrations\202001221841145_AdjT_Inst_T.Designer.cs">
+      <DependentUpon>202001221841145_AdjT_Inst_T.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001231855444_RetiredField.cs" />
+    <Compile Include="Migrations\202001231855444_RetiredField.Designer.cs">
+      <DependentUpon>202001231855444_RetiredField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202001232124114_RetiredFloat.cs" />
+    <Compile Include="Migrations\202001232124114_RetiredFloat.Designer.cs">
+      <DependentUpon>202001232124114_RetiredFloat.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -743,6 +768,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507242018081_Add_WorkOrderNo.resx">
       <DependentUpon>201507242018081_Add_WorkOrderNo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001212208382_regularUpdate6.resx">
+      <DependentUpon>202001212208382_regularUpdate6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001212210121_regularUpdate7.resx">
+      <DependentUpon>202001212210121_regularUpdate7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001212251479_Shift_Addition.resx">
+      <DependentUpon>202001212251479_Shift_Addition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001221841145_AdjT_Inst_T.resx">
+      <DependentUpon>202001221841145_AdjT_Inst_T.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001231855444_RetiredField.resx">
+      <DependentUpon>202001231855444_RetiredField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202001232124114_RetiredFloat.resx">
+      <DependentUpon>202001232124114_RetiredFloat.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

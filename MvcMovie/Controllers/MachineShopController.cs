@@ -48,8 +48,13 @@ namespace MvcMovie.Controllers
 
 
             /////////////////////////////
-            DateTime StartDateAuto = today.AddDays(-(int)today.DayOfWeek - 60).AddDays(6).Date;
+            //DateTime StartDateAuto = today.AddDays(-(int)today.DayOfWeek - 60).AddDays(6).Date;
             // 60 days back from today
+
+            /////////////////////////////
+            DateTime StartDateAuto = today.AddDays(-(int)today.DayOfWeek - 365).AddDays(6).Date;
+            // 365 days back from today
+            //9/26/2019
 
             DateTime EndDateAuto = saturday;
             //Saturday of this week
@@ -178,6 +183,8 @@ namespace MvcMovie.Controllers
             ViewBag.totalSumQty = 0;
             ViewBag.totalSumHours = 0;
             ViewBag.totalSumSetup = 0;
+            ViewBag.totalSumInsT = 0;
+            ViewBag.totalSumAdjT = 0;
             ViewBag.totalSumCleaning = 0;
             ViewBag.totalSumDown = 0;
             ViewBag.totalSumOther = 0;
@@ -273,10 +280,14 @@ namespace MvcMovie.Controllers
             ViewBag.deptChoice = new SelectList(deptLst);
 
             //WorkCenter List
+            //var wcLst = new List<string>();
+            //var wcQuery = from c in db.Machines
+            //                //where c.Department == deptChoice
+            //                select c.WorkCenter;
             var wcLst = new List<string>();
             var wcQuery = from c in db.Machines
-                            //where c.Department == deptChoice
-                            select c.WorkCenter;
+                              //where c.Department == deptChoice
+                          select c.WorkCenter; //to show only active non retired items, where Retiredt!=1
             wcLst.AddRange(wcQuery.Distinct());
             ViewBag.wcChoice = new SelectList(wcLst);
 
@@ -477,6 +488,7 @@ namespace MvcMovie.Controllers
                 //                    select m;
                 string wc = Session["WorkCenter"].ToString();
                 machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wc)).OrderBy(s => s.Date);
+                //machineShopQry = machineShopQry.Where(s => s.WorkCenter.Equals(wc) && s.RetiredFloat != 1).OrderBy(s => s.Date); // look only for active ones 1.23.20
 
                 string[] wcTable = new string[1];
                 wcTable[0] = wc; //adding all list elements to array
@@ -626,7 +638,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken, Authorize(Roles="admin")] // need to authorize by login
-        public ActionResult Create(string Machine, string Department, string WorkCenter, [Bind(Include = "ID,Date,ItemNo,Operation,WorkOrderNo,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments")] MachineShopTable machineshoptable)
+        public ActionResult Create(string Machine, string Department, string WorkCenter, [Bind(Include = "ID,Date,ItemNo,Operation,WorkOrderNo,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,Shift,ADJ_T,INS_T")] MachineShopTable machineshoptable)
         {
             //TempData["deptFromHome"] = Department;
             //TempData["workCentrFromHome"] = WorkCenter;
@@ -671,7 +683,7 @@ namespace MvcMovie.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken,Authorize(Roles="admin,moderator")]
-        public ActionResult Edit([Bind(Include = "ID,Date,ItemNo,Operation,WorkOrderNo,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,WorkCenter,Machine,Department")] MachineShopTable machineshoptable)
+        public ActionResult Edit([Bind(Include = "ID,Date,ItemNo,Operation,WorkOrderNo,Operator,Qty,Hours,ActualRate,StandardRate,Percent,Setup,Cleaning,Down,Other,NonconfParts,Comments,WorkCenter,Machine,Department,Shift,ADJ_T,INS_T")] MachineShopTable machineshoptable)
         {
 
             machineshoptable.Department = Session["Department"].ToString();
